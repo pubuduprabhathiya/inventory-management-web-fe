@@ -1,0 +1,31 @@
+.button{
+    display: flex;
+    min-width: 8rem;
+    height: 2rem;
+    border-radius: 14px;
+    background-color: chartreuse;
+    color: black;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+button:hover,
+button:active {
+    background-color: #33059e;
+    border-color: #33059e;
+}
+
+.button.unavaiable{
+    display: flex;
+    min-width: 8rem;
+    height: 2rem;
+    border-radius: 14px;
+    background-color: brown;
+    color: black;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}

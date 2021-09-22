@@ -1,0 +1,50 @@
+.dashboard{
+    max-width: 20rem;
+    width: 60%;
+    min-height: 40rem;
+    margin: auto;
+    margin-top: 10rem;
+    margin-left: 5rem;
+    position: relative;
+    background-color: #3B885B;
+    color: white;
+    border-radius: 14px;
+    padding: 1rem;
+}
+.dashboard h2{
+    text-align: center;
+}
+
+.nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+  
+.nav li {
+    margin-left: 1.5rem;
+    font-size: 1.25rem;
+}
+  
+.nav a {
+    text-decoration: none;
+    color: #88dfdf;
+}
+  
+.nav a:hover,
+.nav a:active,
+.nav a.active {
+    color: #e6fcfc;
+}
+
+.design{
+    text-decoration: none;
+    color: #88dfdf;
+    cursor:pointer;
+}
+.design:hover,
+.design.active{
+    color: #e6fcfc;
+}
