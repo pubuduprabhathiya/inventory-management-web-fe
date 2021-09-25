@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
 
 class CustomButton extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            tabName: this.props.tabName,
+            isActive: this.props.isActive,
+            url: this.props.url
+        }
     }
 
     style={
@@ -21,11 +26,24 @@ class CustomButton extends Component {
             //         </div>
             //     </div>
             // </div>
-            <div style={this.style}> 
-                <button type="button" className="btn btn-dark">Action 1</button>
+            // <div style={this.style}> 
+            //     <button type="button" className="btn btn-dark">Action 1</button>
+            // </div>
+            <div>
+                <Link to={this.state.url}>
+                <button type="button" className={this.getButtonClass(this.state.isActive)}>{this.state.tabName}</button>
+                </Link>                
             </div>
          );
     }
+    getButtonClass (isActive){
+        if(isActive){
+            return "btn btn-primary m-2"
+        }else{
+            return "btn btn-dark m-2";
+
+        }
+    };
 }
  
 export default CustomButton;
