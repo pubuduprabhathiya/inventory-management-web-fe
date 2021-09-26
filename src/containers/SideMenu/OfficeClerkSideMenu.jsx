@@ -46,11 +46,11 @@ class OfficeClerkSideMenu extends Component {
         this.state = { 
             urls:[
                 {tabName: "New Damage Item" , url: "/office-clerk/new-damage"},
-                {tabName: "Mark As Repaired" , url: "/admin/add-lecture"},
-                {tabName: "Repair History" , url: "/admin/add-technical-officer"},
+                {tabName: "Mark As Repaired" , url: "/office-clerk/pending-damage"},
+                {tabName: "Repair History" , url: "/office-clerk/old-damage"},
                 // {tabName: "Add New Office Clerk" , url: "/admin/add-office-clerk"},
                 // {tabName: "Add New Laboratory" , url: "/admin/add-laboratory"},
-                // {tabName: "<< Dashboard" , url: "/admin/dashboard"},
+                {tabName: "<< Dashboard" , url: "/office-clerk/dashboard"},
                 
              
             ]

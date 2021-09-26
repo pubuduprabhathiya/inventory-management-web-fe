@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-class BrokenItemCard extends Component {
+class OldBrokenItemCard extends Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
+    
         this.state = {
             category: this.props.category,
            model: this.props.model,
@@ -12,6 +12,7 @@ class BrokenItemCard extends Component {
            labName: this.props.labName,
            openDate: this.props.openDate.substr(0, 10),
            image : this.props.image,
+           closedDate: this.props.closeDate.substr(0, 10)
 
 
          }
@@ -20,7 +21,7 @@ class BrokenItemCard extends Component {
     style1 = {
         width: "100%",
         height: 250,
-        cursor: "pointer"
+
     }
     style2 = {
         width: "100%",
@@ -61,20 +62,18 @@ class BrokenItemCard extends Component {
         fontWeight: 700, lineHeight: "100%",
          color: "black",
     }
-    handleClick() {
-        console.log('Click happened');
-    }
+  
 
     render() { 
         
-       
+       let model = this.props.model
         return ( 
             <div>
-                <div style={this.style1} onClick={this.handleClick()}>
+                <div style={this.style1} >
                     <div style={this.style2}>
                         <img style={this.style3} src={this.state.image}/>
-                        <p style={this.style4}>Category:<br/>Model : <br/>Store Code:<br/>Lab Name:<br/>Issue:<br/>Open Date</p>
-                        <p style={this.style5}>{this.state.category}<br/>{this.state.model}<br/>{this.state.storeCode}<br/>{this.state.labName}<br/>{this.state.issue}<br/>{this.state.openDate}</p>
+                        <p style={this.style4}>Close Date:<br/>Category:<br/>Model : <br/>Store Code:<br/>Lab Name:<br/>Issue:<br/>Open Date</p>
+                        <p style={this.style5}>{this.state.closedDate}<br/>{this.state.category}<br/>{this.state.model}<br/>{this.state.storeCode}<br/>{this.state.labName}<br/>{this.state.issue}<br/>{this.state.openDate}</p>
                     </div>
                 </div>
             </div>
@@ -82,4 +81,4 @@ class BrokenItemCard extends Component {
     }
 }
  
-export default BrokenItemCard;
+export default OldBrokenItemCard;

@@ -11,7 +11,12 @@ import AddLecturePage from "./pages/ActionPage/Admin/AddLecturePage";
 import AddTechnicalPage from "./pages/ActionPage/Admin/AddTechnicalOfficerPage";
 import AddOfficeClerkPage from "./pages/ActionPage/Admin/AddOfficeClerkPage";
 import AddLaboratory from "./pages/ActionPage/Admin/AddLaboratoryPage";
+
+
+import OfficeClerkDashboard from './pages/Dashboard/OfficeClerkDashboard.jsx';
 import NewDamageViewPage from './pages/ActionPage/OfficeClerk/NewDamageRequestViewPage';
+import OldDamageViewPage from './pages/ActionPage/OfficeClerk/OldDamageRequestViewPage';
+import PendingDamageViewPage from './pages/ActionPage/OfficeClerk/PendingRepairViewPage';
 
 function App() {
   return (
@@ -27,7 +32,11 @@ function App() {
                     <Route path="/admin/add-technical-officer" component={AddTechnicalPage}/>
                     <Route path="/admin/add-office-clerk" component={AddOfficeClerkPage}/>
                     <Route path="/admin/add-laboratory" component={AddLaboratory}/>
+                    
+                    <Route path="/office-clerk/dashboard" component={OfficeClerkDashboard}/>
                     <Route path="/office-clerk/new-damage" component={NewDamageViewPage}/>
+                    <Route path="/office-clerk/old-damage" component={OldDamageViewPage}/>
+                    <Route path="/office-clerk/pending-damage" component={PendingDamageViewPage}/>
                
                     </Switch>
                     

@@ -21,36 +21,25 @@ class OfficeClerkDashboard extends Component {
       <div className="row">
         <div className="col-lg-12" align="center">
             <br />
-            <h3>Admin Dashboard</h3>
+            <h3>Office Clerk Dashboard</h3>
           <p>
-            <Link to={"/admin/add-student"} >
-                <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
-                <i className="fa fa-graduation-cap fa-5x"></i><br/>
-                Add Student
-                </a>
-            </Link>
-            <Link to={"/admin/add-lecture"} > 
+            
+            <Link to={"/office-clerk/new-damage"} >
             <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
-              <i className="fa fa-user fa-5x"></i><br/>
-             Add Lecture
+              <i className="fa fa-plus-square fa-5x"></i><br/>
+             New Damage Items
             </a>
             </Link>
-            <Link to={"/admin/add-technical-officer"} >
+            <Link to={"/office-clerk/pending-damage"} >
             <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
-              <i className="fa fa-cogs fa-5x"></i><br/>
-             Add Technical Officer
+              <i className="fa fa-check-square-o fa-5x"></i><br/>
+             Mark As Repair
             </a>
             </Link>
-            <Link to={"/admin/add-office-clerk"} >
+            <Link to={"/office-clerk/old-damage"} >
             <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
-              <i className="fa fa-wrench fa-5x"></i><br/>
-             Add Office Clerk
-            </a>
-            </Link>
-            <Link to={"/admin/add-laboratory"} >
-            <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
-              <i className="fa fa-flask fa-5x"></i><br/>
-             Add Laboratory
+              <i className="fa fa-history fa-5x"></i><br/>
+             Repair History
             </a>
             </Link>
             

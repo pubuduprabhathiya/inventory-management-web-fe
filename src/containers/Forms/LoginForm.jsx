@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router";
+import {login } from "../../api/auth_api";
+
+
+
 
 class LoginForm extends Component {
   constructor(props) {
@@ -8,16 +12,28 @@ class LoginForm extends Component {
       email: "",
       password: "",
     };
+    this.getToken();
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   handleSubmit(event) {
-    alert("New Lecturer Registered!");
+    // alert("New Lecturer Registered!");
     event.preventDefault();
-    console.log(this.state);
+
   }
 
+  getToken = async()=>{
+    console.log(this.state.email);
+    let token = await login({email:this.state.email, password:this.state.password});
+    console.log(token);
+    return <Redirect to="/admin/dashboard" />
+  }
+
+ 
   render() {
+
+  
     return (
       <div className="d-flex justify-content-center">
         <form>
@@ -54,11 +70,11 @@ class LoginForm extends Component {
             ></input>
           </div>
           <br />
-          <Link to={"/admin/dashboard"}>
-            <button type="submit m-1" className="btn btn-primary">
+      
+            <button type="submit m-1" className="btn btn-primary" onClick={this.getToken}>
               Submit
             </button>
-          </Link>
+         
 
           {/* <button type="submit m-1" className="btn btn-primary"> 
                   <Link to={"/admin/dashboard"} className="nav-link">
