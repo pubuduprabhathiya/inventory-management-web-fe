@@ -4,11 +4,21 @@ import NewTechnicalOfficerApplication from "../../../containers/Forms/NewTechOff
 import NavBar from "../../../containers/Navbar/Navbar";
 import AdminSideMenu from "../../../containers/SideMenu/AdminSideMenu";
 
+
+
 class AddTechnicalOfficerPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+
+    this.state = {
+    };
   }
+
+ 
+
+ 
+
+
   render() {
     return (
       <div>
@@ -19,6 +29,7 @@ class AddTechnicalOfficerPage extends Component {
             <AdminSideMenu currentTab="Add New Technical Officer"/>
           </div>
           <div className="col-8">
+            
             <NewTechnicalOfficerApplication />
           </div>
         </div>

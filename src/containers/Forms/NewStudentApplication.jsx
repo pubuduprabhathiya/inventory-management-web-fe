@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-
+import AdminService from "../../api/admin_api"
 class NewStudentApplication extends Component {
   constructor(props) {
     super(props);
+    this.retrieveLastID();
     this.state = {
-      lastIndex:"S108",
-      indexNumber: "",
+      lastIndex:"",
+      index: "",
       firstName: "",
       lastName:"",
       department: "",
@@ -14,7 +15,78 @@ class NewStudentApplication extends Component {
       confirmPw:""
     };
 
+    this.createNewStudent = this.createNewStudent.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.retrieveLastID();
+  }
+
+  retrieveLastID(){  
+    AdminService.getLastStudent()
+      .then((response) => {
+        this.setState({
+          lastIndex: response.data[0].id,
+         
+        });
+      
+        // console.log(response.data[0].id);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+ 
+
+  handleSubmit(event) {
+    alert("Are you sure?");
+    event.preventDefault();
+    console.log(this.state);
+    if(this.state.password != this.state.confirmPw){
+      alert("Password not match with confirm password");
+    }else{
+      this.createNewStudent();
+    }
+   
+  }
+
+
+
+  createNewStudent(){
+    
+    var newStudent = {
+      index: this.state.index,
+      email: this.state.email,
+      password: this.state.password,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      department: this.state.department
+    }  ;
+    AdminService.createStudent(newStudent)
+      .then((response) => {
+        alert("New Student Registered!");
+        
+        this.setState({
+          // lastIndex:this.state.index,
+     
+      index:"",
+      firstName: "",
+      lastName:"",
+      department: "",
+      email: "",
+      password: "",
+      confirmPw:""
+         
+        });
+      
+        // console.log(response.data[0].id);
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   newStyle = {
@@ -25,11 +97,6 @@ class NewStudentApplication extends Component {
     width: "70%",
   };
 
-  handleSubmit(event) {
-    alert("New Student Registered!");
-    event.preventDefault();
-    console.log(this.state);
-  }
   render() {
     return (
       <div style={this.newStyle}>
@@ -43,10 +110,10 @@ class NewStudentApplication extends Component {
                 className="form-control"
                 placeholder="Index"
                 required
-                value={this.state.indexNumber}
+                value={this.state.index}
                 onChange={(event) => {
                   this.setState({
-                    indexNumber: event.target.value,
+                    index: event.target.value,
                   });
                 }}
               ></input>
@@ -131,7 +198,7 @@ class NewStudentApplication extends Component {
             <div className="form-group m-1">
               <label>Confirm Password:</label>
               <input
-                type="Confirm password"
+                type="password"
                 className="form-control"
                 id="Confirm password"
                 placeholder="Re-Enter Password"
@@ -146,7 +213,7 @@ class NewStudentApplication extends Component {
             </div>
 
             <a
-              href="#"
+              href=""
               className="btn btn-danger btn active m-3"
               role="button"
               aria-pressed="true"

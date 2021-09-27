@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router";
+
 import {login } from "../../api/auth_api";
 
-
-
+import jwt from 'jwt-decode';
+import { withRouter } from "react-router-dom";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -12,22 +12,52 @@ class LoginForm extends Component {
       email: "",
       password: "",
     };
-    this.getToken();
+    this.getRoute();
     this.handleSubmit = this.handleSubmit.bind(this);
 
   }
 
-  handleSubmit(event) {
+  handleSubmit = async(event)=> {
     // alert("New Lecturer Registered!");
     event.preventDefault();
+    const data = {
+      email:this.state.email,
+      password: this.state.password
+    }
+    let tokenData = await login(data);
+    console.log(tokenData.data.token);
+    const token = tokenData.data.token;
+    if(token){
+      localStorage.setItem('token',token);
+      const user = jwt(token); //
+      console.log(user.type);
+      // localStorage.setItem('user',user.type);
+      this.props.history.push(this.getRoute(user.type));
+     
+    }
 
-  }
+  };
 
-  getToken = async()=>{
-    console.log(this.state.email);
-    let token = await login({email:this.state.email, password:this.state.password});
-    console.log(token);
-    return <Redirect to="/admin/dashboard" />
+  getRoute (type){
+
+    if(type == "Admin"){
+      return "/admin/dashboard"
+    }
+    if(type == "Student"){
+      return "/custom/dashboard"
+    }
+    if(type == "OfficeClerk"){
+      return "/office-clerk/dashboard"
+    }
+    if(type == "TechnicalOfficer"){
+      return "/custom/dashboard"
+    }
+    if(type == "Lecturer"){
+      return "/custom/dashboard"
+    }
+
+    return "/";
+ 
   }
 
  
@@ -36,13 +66,12 @@ class LoginForm extends Component {
   
     return (
       <div className="d-flex justify-content-center">
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label for="email">Email:</label>
             <input
               type="email"
-              className="form-control"
-              id="indexNum"
+              className="form-control"             
               placeholder="Email"
               required
               value={this.state.email}
@@ -56,9 +85,8 @@ class LoginForm extends Component {
           <div className="form-group">
             <label for="pwd">Password:</label>
             <input
-              type="text"
-              className="form-control"
-              id="indexNum"
+              type="password"
+              className="form-control"                      
               placeholder="Password"
               required
               value={this.state.password}
@@ -71,16 +99,10 @@ class LoginForm extends Component {
           </div>
           <br />
       
-            <button type="submit m-1" className="btn btn-primary" onClick={this.getToken}>
+            <button type="submit m-1" className="btn btn-primary" >
               Submit
             </button>
-         
-
-          {/* <button type="submit m-1" className="btn btn-primary"> 
-                  <Link to={"/admin/dashboard"} className="nav-link">
-                    Submit
-                  </Link>                  
-                </button> */}
+        
 
           <p>Forgot password? Get help</p>
         </form>
@@ -89,4 +111,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);

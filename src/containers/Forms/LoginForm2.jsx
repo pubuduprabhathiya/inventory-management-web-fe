@@ -10,8 +10,7 @@
 //               <label for="email">Email:</label>
 //               <input
 //                 type="email"
-//                 className="form-control"
-//                 id="indexNum"
+//                 className="form-control"              
 //                 placeholder="Email"
 //                 required
 //                 value={this.state.email}

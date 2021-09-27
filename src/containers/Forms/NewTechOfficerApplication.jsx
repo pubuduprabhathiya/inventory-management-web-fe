@@ -1,20 +1,109 @@
 import React, { Component } from "react";
+import AdminService from "../../api/admin_api";
 
 class NewTechnicalOfficerApplication extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastIndex:"T108",
-      indexNumber: "",
+      lastIndex: "",
+      index: "",
       firstName: "",
-      lastName:"",
+      lastName: "",
       labId: "",
       email: "",
       password: "",
-      confirmPw:""
+      confirmPw: "",
+      labList: [],
     };
-
+    this.retrieveLastID();
+    this.retrieveLabs();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.createTechnicalOfficer = this.createTechnicalOfficer.bind(this);
+  }
+
+  componentDidMount() {
+    this.retrieveLastID();
+    this.retrieveLabs();
+  }
+
+  retrieveLastID() {
+    AdminService.getLastTechnicalOfficer()
+      .then((response) => {
+        this.setState({
+          lastIndex: response.data[0].id,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  retrieveLabs() {
+    AdminService.getAllLabs()
+      .then((response) => {
+        this.setState({
+          labList: response.data.laboratory,
+        });
+
+        // console.log(response.data[0].id);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  handleChange(event) {
+    // console.log(this.state.labId);
+    this.setState({ labId: event.target.value });
+  }
+
+  handleSubmit(event) {
+    alert("Are you sure?");
+    event.preventDefault();
+    console.log(this.state);
+    if (this.state.labId == "" || this.state.labId == "Choose...") {
+      alert("Please Select a Laboratory");
+      return;
+    }
+    if (this.state.password != this.state.confirmPw) {
+      alert("Password not match with confirm password");
+    } else {
+      this.createTechnicalOfficer();
+    }
+  }
+
+  createTechnicalOfficer() {
+    var newOfficer = {
+      index: this.state.index,
+      email: this.state.email,
+      password: this.state.password,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      labId: this.state.labId,
+    };
+    AdminService.createTechnicalOfficer(newOfficer)
+      .then((response) => {
+        alert("New Technical Officer Registered!");
+
+        this.setState({
+          // lastIndex:this.state.index,
+
+          index: "",
+          firstName: "",
+          lastName: "",
+          labId: "",
+          email: "",
+          password: "",
+          confirmPw: "",
+        });
+
+        // console.log(response.data[0].id);
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   newStyle = {
@@ -25,11 +114,6 @@ class NewTechnicalOfficerApplication extends Component {
     width: "70%",
   };
 
-  handleSubmit(event) {
-    alert("New Technical Officer Registered!");
-    event.preventDefault();
-    console.log(this.state);
-  }
   render() {
     return (
       <div style={this.newStyle}>
@@ -37,16 +121,18 @@ class NewTechnicalOfficerApplication extends Component {
         <div>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group m-1 ">
-              <label>Index Number: ( Last index: <b>{this.state.lastIndex}</b> )</label>
+              <label>
+                Index Number: ( Last index: <b>{this.state.lastIndex}</b> )
+              </label>
               <input
                 type="text"
                 className="form-control"
                 placeholder="Index"
                 required
-                value={this.state.indexNumber}
+                value={this.state.index}
                 onChange={(event) => {
                   this.setState({
-                    indexNumber: event.target.value,
+                    index: event.target.value,
                   });
                 }}
               ></input>
@@ -83,18 +169,25 @@ class NewTechnicalOfficerApplication extends Component {
             </div>
             <div className="form-group m-1">
               <label>Select Laboratory:</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="labId"
-                required
+              <br />
+              <select
                 value={this.state.labId}
-                onChange={(event) => {
-                  this.setState({
-                    labId: event.target.value,
-                  });
-                }}
-              ></input>
+                onChange={this.handleChange}
+                className="custom-select"
+                style={{ width: "100%", border: "none" }}
+              >
+                <option selected>Choose...</option>
+
+                {this.state.labList.map((item) => {
+                  console.log("item");
+                  console.log(item);
+                  return (
+                    <option key={item.id} value={item.id}>
+                      {item.labName}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
             <div className="form-group m-1">
               <label>Email address:</label>
@@ -131,7 +224,7 @@ class NewTechnicalOfficerApplication extends Component {
             <div className="form-group m-1">
               <label>Confirm Password:</label>
               <input
-                type="Confirm password"
+                type="password"
                 className="form-control"
                 id="Confirm password"
                 placeholder="Re-Enter Password"
@@ -146,7 +239,7 @@ class NewTechnicalOfficerApplication extends Component {
             </div>
 
             <a
-              href="#"
+              href=""
               className="btn btn-danger btn active m-3"
               role="button"
               aria-pressed="true"

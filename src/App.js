@@ -18,6 +18,8 @@ import NewDamageViewPage from './pages/ActionPage/OfficeClerk/NewDamageRequestVi
 import OldDamageViewPage from './pages/ActionPage/OfficeClerk/OldDamageRequestViewPage';
 import PendingDamageViewPage from './pages/ActionPage/OfficeClerk/PendingRepairViewPage';
 
+import CustomDashboard from './pages/Dashboard/CustomDashboard';
+
 function App() {
   return (
     <div className="App">
@@ -37,6 +39,8 @@ function App() {
                     <Route path="/office-clerk/new-damage" component={NewDamageViewPage}/>
                     <Route path="/office-clerk/old-damage" component={OldDamageViewPage}/>
                     <Route path="/office-clerk/pending-damage" component={PendingDamageViewPage}/>
+
+                    <Route path="/custom/dashboard" component={CustomDashboard}/>
                
                     </Switch>
                     

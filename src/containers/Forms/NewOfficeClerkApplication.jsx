@@ -1,20 +1,91 @@
 import React, { Component } from "react";
-
+import AdminService from "../../api/admin_api";
 class NewOfficeClerkApplication extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastIndex:"C108",
-      indexNumber: "",
+      lastIndex:"",
+      index: "",
       firstName: "",
       lastName:"",
       email: "",
       password: "",
       confirmPw:""
     };
-
+    this.retrieveLastID();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.createOfficeClerk = this.createOfficeClerk.bind(this);
   }
+
+  componentDidMount() {
+    this.retrieveLastID();
+  }
+
+  retrieveLastID(){  
+    AdminService.getLastOfficeClerk()
+      .then((response) => {
+        this.setState({
+          lastIndex: response.data[0].id,
+         
+        });
+      
+        // console.log(response.data[0].id);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+ 
+
+  handleSubmit(event) {
+    alert("Are you sure?");
+    event.preventDefault();
+    console.log(this.state);
+    if(this.state.password != this.state.confirmPw){
+      alert("Password not match with confirm password");
+    }else{
+      this.createOfficeClerk();
+    }
+   
+  }
+
+
+
+  createOfficeClerk(){
+    
+    var newClerk = {
+      index: this.state.index,
+      email: this.state.email,
+      password: this.state.password,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+    }  ;
+    AdminService.createOfficeClerk(newClerk)
+      .then((response) => {
+        alert("New Office Clerk Registered!");
+        
+        this.setState({
+          // lastIndex:this.state.index,
+     
+      index:"",
+      firstName: "",
+      lastName:"",
+      email: "",
+      password: "",
+      confirmPw:""
+         
+        });
+      
+        // console.log(response.data[0].id);
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+
 
   newStyle = {
     // margin: 40,
@@ -24,11 +95,7 @@ class NewOfficeClerkApplication extends Component {
     width: "70%",
   };
 
-  handleSubmit(event) {
-    alert("New Office Clerk Registered!");
-    event.preventDefault();
-    console.log(this.state);
-  }
+
   render() {
     return (
       <div style={this.newStyle}>
@@ -42,10 +109,10 @@ class NewOfficeClerkApplication extends Component {
                 className="form-control"
                 placeholder="Index"
                 required
-                value={this.state.indexNumber}
+                value={this.state.index}
                 onChange={(event) => {
                   this.setState({
-                    indexNumber: event.target.value,
+                    index: event.target.value,
                   });
                 }}
               ></input>
@@ -116,7 +183,7 @@ class NewOfficeClerkApplication extends Component {
             <div className="form-group m-1">
               <label>Confirm Password:</label>
               <input
-                type="Confirm password"
+                type="password"
                 className="form-control"
                 id="Confirm password"
                 placeholder="Re-Enter Password"
@@ -131,7 +198,7 @@ class NewOfficeClerkApplication extends Component {
             </div>
 
             <a
-              href="#"
+              href=""
               className="btn btn-danger btn active m-3"
               role="button"
               aria-pressed="true"

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import AdminService from "../../api/admin_api";
 class NewLabApplication extends Component {
   constructor(props) {
     super(props);
@@ -7,9 +7,52 @@ class NewLabApplication extends Component {
       labName: "",
       department: "",
     };
-
+    this.createLab = this.createLab.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+
+
+ 
+
+  handleSubmit(event) {
+    alert("Are you sure?");
+    event.preventDefault();
+    console.log(this.state);
+    this.createLab();
+  
+   
+  }
+
+
+
+  createLab(){
+    
+    var newClerk = {
+      labName: this.state.labName,
+      department: this.state.department,
+    }  ;
+    AdminService.createLaboratory(newClerk)
+      .then((response) => {
+        alert("New Laboratory is Registered!");
+        
+        this.setState({
+          
+     
+          labName: "",
+          department: "",
+         
+        });
+      
+        // console.log(response.data[0].id);
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+
 
   newStyle = {
     // margin: 40,
@@ -19,11 +62,6 @@ class NewLabApplication extends Component {
     width: "70%",
   };
 
-  handleSubmit(event) {
-    alert("New Laboratory Registered!");
-    event.preventDefault();
-    console.log(this.state);
-  }
   render() {
     return (
       <div style={this.newStyle}>
@@ -65,7 +103,7 @@ class NewLabApplication extends Component {
            
 
             <a
-              href="#"
+              href=""
               className="btn btn-danger btn active m-3"
               role="button"
               aria-pressed="true"
