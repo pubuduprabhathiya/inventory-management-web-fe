@@ -5,6 +5,7 @@ import Button from './Button';
 import { Fragment, useState } from 'react';
 import UnavailableItemDetail from './UnavailableItemDetail';
 import {useHistory} from 'react-router-dom';
+import Moment from 'moment';
 
 
 
@@ -21,9 +22,11 @@ const Items = (props)=>{
         setValue(0);
     }
     const itemList = props.itemlist.map((item)=>{
+        //console.log(item);
+            let iteDetail = {category:item['Category.categoryName'],model:item['Model.modelName'],storeCode:item['id'],labName:item['Lab.labName']};
             return(
                 <Fragment>
-                    <Card key={item.id}>
+                    <Card key={item['keyid']}>
                     <div className={classes.item}>
                         <div>
                             <img src={itemImage} alt='Projector display here'></img>
@@ -36,18 +39,18 @@ const Items = (props)=>{
                                 <p>LabName:</p>
                             </div>
                             <div className={classes.details}>
-                                <p>{item.itemDetail.category}</p>
-                                <p>{item.itemDetail.model}</p>
-                                <p>{item.itemDetail.storeCode}</p>
-                                <p>{item.itemDetail.labName}</p>
+                                <p>{item['Category.categoryName']}</p>
+                                <p>{item['Model.modelName']}</p>
+                                <p>{item['id']}</p>
+                                <p>{item['Lab.labName']}</p>
                             </div>
                         </div>
                         <div>
-                            {item.availability ? <Button title='Available' availability={true} onClickHandler={onAvailableClickHandler}></Button>: <Button title='Unavailable' availability={false} onClickHandler={()=>onUnavailableHandler(item.id)}/>}
+                            {item['availability'] ? <Button title='Available' availability={true} onClickHandler={onAvailableClickHandler}></Button>: <Button title='Unavailable' availability={false} onClickHandler={()=>onUnavailableHandler(item['id'])}/>}
                         </div>
                     </div>
                 </Card>
-                {item.id === val && <UnavailableItemDetail itm = {item.itemDetail} date={item.avaiableDate} onClose = {hideHandler}></UnavailableItemDetail>}
+                {item['id'] === val && <UnavailableItemDetail itm = {iteDetail} date={Moment(item['returnDate']).format('DD-MM-YYYY')} onClose = {hideHandler}></UnavailableItemDetail>}
                 </Fragment>    
             );
     });

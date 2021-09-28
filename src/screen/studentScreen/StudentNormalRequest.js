@@ -6,7 +6,7 @@ const StudentNormalRequest = (props)=>{
     return(
         <StudentLayout>
             <MainContainer title='Normal Request'>
-                <NormalCheckout/>
+                <NormalCheckout type='student'/>
             </MainContainer>
         </StudentLayout>
     );

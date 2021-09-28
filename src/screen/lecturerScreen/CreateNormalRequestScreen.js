@@ -6,7 +6,7 @@ const CreateNormalRequestScreen = (props)=>{
     return(
         <Layout>
             <MainContainer title='Normal Request'>
-                <NormalCheckout/>
+                <NormalCheckout type='lecturer'/>
             </MainContainer>
         </Layout>
     );

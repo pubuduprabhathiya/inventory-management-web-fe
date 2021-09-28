@@ -1,52 +1,34 @@
 import Borrowings from "../../component/Borrowing/Borrowing";
 import StudentLayout from "../../component/Layout/StudentLayout";
 import MainContainer from "../../component/UI/MainContainer";
-
-const DUMMY_BORROWING_DETAILS = [
-    {
-        date:{
-            month:'JAN',
-            day: '16',
-        },
-        details:{
-            category: 'Projector',
-            model: 'CA124-B',
-            storeCode: 'NA255',
-            labName: 'CSE Level 1 lab',
-        }
-    },
-    {
-        date:{
-            month:'FEB',
-            day: '17',
-        },
-        details:{
-            category: 'Camera',
-            model: 'CA124-B',
-            storeCode: 'NA255',
-            labName: 'CSE Level 1 lab',
-        }
-    },
-    {
-        date:{
-            month:'MARCH',
-            day: '18',
-        },
-        details:{
-            category: 'Pen Drive',
-            model: 'CA124-B',
-            storeCode: 'NA255',
-            labName: 'CSE Level 1 lab',
-        }
-    },
-
-]
+import { getBorrowingHistory } from "../../component/lib/api";
+import useHttp from "../../component/hook/use-http";
+import { useEffect } from "react";
 
 const StudentBorrowingDetails = (props)=>{
+    const {sendRequest,status,data:loadedData,error}=useHttp(getBorrowingHistory,true);
+    useEffect(()=>{
+        sendRequest();
+    },[sendRequest]);
+
+    if(status==='pending'){
+        return(
+            <div><p>Loading..........</p></div>
+        )
+    }
+    if(error){
+        return(<p>Error occure here</p>)
+    }
+
+    if(status ==='completed' && (!loadedData||loadedData.length===0)){
+        return(<h1>No Data</h1>)
+    }
+    console.log(loadedData);
+
     return(
         <StudentLayout>
             <MainContainer title='Borrowing Items'>
-                <Borrowings itemList={DUMMY_BORROWING_DETAILS}/>
+                <Borrowings itemList={loadedData}/>
             </MainContainer>
         </StudentLayout>
     );
