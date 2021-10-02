@@ -7,6 +7,7 @@ import Charts from "../../components/technical_officer/charts";
 import {  LocalizationProvider,DesktopDatePicker } from "@mui/lab";
 import DateAdapter from '@mui/lab/AdapterDateFns';
 import { getCategories, getReport } from "../../actions/technical_officer";
+import { Excel } from "../../components/technical_officer/excel";
 
 const Report = () => {
     console.log('ff');
@@ -14,6 +15,7 @@ const Report = () => {
     const [fromDate, setfromDate] = useState(new Date());
     const [toDate, settomDate] = useState(new Date());
     const [selectcategories, setselectcategories] = useState([]);
+    const [reportType, setreportType] = useState('usage')
     const categories = useSelector(state => state.categories);
 const [type, settype] = useState("bar")
 
@@ -23,6 +25,7 @@ const [type, settype] = useState("bar")
     }, [dispatch]);
 
     const handleChange = (event) => {
+        console.log(selectcategories,'d');
     const {
       target: { value },
     } = event;
@@ -31,7 +34,7 @@ const [type, settype] = useState("bar")
     };
     const submit = () => {
 
-        dispatch(getReport(fromDate,toDate,selectcategories));
+        dispatch(getReport(fromDate,toDate,selectcategories,reportType));
     }
 
     
@@ -57,7 +60,7 @@ const [type, settype] = useState("bar")
             </LocalizationProvider>
             <LocalizationProvider dateAdapter={DateAdapter}>
               <DesktopDatePicker label="To Date"
-                maxDate={new Date()}
+                maxDate={new Date().setDate((new Date()).getDate()+1)}
                 minDate={fromDate}
           inputFormat="MM/dd/yyyy"
           value={toDate}
@@ -91,23 +94,43 @@ const [type, settype] = useState("bar")
                     <Select variant='standard'
                         
                         labelId='select-label'
+                    value={reportType}
+                    onChange={(e)=>setreportType(e.target.value)}
+                    label='Select one...'
+                >
+                    <MenuItem value='usage'>Usage Report</MenuItem>
+                    <MenuItem value='available'>Availability Report</MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="select-label">Select one...</InputLabel>
+                    <Select variant='standard'
+                        
+                        labelId='select-label'
                     value={type}
                     onChange={(e)=>settype(e.target.value)}
                     label='Select one...'
                 >
-                    <MenuItem value='bar'>BAr Chart</MenuItem>
+                    <MenuItem value='bar'>Bar Chart</MenuItem>
                     <MenuItem value='line'>Line Chart</MenuItem>
-                    <MenuItem value='horizontalBar'>Horizontal Bar</MenuItem>
+                    <MenuItem value='horizontalBar'>Stacked Bar</MenuItem>
                 </Select>
-                </FormControl>
+            </FormControl>
             <FormControl sx={{ m: 1, minWidth: 200 }}>
                      <Button variant="contained" color="success" onClick={() => submit()} >Sumbit</Button>
 
                     
-                </FormControl>
-      </Box>
-        <Charts type={ type}/>
-        <Typography>hi</Typography>
+            </FormControl>
+           
+        </Box>
+       
+        <Box  sx={{ m: 5,display: 'flex', width: 1200, alignItems: { xs: 'center', md: 'start' }, }}>
+            <Charts type={type} reportType={reportType.toString()}/>
+            
+        </Box>
+         
+        
+        
     </div>);
 }
 export default Report;

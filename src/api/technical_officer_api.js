@@ -111,39 +111,42 @@ export const acceptEquipment = (id, status) =>axios.post(`${url}/acceptEquipment
 // {
 //     return ('hi');
 // }
-export const getRequestData = (id) => {
+export const getRequestData = (id) =>axios.get(`${url}//requestdata/${id}`);
+// {
 
-    return ( id.length>0?[{user: {name: "pubba pubba ",
-        index: id},
-        reqdate: new Date(),
-        status: "Approved",
-        iteam:{store_code: '124-134-3424',
-          isAvailable: true,
-          catogary: 'category 1',
-          model: 'model 1',
-          lab: 'lab 1'},
-        id: '123467',
-         toDate: new Date(),
-        fromDate: new Date(),
-        lecture:  {name: "pubba pubba ",
-        index: "180240J"}}]:[])
-}
-export const normalIssueEquipment = (id) => {
-    return ('hi');
-}
+//     return ( id.length>0?[{user: {name: "pubba pubba ",
+//         index: id},
+//         reqdate: new Date(),
+//         status: "Approved",
+//         iteam:{store_code: '124-134-3424',
+//           isAvailable: true,
+//           catogary: 'category 1',
+//           model: 'model 1',
+//           lab: 'lab 1'},
+//         id: '123467',
+//          toDate: new Date(),
+//         fromDate: new Date(),
+//         lecture:  {name: "pubba pubba ",
+//         index: "180240J"}}]:[])
+// }
+export const normalIssueEquipment = (userid, storeid, fromdate, todate,requestId) =>axios.post(`${url}/normalborrowing/`,{userid, storeid, fromdate, todate,requestId});
+// {
+//     return ('hi');
+// }
 export const temporyIssueEquipment = (userid, storeid, fromdate, todate,reason) =>axios.post(`${url}/temporyborrowing/`,{userid, storeid, fromdate, todate,reason});
 // {
 //     return ('hi');
 // }
-export const getReport = (fromdate, toDate, categories) => {
+export const getReport = (fromdate, toDate, categories,reportType) =>axios.post(`${url}/report/`,{fromdate, toDate, categories,reportType});
+// {
    
-    const lis = [{x:'1/2',data:['cat 1',[3,4,1]]},{x:'2/2',data:['cat 2',[2,4,5]]},{x:'3/2',data:['cat 3',[6,4,1]]}];
-    const fd = fromdate.getDate();
-    const td = toDate.getDate();
+//     const lis = [{x:'1/2',data:['cat 1',[3,4,1]]},{x:'2/2',data:['cat 2',[2,4,5]]},{x:'3/2',data:['cat 3',[6,4,1]]}];
+//     const fd = fromdate.getDate();
+//     const td = toDate.getDate();
 
-    var list = [{date:'1/2' ,data:[{cat:'cat1',data:1},{cat:'cat2',data:2},{cat:'cat3',data:3},{cat:'cat4',data:1}]},{date:'1/2' ,data:[{cat:'cat1',data:1},{cat:'cat2',data:2},{cat:'cat3',data:3},{cat:'cat4',data:1}]}];
+//     var list = [{date:'1/2' ,data:[{cat:'cat1',data:1},{cat:'cat2',data:2},{cat:'cat3',data:3},{cat:'cat4',data:1}]},{date:'1/2' ,data:[{cat:'cat1',data:1},{cat:'cat2',data:2},{cat:'cat3',data:3},{cat:'cat4',data:1}]}];
 
-    //list.map((date)=>[date,categories.map()]);
-
-    return (list)
-}
+//     //list.map((date)=>[date,categories.map()]);
+    
+//     return (list)
+// }

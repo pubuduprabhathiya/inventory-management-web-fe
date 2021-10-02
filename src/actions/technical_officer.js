@@ -118,18 +118,13 @@ export const acceptEquipment = (id, status) => async (dispatch) => {
 export const getRequestData = (id) => async (dispatch) => {
   try {
     const data = await api.getRequestData(id);
-     dispatch({type:Get_Request ,payload:data});
+    console.log(data.data)
+     dispatch({type:Get_Request ,payload:data.data});
   } catch (error) {
     console.log(error.message);
   }
 }
-export const normalIssueEquipment = (requestid) => async (dispatch) => {
-  try {
-    const data = api.normalIssueEquipment(requestid);
-  } catch (error) {
-    
-  }
-}
+
 
 export const temporyIssueEquipment = (userid,storeid,fromdate,t0date,reason) => async (dispatch) => {
   try {
@@ -139,10 +134,19 @@ export const temporyIssueEquipment = (userid,storeid,fromdate,t0date,reason) => 
      console.log(error);
   }
 }
-export const getReport = (fromDate, toDate, categories) =>async (dispatch) => {
+export const NormalIssueEquipment = (userid,storeid,fromdate,t0date,requestId) => async (dispatch) => {
   try {
-    const data = await api.getReport(fromDate, toDate, categories);
-    dispatch({type:Get_Report, payload:data});
+    const data = await api.normalIssueEquipment(userid, storeid, fromdate, t0date,requestId);
+    window.location.reload();
+  } catch (error) {
+     console.log(error);
+  }
+}
+export const getReport = (fromDate, toDate, categories,reportType) =>async (dispatch) => {
+  try {
+    const data = await api.getReport(fromDate, toDate, categories,reportType);
+    console.log(data.data);
+    dispatch({type:Get_Report, payload:data.data});
 
   } catch (error) {
     console.log(error);
