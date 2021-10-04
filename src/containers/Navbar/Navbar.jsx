@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class NavBar extends Component {
+import { withRouter } from "react-router-dom";
 
-    render() { 
-        return (<header>
-          <nav className="navbar navbar-dark bg-success p-3">
-            <a className="navbar-brand" href="#">Inventory Management System</a>
+class NavBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  }
+    this.logout = this.logout.bind(this);
+  }
+
+  logout(){
+    localStorage.setItem('token','');
+    localStorage.setItem('user','');
+    this.props.history.push("/");
+  }
+
+  render() { 
+    return (<header>
+      <nav className="navbar navbar-dark bg-success p-3">
+        <a className="navbar-brand" href="#">Inventory Management System</a>
+       
+   
+        <button type="button" className="btn btn-danger" onClick={this.logout}>Logout</button>
            
-            <Link to="/">
-            <button type="button" className="btn btn-danger">Logout</button>
-                </Link>
-           
-          </nav>
-        </header> );
-    }
+       
+      </nav>
+    </header> );
+  }
 }
  
-export default NavBar;
+export default withRouter(NavBar);

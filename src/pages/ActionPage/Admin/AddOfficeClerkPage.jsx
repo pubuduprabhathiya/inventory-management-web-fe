@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
 import NewOfficeClerkApplication from "../../../containers/Forms/NewOfficeClerkApplication";
 
 import NavBar from "../../../containers/Navbar/Navbar";
@@ -8,6 +9,18 @@ class AddOfficeClerkPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.checkLogin();
+  }
+  componentDidMount() {
+    this.checkLogin();
+  }
+  checkLogin(){
+    var type = localStorage.getItem('token');
+    var user = localStorage.getItem('user');
+    if(!type || user != "Admin"){
+      this.props.history.push("/");
+      return ;
+    }
   }
   render() {
     return (
@@ -27,4 +40,4 @@ class AddOfficeClerkPage extends Component {
   }
 }
 
-export default AddOfficeClerkPage;
+export default withRouter(AddOfficeClerkPage);

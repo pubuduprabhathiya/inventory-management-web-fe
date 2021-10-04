@@ -24,17 +24,42 @@ class LoginForm extends Component {
       email:this.state.email,
       password: this.state.password
     }
-    let tokenData = await login(data);
-    console.log(tokenData.data.token);
+    try{
+      let tokenData = await login(data);
+      console.log(tokenData.data.token);
+      
     const token = tokenData.data.token;
     if(token){
       localStorage.setItem('token',token);
       const user = jwt(token); //
       console.log(user.type);
-      // localStorage.setItem('user',user.type);
-      this.props.history.push(this.getRoute(user.type));
-     
+      localStorage.setItem('user',user.type);
+      this.props.history.push(this.getRoute(user.type));}
+    }catch(e){
+      console.log("no token");
+      alert("New invalid email or password!");
+      this.props.history.push("/");
+      return;
     }
+    
+    // console.log(tokenData);
+  //   if(tokenData.data.token === null){
+  //     alert("New invalid email or password!");
+  //     this.props.history.push("/");
+  //     return;
+  //   }else{
+  //  console.log(tokenData.data.token);
+  //   const token = tokenData.data.token;
+  //   if(token){
+  //     localStorage.setItem('token',token);
+  //     const user = jwt(token); //
+  //     console.log(user.type);
+  //     localStorage.setItem('user',user.type);
+  //     this.props.history.push(this.getRoute(user.type));
+     
+  //   }
+  //   }
+ 
 
   };
 

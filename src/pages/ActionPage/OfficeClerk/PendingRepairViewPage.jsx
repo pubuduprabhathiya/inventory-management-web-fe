@@ -2,11 +2,24 @@ import React, { Component } from "react";
 import PendingRepairItemList from "../../../containers/OfficeClerkContainer/PendingRepairItemList";
 import NavBar from "../../../containers/Navbar/Navbar";
 import OfficeClerkSideMenu from "../../../containers/SideMenu/OfficeClerkSideMenu";
+import { withRouter } from "react-router";
 
 class PendingRepairViewPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.checkLogin();
+  }
+  componentDidMount() {
+    this.checkLogin();
+  }
+  checkLogin(){
+    var type = localStorage.getItem('token');
+    var user = localStorage.getItem('user');
+    if(!type || user != "OfficeClerk"){
+      this.props.history.push("/");
+      return ;
+    }
   }
   render() {
     return (
@@ -26,4 +39,4 @@ class PendingRepairViewPage extends Component {
   }
 }
 
-export default PendingRepairViewPage;
+export default withRouter(PendingRepairViewPage);

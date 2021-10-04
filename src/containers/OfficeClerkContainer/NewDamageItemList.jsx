@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import BrokenItemCard from "../../components/BrokenItemCard";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import OfficeClerkService from "../../api/office_clerk_api";
 
 class NewDamageItemList extends Component {
@@ -50,6 +50,7 @@ class NewDamageItemList extends Component {
   }
 
   retrieveTutorials() {
+
     OfficeClerkService.getNewDamages()
       .then((response) => {
         this.setState({

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
 import NewTechnicalOfficerApplication from "../../../containers/Forms/NewTechOfficerApplication";
 
 import NavBar from "../../../containers/Navbar/Navbar";
@@ -12,9 +13,20 @@ class AddTechnicalOfficerPage extends Component {
 
     this.state = {
     };
+    this.checkLogin();
   }
 
- 
+  componentDidMount() {
+    this.checkLogin();
+  }
+  checkLogin(){
+    var type = localStorage.getItem('token');
+    var user = localStorage.getItem('user');
+    if(!type || user != "Admin"){
+      this.props.history.push("/");
+      return ;
+    }
+  }
 
  
 
@@ -38,4 +50,4 @@ class AddTechnicalOfficerPage extends Component {
   }
 }
 
-export default AddTechnicalOfficerPage;
+export default withRouter(AddTechnicalOfficerPage);

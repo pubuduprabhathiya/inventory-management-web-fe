@@ -29,6 +29,7 @@ class OldDamageItemList extends Component {
     //   }
     
       retrieveTutorials() {
+     
         OfficeClerkService.getOldDamages()
           .then(response => {
             this.setState({

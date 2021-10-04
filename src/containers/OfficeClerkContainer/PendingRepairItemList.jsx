@@ -26,6 +26,7 @@ class PendingRepairItemList extends Component {
   
     
       retrieveTutorials() {
+    
         OfficeClerkService.getPendingDamages()
           .then(response => {
             this.setState({

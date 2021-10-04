@@ -5,11 +5,24 @@ import NavBar from '../../containers/Navbar/Navbar';
 // import NewDamageItemList from '../../containers/OfficeClerkContainer/NewDamageItemList';
 // import OfficeClerkSideMenu from '../../containers/SideMenu/OfficeClerkSideMenu';
 import {  Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class OfficeClerkDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {  }
+        this.checkLogin();
+    }
+    componentDidMount() {
+      this.checkLogin();
+    }
+    checkLogin(){
+      var type = localStorage.getItem('token');
+      var user = localStorage.getItem('user');
+      if(!type || user != "OfficeClerk"){
+        this.props.history.push("/");
+        return ;
+      }
     }
   
     render() { 
@@ -55,4 +68,4 @@ class OfficeClerkDashboard extends Component {
     }
 }
  
-export default OfficeClerkDashboard;
+export default withRouter(OfficeClerkDashboard);

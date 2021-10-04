@@ -5,13 +5,26 @@ import NavBar from '../../containers/Navbar/Navbar';
 // import NewDamageItemList from '../../containers/OfficeClerkContainer/NewDamageItemList';
 // import OfficeClerkSideMenu from '../../containers/SideMenu/OfficeClerkSideMenu';
 import {  Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
 class AdminDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {  }
+        this.checkLogin();
     }
-  
+    
+    componentDidMount() {
+      this.checkLogin();
+    }
+    checkLogin(){
+      var type = localStorage.getItem('token');
+      var user = localStorage.getItem('user');
+      if(!type || user != "Admin"){
+        this.props.history.push("/");
+        return ;
+      }
+    }
     render() { 
         return ( 
             <div>
@@ -66,4 +79,4 @@ class AdminDashboard extends Component {
     }
 }
  
-export default AdminDashboard;
+export default withRouter(AdminDashboard);

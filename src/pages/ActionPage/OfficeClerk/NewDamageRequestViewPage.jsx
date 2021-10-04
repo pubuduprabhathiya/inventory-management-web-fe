@@ -2,11 +2,24 @@ import React, { Component } from "react";
 import NewDamageItems from "../../../containers/OfficeClerkContainer/NewDamageItemList";
 import NavBar from "../../../containers/Navbar/Navbar";
 import OfficeClerkSideMenu from "../../../containers/SideMenu/OfficeClerkSideMenu";
+import { withRouter } from "react-router-dom";
 
 class NewDamageRequestView extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.checkLogin();
+  }
+  componentDidMount() {
+    this.checkLogin();
+  }
+  checkLogin(){
+    var type = localStorage.getItem('token');
+    var user = localStorage.getItem('user');
+    if(!type || user != "OfficeClerk"){
+      this.props.history.push("/");
+      return ;
+    }
   }
   render() {
     return (
@@ -26,4 +39,4 @@ class NewDamageRequestView extends Component {
   }
 }
 
-export default NewDamageRequestView;
+export default withRouter(NewDamageRequestView);
