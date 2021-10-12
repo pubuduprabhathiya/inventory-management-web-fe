@@ -6,7 +6,7 @@ const StudentTemporalRequest = (props)=>{
     return(
         <StudentLayout>
             <MainContainer title='Tempory Request'>
-                <TemporaryCheckout/>
+                <TemporaryCheckout type='student'/>
             </MainContainer>
         </StudentLayout>
     );

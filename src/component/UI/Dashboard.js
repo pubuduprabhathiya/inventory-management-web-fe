@@ -22,16 +22,16 @@ const Dashboard =(props)=>{
                         </NavLink>
                     </li>
                     <li>
-                        <div className={classes.design} onClick={clickHandler}> 
+                        <div className={classes.design} data-testid="custom-element" onClick={clickHandler}> 
                             <DashboardCard iconName= 'pen' title='Create Request'/>
-                            {show && <li>
+                            {show && <div className={classes.divDesign}>
                                 <NavLink to='/createNormalRequest' activeClassName={classes.active}> 
                                     <DashboardSubCard iconName= 'pen' title='Normal Borrowing'/>
                                 </NavLink>
                                 <NavLink to='/createTemporaryRequest' activeClassName={classes.active}> 
                                     <DashboardSubCard iconName= 'pen' title='Temporary Borrowing'/>
                                 </NavLink>
-                                </li>}
+                                </div>}
                         </div>
                     </li>
                     <li>

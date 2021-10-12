@@ -25,8 +25,8 @@ const Items = (props)=>{
         //console.log(item);
             let iteDetail = {category:item['Category.categoryName'],model:item['Model.modelName'],storeCode:item['id'],labName:item['Lab.labName']};
             return(
-                <Fragment>
-                    <Card key={item['keyid']}>
+                <Fragment key={item['keyid']}>
+                    <Card>
                     <div className={classes.item}>
                         <div>
                             <img src={itemImage} alt='Projector display here'></img>

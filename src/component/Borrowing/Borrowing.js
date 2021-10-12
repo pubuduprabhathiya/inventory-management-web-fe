@@ -8,7 +8,7 @@ import itemImage from '../../assets/projector.jpg';
 const Borrowings = (props)=>{
     const borrowinglist = props.itemList.map((item)=>{
         return(
-            <Card>
+            <Card key={item['keyid']}>
                 <div className={classes.item}>
                     <div className={classes.detailBilock}>
                         <p>{item.date.month}</p>

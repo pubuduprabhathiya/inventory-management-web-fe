@@ -7,18 +7,18 @@ import useInput from '../hook/use-input';
 import useInputDatePicker from '../hook/use-inputDatePicker';
 import useHttp from "../hook/use-http";
 import {  useEffect } from "react";
-import { getAvailableItems } from "../lib/api";
-import { useState } from "react/cjs/react.development";
+import { getCategories,getModel,getLaboratory,getStoreCode,getLecturers,sendStudentNormalBorrowingRequest,sendLecturerNormalBorrowingRequest } from "../lib/api";
 
 
 
-
+let mList=[];
+let sList = [];
+let lList=[];
+let lecList=[];
+let lecId='';
 
 const NormalCheckout = (props)=>{
-    const cList = [''];
-    const [mList,setmList] = useState([' ']);
-    const [sList,setsList] = useState(['']);
-    const [lList,setlList] = useState(['']);
+
     const {
         value:enterCategory,
         isValid: enteredCategoryIsValid,
@@ -38,6 +38,15 @@ const NormalCheckout = (props)=>{
     }=useInput(value => value.trim()!=='');
 
     const {
+        value:enterLabName,
+        isValid: enteredLabNameIsValid,
+        hasError: labNameHasError,
+        valueChangeHandler: labNameChangeHandler,
+        inputBlurHandler : labNameBlurHandler,
+        reset: resetLabNameInput,
+    }=useInput(value => value.trim()!=='');
+
+    const {
         value:enterStoreCode,
         isValid: enteredStoreCodeIsValid,
         hasError: storeCodeHasError,
@@ -46,14 +55,6 @@ const NormalCheckout = (props)=>{
         reset: resetStoreCodeInput,
     }=useInput(value => value.trim()!=='');
 
-    const {
-        value:enterLabName,
-        isValid: enteredLabNameIsValid,
-        hasError: labNameHasError,
-        valueChangeHandler: labNameChangeHandler,
-        inputBlurHandler : labNameBlurHandler,
-        reset: resetLabNameInput,
-    }=useInput(value => value.trim()!=='');
 
     const {
         value:enterID,
@@ -82,101 +83,143 @@ const NormalCheckout = (props)=>{
         reset: resettoDateInput,
     }=useInputDatePicker(value => value!==null);
 
-    const {sendRequest,status,data:loadedCategory,error}=useHttp(getAvailableItems,true);
-    useEffect(()=>{
-        sendRequest();
-    },[sendRequest]);
+    const {sendRequest:sendCategory,status:categoryStatus,data:loadedCategory,error}=useHttp(getCategories,true);
+    const {sendRequest:sendModel, status:modelStatus,data:modelData,error:modelError}=useHttp(getModel,true);
+    const {sendRequest:sendLab, status:labStatus,data:labData,error:labError}=useHttp(getLaboratory,true);
+    const {sendRequest:sendStoreCode, status:storeCodeStatus,data:storeCodeData,error:storeCodeError}=useHttp(getStoreCode,true);
+    const {sendRequest:sendLecturer, status:lecturerStatus,data:lecturerData,error:lecturerError}=useHttp(getLecturers,true);
+    const {sendRequest:sendData}= useHttp(sendStudentNormalBorrowingRequest,true);
+    const {sendRequest:sendLecturerData}= useHttp(sendLecturerNormalBorrowingRequest,true);
 
     useEffect(()=>{
-        const lst=[''];
-        setmList([...lst]);
+        sendCategory();
+        //console.log('Loaded category data');
+    },[sendCategory]);
+
+    useEffect(()=>{
         if(enteredCategoryIsValid){
-            resetModelInput();
-            loadedCategory.map((item)=>{
-                //console.log(item);
-                if(item['Category.categoryName']===enterCategory){
-                    lst.push(item['Model.modelName']);
-                }   
-            });
+            sendModel({enterCategory:enterCategory});
+            //console.log('Loaded model Data');
         }
-        setmList([...lst]); 
-    },[enterCategory])
+    },[enterCategory]);
 
     useEffect(()=>{
-        const lst=[''];
-        setsList([...lst]);
         if(enteredCategoryIsValid && enteredModelIsValid){
-            resetStoreCodeInput();
-            loadedCategory.map((item)=>{
-                if(item['Category.categoryName']===enterCategory && item['Model.modelName']===enterModel){
-                    lst.push(item['id']);
-                }   
-            });
+            //console.log({category:enterCategory,model:enterModel});
+            sendLab({category:enterCategory,model:enterModel});
+            //console.log('Loaded lab Data');
         }
-        setsList([...lst]); 
-    },[enterCategory,enterModel])
+    },[enterCategory,enterModel]);
 
     useEffect(()=>{
-        const lst=[''];
-        setlList([...lst]);
-        if(enteredCategoryIsValid && enteredModelIsValid && enteredStoreCodeIsValid){
-            resetLabNameInput();
-            loadedCategory.map((item)=>{
-                if(item['Category.categoryName']===enterCategory && item['Model.modelName']===enterModel && item['id']===enterStoreCode){
-                    //console.log(item['id']);
-                    lst.push(item['Lab.labName']);
-                }   
-            });
+        if(enteredCategoryIsValid && enteredModelIsValid && enteredLabNameIsValid){
+            sendStoreCode({category:enterCategory,model:enterModel,lab:enterLabName});
+            //console.log('Loading store code');
         }
-        setlList([...lst]); 
-    },[enterCategory,enterModel,enterStoreCode])
+    },[enterCategory,enterModel,enterLabName]);
 
-    
+    useEffect(()=>{
+        if(enteredCategoryIsValid && enteredModelIsValid && enteredLabNameIsValid && enteredStoreCodeIsValid && props.type === 'student'){
+            sendLecturer({labId:enterLabName});
+            //console.log('loading lacturers');
+        }
+    },[enterCategory,enterModel,enterLabName,enterStoreCode]);
 
-    if(status==='pending'){
+    if(categoryStatus==='pending'){
         return(
             <div><p>Loading..........</p></div>
         )
     }
+    if(modelStatus==='pending' && categoryStatus==='pending'){
+        return(<div><p>Loading model....</p></div>)
+    }
     if(error){
         return(<p>Error occure here</p>)
     }
+    if(modelError){
+        console.log('model error');
+        return(<p>Error ocuure model</p>)
+    }
+    if(labError){
+        return(<p>Error ocure lab</p>)
+    }
 
-    if(status ==='completed' && (!loadedCategory||loadedCategory.length===0)){
+    if(categoryStatus ==='completed' && (!loadedCategory||loadedCategory.length===0)){
         return(<h1>No Data</h1>)
     }
-    if(status ==='completed' && loadedCategory.length>0){
-        loadedCategory.map((item)=>{
-            cList.push(item['Category.categoryName']);
-        });
+    if(categoryStatus ==='completed'){
+        //console.log(loadedCategory);
+        //console.log(enterCategory);
+    }
+
+    if(modelStatus==='completed'){
+        mList=modelData;
+        //console.log(enterModel);
+    }
+    if(labStatus==='completed'){
+        lList = labData;
+        //console.log(enterLabName);
+    }
+    if(storeCodeStatus === 'completed'){
+        sList = storeCodeData;
+    }
+    if(lecturerStatus === 'completed'){
+        lecList = lecturerData[0];
+    }
+    if(enteredIDIsValid){
+        const index = lecturerData[0].indexOf(enterID);
+        lecId = lecturerData[1][index];
+        console.log(lecId);
     }
     
-
    
     let formIsValid;
 
-    if(enteredCategoryIsValid && enteredModelIsValid && enteredStoreCodeIsValid && enteredLabNameIsValid && enteredIDIsValid && enteredfromDateIsValid && entertoDate){
-        formIsValid = true;
+    if(props.type==='student'){
+        if(enteredCategoryIsValid && enteredModelIsValid && enteredStoreCodeIsValid && enteredLabNameIsValid && enteredIDIsValid && enteredfromDateIsValid && entertoDate){
+            formIsValid = true;
+        }
+    }else{
+        if(enteredCategoryIsValid && enteredModelIsValid && enteredStoreCodeIsValid && enteredLabNameIsValid && enteredfromDateIsValid && entertoDate){
+            formIsValid = true;
+        }
     }
+    
 
     const formSubmitHandler = event =>{
         event.preventDefault();
-        if(!enteredCategoryIsValid && !enteredModelIsValid && !enteredStoreCodeIsValid && !enteredLabNameIsValid && !enteredIDIsValid && !enteredfromDateIsValid && !enteredtoDateIsValid){
-            return;
-        }
-        console.log('submitted!');
-        console.log(enterCategory);
-        console.log(enterModel);
-        console.log(enterStoreCode);
-        console.log(enterLabName)
-        console.log(enterID);
-        console.log(enterfromDate);
-        console.log(entertoDate);
+        if(props.type === 'student'){
+            if(!enteredCategoryIsValid && !enteredModelIsValid && !enteredStoreCodeIsValid && !enteredLabNameIsValid && !enteredIDIsValid && !enteredfromDateIsValid && !enteredtoDateIsValid){
+                return;
+            }
+            console.log('submitted!');
+            console.log(enterCategory);
+            console.log(enterModel);
+            console.log(enterStoreCode);
+            console.log(enterLabName)
+            console.log(lecId);
+            console.log(enterfromDate);
+            console.log(entertoDate);
+            sendData({studentId:'180244B',lecId:lecId,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
+            resetIDInput();
+        }else{
+            if(!enteredCategoryIsValid && !enteredModelIsValid && !enteredStoreCodeIsValid && !enteredLabNameIsValid && !enteredfromDateIsValid && !enteredtoDateIsValid){
+                return;
+            }
+            console.log('submitted!');
+            console.log(enterCategory);
+            console.log(enterModel);
+            console.log(enterStoreCode);
+            console.log(enterLabName)
+            console.log(enterfromDate);
+            console.log(entertoDate);
+            //sendData({studentId:'180244B',lecId:lecId,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
+            sendLecturerData({lecId:'123456L',equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
+        }  
         resetCategoryInput();
         resetModelInput();
         resetStoreCodeInput();
         resetLabNameInput();
-        resetIDInput();
         resetfromDateInput();
         resettoDateInput();
     }
@@ -192,33 +235,33 @@ const NormalCheckout = (props)=>{
     return(
         <div className='back'>
         <form onSubmit={formSubmitHandler}>
-            <div className={categoryInputClasses}>
+            <div className={categoryInputClasses} key='category'>
                 <label htmlFor='category'>Category</label>
-                <DropDown optionList={cList} onChange={categoryChangeHandler} value={enterCategory} onBlure={categoryBlurHandler}/>
+                <DropDown optionList={loadedCategory} onChange={categoryChangeHandler} value={enterCategory} onBlure={categoryBlurHandler}/>
                 {/* {categoryHasError && <p>Please select category</p>} */}
                 {categoryHasError && <p className='error-text'>choose category</p>}
             </div>
-            <div className={modelInputClasses}>
+            <div className={modelInputClasses} key='model'>
                 <label htmlFor='model'>Model</label>
                 <DropDown optionList={mList} onChange={modelChangeHandler} value={enterModel} onBlure={modelBlurHandler} />
                 {modelHasError && <p className='error-text'>choose model</p>}
             </div>
-            <div className={storeCodeInputClasses}>
-                <label htmlFor='storeCode'>Store Code</label>
-                <DropDown optionList={sList} onChange={storeCodeChangeHandler} value={enterStoreCode} onBlure={storeCodeBlurHandler}/>
-                {storeCodeHasError && <p className='error-text'>choose store code</p>}
-            </div>
-            <div className={labNameInputClasses}>
+            <div className={labNameInputClasses} key='lab'>
                 <label htmlFor='labName'>Lab Name</label>
                 <DropDown optionList={lList} onChange={labNameChangeHandler} value={enterLabName} onBlure={labNameBlurHandler}/>
                 {labNameHasError && <p className='error-text'>choose lab name</p>}
             </div>
-            <div className={idInputClasses}>
-                {props.type==='lecturer'?<label htmlFor='id'>Lecturer ID</label>:<label htmlFor='id'>Student ID</label>}
-                <input type='text' id='ID' onChange={idChangeHandler} value={enterID} onBlur={idBlurHandler}/>
-                {idHasError && <p className='error-text'>Enter ID</p>}
+            <div className={storeCodeInputClasses} key='store'>
+                <label htmlFor='storeCode'>Store Code</label>
+                <DropDown optionList={sList} onChange={storeCodeChangeHandler} value={enterStoreCode} onBlure={storeCodeBlurHandler}/>
+                {storeCodeHasError && <p className='error-text'>choose store code</p>}
             </div>
-            <div className={fromDateInputClasses}>
+            {props.type==='student' && <div className={idInputClasses}>
+                <label htmlFor='storeCode'>Lecturer</label>
+                <DropDown optionList={lecList} onChange={idChangeHandler} value={enterID} onBlure={idBlurHandler}/>
+                {idHasError && <p className='error-text'>choose lecturer</p>}
+            </div>}
+            <div className={fromDateInputClasses} key='request'>
                 <label htmlFor='fromDate'>From Date</label>
                 <DatePicker
                     id='todate'
@@ -234,7 +277,7 @@ const NormalCheckout = (props)=>{
                 />
                 {fromDateHasError && <p className='error-text'>choose from date</p>}
             </div>
-            <div className={toDateInputClasses}>
+            <div className={toDateInputClasses} key='return'>
                 <label htmlFor='toDate'>To Date</label>
                 <DatePicker
                     id='todate'
@@ -245,6 +288,7 @@ const NormalCheckout = (props)=>{
                     minDate={new Date()}
                     maxDate={addDays(new Date(), 7)}
                     showDisabledMonthNavigation
+                    key=''
                 />
                 {toDateHasError && <p className='error-text'>choose due date</p>}
             </div>

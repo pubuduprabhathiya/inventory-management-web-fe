@@ -1,7 +1,10 @@
 import Moment from 'moment';
 
+const url = 'https://sep-backend-inventory.herokuapp.com';
+
 export async function getCheckAvailability(){
-    const response = await fetch(`http://localhost:5000/checkAvaiability`);
+    //const response = await fetch(`http://localhost:5000/checkAvaiability`);
+    const response = await fetch(`${url}/checkAvaiability`);
     const data = await response.json();
 
     if(!response.ok){
@@ -19,7 +22,7 @@ export async function getCheckAvailability(){
 }
 
 export async function getBorrowingHistory(){
-    const response = await fetch('http://localhost:5000/borrow');
+    const response = await fetch(`${url}/borrow`);
     const data = await response.json();
     if(!response.ok){
         throw new Error(data.message || 'Could not fetch data');
@@ -45,8 +48,8 @@ export async function getBorrowingHistory(){
     return details;
 }
 
-export async function getCategories(){
-    const response = await fetch(`http://localhost:5000/category`);
+export async function getCategories(detail){
+    const response = await fetch(`${url}/category`);
     const data = await response.json();
 
     if(!response.ok){
@@ -54,20 +57,149 @@ export async function getCategories(){
     }
     const categoryList = [''];
     for(const key in data){
-        const category = data[key]['categoryName'];
+        const category = data[key]['Category.categoryName'];
         categoryList.push(category);
     }
     return categoryList;
 }
 
+
+export async function getModel(detail){
+    const response = await fetch(`${url}/model/${detail.enterCategory}`);
+    const data = await response.json();
+
+    if(!response.ok){
+        throw new Error(data.message || 'Could not fetch');
+    }
+    const modelList = [''];
+    //console.log(data);
+    for(const key in data){
+        const model = data[key]['Model.modelName'];
+        modelList.push(model);
+    }
+    return modelList;
+}
+
+export async function getLaboratory(detail){
+    // const abortController = new AbortController();
+    // const signal = abortController.signal;
+    const response = await fetch(`${url}/lab/${detail.category}/${detail.model}`);
+    const data = await response.json();
+
+    if(!response.ok){
+        throw new Error(data.message || 'Could not fetch');
+    }
+    const labList = [''];
+    for(const key in data){
+        const lab = data[key]['Lab.labName'];
+        labList.push(lab);
+    }
+    return labList;
+}
+
+export async function getStoreCode(detail){
+    // const abortController = new AbortController();
+    // const signal = abortController.signal;
+    const response = await fetch(`${url}/storeCode/${detail.category}/${detail.model}/${detail.lab}`);
+    const data = await response.json();
+
+    if(!response.ok){
+        throw new Error(data.message || 'Could not fetch');
+    }
+    const storeCodeList = [''];
+    for(const key in data){
+        const sCode = data[key]['id'];
+        storeCodeList.push(sCode);
+    }
+    return storeCodeList;
+}
+
 export async function getAvailableItems(category){
-    const response = await fetch(`http://localhost:5000/ava`);
+    const response = await fetch(`${url}/ava`);
     const data = await response.json();
 
     if(!response.ok){
         throw new Error(data.message || 'Could not fetch');
     }
     
+    return data;
+}
+
+export async function getLecturers(detail){
+    const response = await fetch(`${url}/lecturer/${detail.labId}`);
+    const data = await response.json();
+
+    if(!response.ok){
+        throw new Error(data.message || 'Could not fetch');
+    }
+    console.log(data);
+    const lecturerList = [[''],['']];
+    for(const key in data){
+        const lec = data[key]['firstName'];
+        const id = data[key]['id'];
+        lecturerList[0].push(lec);
+        lecturerList[1].push(id);
+    }
+    return lecturerList;
+}
+
+export async function sendStudentNormalBorrowingRequest(detail){
+    const response = await fetch(`${url}/student/sendNormalRequest`,{
+        method:'POST',
+        body: JSON.stringify({studentId:detail.studentId,lecId:detail.lecId,equipmentId:detail.equipmentId,requestDate:detail.requestDate,returnDate:detail.returnDate}),
+        headers:{
+            'Content-Type': 'application/json'
+        },
+    });
+    const data = await response.json();
+    if(!response.ok){
+        throw new Error(data.message||'Could not fetch');
+    }
+    return data;
+}
+
+export async function sendLecturerNormalBorrowingRequest(detail){
+    const response = await fetch(`${url}/lecturer/sendNormalRequest`,{
+        method:'POST',
+        body: JSON.stringify({lecId:detail.lecId,equipmentId:detail.equipmentId,requestDate:detail.requestDate,returnDate:detail.returnDate}),
+        headers:{
+            'Content-Type': 'application/json'
+        },
+    });
+    const data = await response.json();
+    if(!response.ok){
+        throw new Error(data.message||'Could not fetch');
+    }
+    return data;
+}
+
+export async function sendStudentTemporyBorrowingRequest(detail){
+    const response = await fetch(`${url}/student/sendTemporyRequest`,{
+        method:'POST',
+        body: JSON.stringify({studentId:detail.studentId,equipmentId:detail.equipmentId,reason:detail.reason,requestDate:detail.requestDate,returnDate:detail.returnDate}),
+        headers:{
+            'Content-Type': 'application/json'
+        },
+    });
+    const data = await response.json();
+    if(!response.ok){
+        throw new Error(data.message||'Could not fetch');
+    }
+    return data;
+}
+
+export async function sendLecturerTemporyBorrowingRequest(detail){
+    const response = await fetch(`${url}/lecturer/sendTemporyRequest`,{
+        method:'POST',
+        body: JSON.stringify({lecId:detail.lecId,equipmentId:detail.equipmentId,reason:detail.reason,requestDate:detail.requestDate,returnDate:detail.returnDate}),
+        headers:{
+            'Content-Type': 'application/json'
+        },
+    });
+    const data = await response.json();
+    if(!response.ok){
+        throw new Error(data.message||'Could not fetch');
+    }
     return data;
 }
 
@@ -91,7 +223,7 @@ export async function getAvailableItems(category){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function getPendingRequests(){
-    const response = await fetch(`http://localhost:5000/pending`);
+    const response = await fetch(`${url}/pending`);
     const data = await response.json();
 
     if(!response.ok){
@@ -113,7 +245,7 @@ export async function getPendingRequests(){
 }
 
 export async function getPendingDetails(id){
-    const response = await fetch(`http://localhost:5000/requestDetail/${id}`);
+    const response = await fetch(`${url}/requestDetail/${id}`);
     const data = await response.json();
 
     console.log(response);
@@ -140,7 +272,7 @@ export async function getPendingDetails(id){
 }
 
 export async function approvePending(id){
-    const response = await fetch(`http://localhost:5000/approve/${id}`,{
+    const response = await fetch(`${url}/approve/${id}`,{
         method:'POST',
         //body: JSON.stringify({user:id}),
         headers:{
@@ -155,7 +287,7 @@ export async function approvePending(id){
 }
 
 export async function rejectPending(id){
-    const response = await fetch(`http://localhost:5000/reject/${id}`,{
+    const response = await fetch(`${url}/reject/${id}`,{
         method:'POST',
         //body: JSON.stringify({user:id}),
         headers:{

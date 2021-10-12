@@ -6,7 +6,7 @@ const CreateTemporaryRequestScreen = (props)=>{
     return(
         <Layout>
             <MainContainer title='Temporary Request'>
-                <TemporaryCheckout/>
+                <TemporaryCheckout type='lecturer'/>
             </MainContainer>
         </Layout>
     );

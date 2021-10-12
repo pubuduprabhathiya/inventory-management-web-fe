@@ -1,4 +1,3 @@
-import { DuMMy_REQUESTS } from "./Request";
 import { useParams } from "react-router-dom";
 import classes from './ApproveRequest.module.css';
 import { getPendingDetails,approvePending,rejectPending } from '../lib/api';
@@ -7,7 +6,6 @@ import { useHistory } from 'react-router';
 import useHttp from '../hook/use-http';
 import Moment from 'moment';
 import { useState } from "react/cjs/react.development";
-import {Redirect} from 'react-router-dom';
 
 const ApproveRequest = (props)=>{
     const history = useHistory();
