@@ -5,7 +5,7 @@ const ContainerCard = (props)=>{
         <div className={classes.container}>
             <div className={classes.titleContainer}><p>{props.title}</p></div> 
             <div className={classes.content}>
-                {props.children}
+            <div className={classes.items}>{props.children}</div>
             </div>
         </div>
     );

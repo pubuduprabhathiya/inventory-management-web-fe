@@ -5,6 +5,7 @@ import { getPendingRequests } from '../lib/api';
 import { useEffect } from 'react';
 import useHttp from '../hook/use-http';
 import Moment from 'moment';
+import LoadingSpinner from '../Layout/LoadingSpinner';
 
 const Request = (props)=>{
     const history = useHistory();
@@ -16,7 +17,7 @@ const Request = (props)=>{
 
     if(status==='pending'){
         return(
-            <div><p>Loading..........</p></div>
+            <center><LoadingSpinner/></center>
         )
     }
     if(error){

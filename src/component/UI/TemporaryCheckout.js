@@ -6,6 +6,7 @@ import useHttp from "../hook/use-http";
 import { useEffect } from "react";
 import { getCategories,getModel,getLaboratory,getStoreCode,sendStudentTemporyBorrowingRequest,sendLecturerTemporyBorrowingRequest } from "../lib/api";
 import Moment from 'moment';
+import LoadingSpinner from "../Layout/LoadingSpinner";
 
 let mList=[];
 let sList = [];
@@ -94,7 +95,7 @@ const TemporaryCheckout = (props)=>{
 
     if(categoryStatus==='pending'){
         return(
-            <div><p>Loading..........</p></div>
+            <center><LoadingSpinner/></center>
         )
     }
 

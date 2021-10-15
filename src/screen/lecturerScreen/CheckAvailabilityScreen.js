@@ -4,6 +4,7 @@ import Layout from "../../component/Layout/Layout";
 import {getCheckAvailability} from '../../component/lib/api';
 import useHttp from '../../component/hook/use-http';
 import { useEffect } from "react";
+import LoadingSpinner from "../../component/Layout/LoadingSpinner";
 
 const CheckAvailabilityScreen = (props)=>{
     const {sendRequest,status,data:loadedData,error}=useHttp(getCheckAvailability,true);
@@ -13,7 +14,7 @@ const CheckAvailabilityScreen = (props)=>{
 
     if(status==='pending'){
         return(
-            <div><p>Loading..........</p></div>
+            <center><LoadingSpinner/></center>
         )
     }
     if(error){

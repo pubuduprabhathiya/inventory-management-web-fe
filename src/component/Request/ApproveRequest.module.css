@@ -53,3 +53,7 @@
 .approve:active{
     background-color: #6ff7a5;
 }
+
+.spinner{
+    margin-left: 35rem;
+}

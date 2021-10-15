@@ -8,6 +8,7 @@ import useInputDatePicker from '../hook/use-inputDatePicker';
 import useHttp from "../hook/use-http";
 import {  useEffect } from "react";
 import { getCategories,getModel,getLaboratory,getStoreCode,getLecturers,sendStudentNormalBorrowingRequest,sendLecturerNormalBorrowingRequest } from "../lib/api";
+import LoadingSpinner from "../Layout/LoadingSpinner";
 
 
 
@@ -127,7 +128,8 @@ const NormalCheckout = (props)=>{
 
     if(categoryStatus==='pending'){
         return(
-            <div><p>Loading..........</p></div>
+            //<div><p>Loading..........</p></div>
+            <center><LoadingSpinner/></center>
         )
     }
     if(modelStatus==='pending' && categoryStatus==='pending'){

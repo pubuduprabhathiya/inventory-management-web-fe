@@ -1,12 +1,37 @@
 import Card from "../UI/Card";
 import classes from './Borrowing.module.css';
 import itemImage from '../../assets/projector.jpg';
+import { getBorrowingHistory } from "../lib/api";
+import useHttp from "../hook/use-http";
+import { useEffect } from "react";
+import LoadingSpinner from "../Layout/LoadingSpinner";
+
 
 
 
 
 const Borrowings = (props)=>{
-    const borrowinglist = props.itemList.map((item)=>{
+
+    const {sendRequest,status,data:loadedData,error}=useHttp(getBorrowingHistory,true);
+    useEffect(()=>{
+        sendRequest();
+    },[sendRequest]);
+
+    if(status==='pending'){
+        return(
+            <center><LoadingSpinner/></center>
+        )
+    }
+    if(error){
+        return(<p>Error occure here</p>)
+    }
+
+    if(status ==='completed' && (!loadedData||loadedData.length===0)){
+        return(<h1>No Data</h1>)
+    }
+
+
+    const borrowinglist = loadedData.map((item)=>{
         return(
             <Card key={item['keyid']}>
                 <div className={classes.item}>

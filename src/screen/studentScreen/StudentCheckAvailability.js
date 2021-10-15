@@ -4,6 +4,7 @@ import MainContainer from "../../component/UI/MainContainer";
 import {getCheckAvailability} from '../../component/lib/api';
 import useHttp from '../../component/hook/use-http';
 import { useEffect } from "react";
+import LoadingSpinner from "../../component/Layout/LoadingSpinner";
 
 
 const StudentCheckAvailability = (props)=>{
@@ -16,7 +17,8 @@ const StudentCheckAvailability = (props)=>{
 
     if(status==='pending'){
         return(
-            <div><p>Loading..........</p></div>
+            // <div><p>Loading..........</p></div>
+            <center><LoadingSpinner/></center>
         )
     }
     if(error){

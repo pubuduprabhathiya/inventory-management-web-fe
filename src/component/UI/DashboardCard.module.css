@@ -8,3 +8,10 @@
     background-color: black;
     margin-top: 1rem; 
 }
+
+@media screen and (max-width:1440px) {
+    .card{
+        justify-content: space-evenly;
+        max-height: 3rem;
+    }
+}

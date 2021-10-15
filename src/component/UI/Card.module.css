@@ -7,3 +7,10 @@
     border-radius: 14px;
     background-color: #C4C4C4;
 }
+
+@media screen and (max-width:1440px){
+    .card{
+        margin-left: 5rem;
+        margin-right: 5rem;
+    }
+}

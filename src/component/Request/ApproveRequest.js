@@ -5,7 +5,8 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import useHttp from '../hook/use-http';
 import Moment from 'moment';
-import { useState } from "react/cjs/react.development";
+import { useState } from 'react';
+import LoadingSpinner from "../Layout/LoadingSpinner";
 
 const ApproveRequest = (props)=>{
     const history = useHistory();
@@ -35,8 +36,9 @@ const ApproveRequest = (props)=>{
 
     if(status==='pending'){
         return(
-            <div><p>Loading..........</p></div>
-        )
+            //<center><LoadingSpinner/></center>
+            <div className={classes.spinner}><LoadingSpinner/></div>
+        );
     }
     if(error){
         return(<p>{error}</p>)
