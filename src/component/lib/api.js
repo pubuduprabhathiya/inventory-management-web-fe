@@ -3,8 +3,8 @@ import Moment from 'moment';
 const url = 'https://sep-backend-inventory.herokuapp.com';
 
 export async function getCheckAvailability(){
-    //const response = await fetch(`http://localhost:5000/checkAvaiability`);
-    const response = await fetch(`${url}/checkAvaiability`);
+    const response = await fetch(`http://localhost:5000/student/checkAvaiability`);
+    //const response = await fetch(`${url}/checkAvaiability`);
     const data = await response.json();
 
     if(!response.ok){
