@@ -1,0 +1,13 @@
+.unavailabel{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0.5rem;
+}
+
+.total {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}

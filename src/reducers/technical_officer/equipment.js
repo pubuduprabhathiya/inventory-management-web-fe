@@ -1,3 +1,4 @@
+
 import { Add_Equipment, Get_Equipment } from "../../actions/action_types";
 
 export default (equipment=null, action) => {
@@ -9,5 +10,6 @@ export default (equipment=null, action) => {
         default:
             return equipment;
     }
+
 
 };

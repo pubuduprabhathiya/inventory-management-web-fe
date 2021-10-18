@@ -1,12 +1,13 @@
 
+
 import React from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import Header from "../components/technical_officer/header";
-import AcceptEquipment from "../pages/technical_officer/accept_equipment";
-import AddUpdateEquipment from "../pages/technical_officer/add_update_equipment";
-import IssueEquipment from "../pages/technical_officer/issue_equipment";
-import Report from "../pages/technical_officer/report";
-import ViewTrack from "../pages/technical_officer/view_track";
+import Header from "../component/technical_officer/header";
+import AcceptEquipment from "../screen/technical_officer/accept_equipment";
+import AddUpdateEquipment from "../screen/technical_officer/add_update_equipment";
+import IssueEquipment from "../screen/technical_officer/issue_equipment";
+import Report from "../screen/technical_officer/report";
+import ViewTrack from "../screen/technical_officer/view_track";
 
 
 const TechnicalOfficer = () => {
@@ -43,4 +44,5 @@ const TechnicalOfficer = () => {
     </Router>
     );
 }
+
 export default TechnicalOfficer;

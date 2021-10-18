@@ -1,0 +1,23 @@
+.item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item img{
+    width: 6rem;
+    height: 6rem;
+}
+
+.detailBilock{
+    display: 1;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.details{
+    display: 1;
+    flex-direction: column;
+    margin-left: 0.5rem;
+}

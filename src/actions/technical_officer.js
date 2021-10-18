@@ -1,3 +1,4 @@
+
 import toDate from 'date-fns/toDate';
 import * as api from '../api/technical_officer_api';
 import {Store_Id_Error,Get_Report, Get_Equipment_By_Category, Get_Borrow_Data,Get_Categories,Get_Models,Get_Labs,Add_Equipment, Get_Equipment,Get_Last_Borrow_Data,Get_Request } from './action_types';
@@ -17,7 +18,7 @@ export const getBorrowData = (store_code,fromDate, toDate) => async (dispatch) =
   console.log(store_code,fromDate, toDate,'jj');
   try {
     const data = await api.getBorrowData(store_code,fromDate, toDate);
-    
+    console.log(data);
     dispatch({type:Get_Borrow_Data,payload:data.data});
   }
    catch (error) {
@@ -28,7 +29,7 @@ export const getBorrowData = (store_code,fromDate, toDate) => async (dispatch) =
 export const getCategories = () => async (dispatch) => {
   try {
     const data = await api.getCategories();
-    console.log(data,'cate');
+    console.log(data, 'cate');
     dispatch({ type: Get_Categories, payload: data.data });
   }
   catch (error) {

@@ -1,0 +1,59 @@
+.card{
+    margin-top: 2rem;
+    margin-right: 20rem;
+    margin-left: 20rem;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 14px;
+    background-color: #C4C4C4;
+    min-width: 30rem;
+    margin-left: 22rem;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shape{
+    display: flex;
+    flex-direction: row;  
+}
+
+.detailBilock{
+    display: 1;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.details{
+    display: 1;
+    flex-direction: column;
+    margin-left: 1rem;
+}
+
+.reject{
+    background-color: red;
+    color: white;
+    margin-right: 3rem;
+}
+
+.reject:hover,
+.reject:active{
+    background-color:#f76767;
+}
+
+.approve{
+    background-color: green;
+    color: white;
+}
+
+.approve:hover,
+.approve:active{
+    background-color: #6ff7a5;
+}
+
+.spinner{
+    margin-left: 35rem;
+}
