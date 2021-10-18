@@ -1,7 +1,7 @@
 
 import {  LocalizationProvider,DesktopDatePicker } from "@mui/lab";
 import DateAdapter from '@mui/lab/AdapterDateFns';
-import { TextField, Autocomplete, Typography, colors } from "@mui/material";
+import { TextField, Autocomplete, Typography, colors, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +20,8 @@ const ViewTrack = () => {
 
   const categories = useSelector(state => state.categories);
 
- useEffect(() => {
+  useEffect(() => {
+   console.log(categories[0]);
     dispatch(getCategories());
   }, [dispatch]);
 
@@ -42,34 +43,25 @@ const ViewTrack = () => {
       <Box  sx={{
           display: 'flex',
           flexDirection: 'row',
-          alignItems: { xs: 'center', md: 'start' },
+          alignItems: { xs: 'start', md: 'start' },
           m: 3,
 
       }}>
          <Box
         sx={{
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: { xs: 'center', md: 'start' },
-          m: 3,
-            flexGrow: 1,
-          
-        }}
-      ><Box
-        sx={{
-          display: 'flex',
           flexDirection: 'row',
           alignItems: { xs: 'center', md: 'start' },
           m: 3,
-            flexGrow: 1,
+          flexGrow: 1,
           
         }}
           >
             <Autocomplete
           disablePortal
           value={searchstring}
-          id="combo-box-demo"
-         
+          id="category"
+         data-testid="autocomplete"
           onChange={(event, newValue) => setequipment(newValue)}
               options={categories}
               getOptionLabel={option => option.categoryName}
@@ -98,21 +90,25 @@ const ViewTrack = () => {
       </Box>
 
         
-          <Equipments fromDate={fromDate} toDate={ toDate} />
+         
       </Box>
-       
-        <Box   sx={{
+      <Box  sx={{
           display: 'flex',
-          flexDirection: 'coloum',
+          flexDirection: 'row',
           alignItems: { xs: 'start', md: 'start' },
           m: 3,
+
+      }}>
         
-        }} >
-          
-           <ViewTracDetails/>
-        </Box>
+        
+       
+        <Equipments fromDate={fromDate} toDate={toDate} />
+       
+        <ViewTracDetails />
       </Box>
-    </Box>
+       
+      </Box>
+    
 
 
   )

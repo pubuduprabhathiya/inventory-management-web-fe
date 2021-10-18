@@ -2,7 +2,7 @@ import { FormControl,TextField ,Button} from "@mui/material";
 import { Box } from "@mui/system"
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import ScanScreen from "./scan_screen";
+import ScanScreen from "../../components/technical_officer/scan_screen";
 import { useDispatch } from "react-redux";
 import { getEquipmentByStoreCode, temporyIssueEquipment, updataEquipment } from "../../actions/technical_officer";
 import {  LocalizationProvider,DesktopDatePicker } from "@mui/lab";

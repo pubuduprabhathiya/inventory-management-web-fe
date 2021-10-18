@@ -38,14 +38,19 @@ const [type, settype] = useState("bar")
     }
 
     
-    return (<div>
+    return (
+         <Box sx={{
+      flexDirection: { xs: 'column', md: 'row' },
+            alignItems: 'center',
+      marginTop: 3,
+    }}>
         <Box
         sx={{
-          display: 'flex',
+         display: 'flex',
           flexDirection: 'row',
-          alignItems: { xs: 'center', md: 'start' },
+          alignItems: { xs: 'center', md: 'center' },
           m: 3,
-            flexGrow: 1,
+          flexGrow: 1,
           
         }}
         >
@@ -68,8 +73,8 @@ const [type, settype] = useState("bar")
           renderInput={(params) => <TextField {...params} />}/>
        
           </LocalizationProvider>
-       <FormControl FormControl sx={{ m: 1, width: 300 }}>
-                    <InputLabel id="select-label">Select one...</InputLabel>
+        <FormControl FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="select-label">Select one or more...</InputLabel>
 
                     <Select multiple={true} labelId='select-label' value={selectcategories} onChange={handleChange}  label='Select categories'  renderValue={(selected) => selected.map((e)=>e.categoryName).join(', ')}>
                     {categories.map((name) =>
@@ -84,12 +89,23 @@ const [type, settype] = useState("bar")
                         
                         )
                         )}
-
-                        
-                        
+ 
             </Select>
             </FormControl>
-            <FormControl sx={{ m: 1, width: 300 }}>
+            
+            </Box>
+             <Box
+        sx={{
+         display: 'flex',
+          flexDirection: 'row',
+          alignItems: { xs: 'center', md: 'center' },
+          m: 3,
+          flexGrow: 1,
+          
+        }}
+            >
+               
+            <FormControl sx={{ m: 1, maxWidth: 300 }}>
                     <InputLabel id="select-label">Select one...</InputLabel>
                     <Select variant='standard'
                         
@@ -102,7 +118,7 @@ const [type, settype] = useState("bar")
                     <MenuItem value='available'>Availability Report</MenuItem>
                 </Select>
             </FormControl>
-            <FormControl sx={{ m: 1, width: 300 }}>
+            <FormControl sx={{ m: 1, maxWidth: 300 }}>
                     <InputLabel id="select-label">Select one...</InputLabel>
                     <Select variant='standard'
                         
@@ -116,21 +132,20 @@ const [type, settype] = useState("bar")
                     <MenuItem value='horizontalBar'>Stacked Bar</MenuItem>
                 </Select>
             </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 200 }}>
+            <FormControl sx={{ m: 1, maxWidth: 200 }}>
                      <Button variant="contained" color="success" onClick={() => submit()} >Sumbit</Button>
 
                     
             </FormControl>
-           
         </Box>
-       
-        <Box  sx={{ m: 5,display: 'flex', width: 1200, alignItems: { xs: 'center', md: 'start' }, }}>
+        <Box  sx={{ m: 5,display: 'flex', maxWidth: 1200, alignItems: { xs: 'center', md: 'start' }, }}>
             <Charts type={type} reportType={reportType.toString()}/>
             
         </Box>
+      </Box>
          
         
         
-    </div>);
+    );
 }
 export default Report;

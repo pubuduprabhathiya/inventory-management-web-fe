@@ -1,8 +1,8 @@
 import { FormControl, MenuItem, Select, Typography ,InputLabel, TextField} from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
-import AddEquipment from "../../components/technical_officer/add_equipmet";
-import UpdateEquipment from "../../components/technical_officer/update_equipment";
+import AddEquipment from "./add_equipmet";
+import UpdateEquipment from "./update_equipment";
 
 const AddUpdateEquipment = () => {
     const [type, settype] = useState('');

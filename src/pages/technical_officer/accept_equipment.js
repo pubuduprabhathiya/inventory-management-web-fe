@@ -15,17 +15,28 @@ const AcceptEquipment = () => {
     const [damage, setdamage] = useState('notdamaged');
     const [name, setname] = useState('');
     const [userid, setuserid] = useState('');
-
+const error = useSelector(state => state.error);
+    const [storeiderror, setstoreiderror] = useState(false);
 
     const dispatch = useDispatch();
    const handleClickOpen = () => {
     setopen(true);
     };
+
     const next = () => {
         dispatch(getlastBorrowData(storeCode));
     }
+      useEffect(() => {
+        if (error.storeid) {
+            setstoreiderror(true);
+        }
+        else {
+            setstoreiderror(false);
+        }
+      }, [error])
+    
     useEffect(() => {
-        console.log(borrowdata,'kk');
+        console.log(borrowdata,'kk',error);
         if (borrowdata.length > 0) {
             setisvalied(true);
             setstoreCode(borrowdata[0].Equipment.id)
@@ -66,8 +77,9 @@ const AcceptEquipment = () => {
 
             }}>
                 
-                <FormControl sx={{ m: 1, width: 300 }}>
-                    <TextField disabled={isvalied} value={storeCode} onChange={ (e)=>setstoreCode(e.target.value)} label='Store Code'  ></TextField>
+                <FormControl data-testid="storecode" sx={{ m: 1, width: 300 }}>
+                    <TextField   disabled={isvalied}  helperText={storeiderror ? "invalid store id":null}
+        error={storeiderror}  value={storeCode} onChange={ (e)=>setstoreCode(e.target.value)} label='Store Code'  ></TextField>
                 </FormControl>
                 {!isvalied  ? <Box>
                 <FormControl sx={{ m: 1, minWidth: 200 }}>

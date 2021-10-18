@@ -1,8 +1,8 @@
 import { FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import { Box } from "@mui/system"
 import { useState } from "react";
-import NormalBorrowing from "../../components/technical_officer/normal_borrowing";
-import TemporyBorrowing from "../../components/technical_officer/tempory_borrowing";
+import NormalBorrowing from "./normal_borrowing";
+import TemporyBorrowing from "./tempory_borrowing";
 
 
 const IssueEquipment = () => {

@@ -14,7 +14,7 @@ export const findIteamsByCatogary = (category) => async (dispatch) => {
     
 }
 export const getBorrowData = (store_code,fromDate, toDate) => async (dispatch) => {
-  console.log(store_code,'jj');
+  console.log(store_code,fromDate, toDate,'jj');
   try {
     const data = await api.getBorrowData(store_code,fromDate, toDate);
     
@@ -28,7 +28,7 @@ export const getBorrowData = (store_code,fromDate, toDate) => async (dispatch) =
 export const getCategories = () => async (dispatch) => {
   try {
     const data = await api.getCategories();
-    console.log(data.data);
+    console.log(data,'cate');
     dispatch({ type: Get_Categories, payload: data.data });
   }
   catch (error) {
@@ -101,9 +101,16 @@ export const updataEquipment = (store_code,status) => async (dispatch) => {
 export const getlastBorrowData = (storeCode) => async (dispatch) => {
   try {
     const data = await api.getlastBorrowData(storeCode);
-    console.log(data);
+     if (data.data == null) {
+        dispatch({ type: Store_Id_Error, payload: 'invalid' });
+      }
+      else {
+        dispatch({type:Store_Id_Error,payload:null});
+      }
+    console.log(data.data);
     dispatch({type:Get_Last_Borrow_Data ,payload:data.data});
   } catch (error) {
+     dispatch({ type: Store_Id_Error, payload: 'invalid' });
     console.log(error);
   }
 }

@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getEquipmentByStoreCode, updataEquipment } from "../../actions/technical_officer";
-import ScanScreen from "./scan_screen";
+import ScanScreen from "../../components/technical_officer/scan_screen";
 import JsBarcode from "jsbarcode";
-import Barcode from "./barcode";
+import Barcode from "../../components/technical_officer/barcode";
 
 const UpdateEquipment=() => {
     const [storeCode, setstoreCode] = useState('');
@@ -17,11 +17,22 @@ const UpdateEquipment=() => {
     const equipment = useSelector(state => state.equipment);
     const [open, setOpen] = useState(false);
     const [barcodedownload, setbarcodedownload] = useState(false);
+    const [storeiderror, setstoreiderror] = useState(false);
+    const error = useSelector(state => state.error);
     const dispatch = useDispatch();
     const submitData=() => {
         dispatch(updataEquipment(storeCode,damage));
         window.location.reload();
     }
+
+    useEffect(() => {
+        if (error.storeid) {
+            setstoreiderror(true);
+        }
+        else {
+            setstoreiderror(false);
+        }
+    }, [error])
     useEffect(() => {
         console.log(equipment != null);
         if (equipment != null) {
@@ -34,6 +45,9 @@ const UpdateEquipment=() => {
     }, [equipment]);
 
     const next = () => {
+        if (storeCode==='') {
+            setstoreiderror(true);
+        }
      dispatch(getEquipmentByStoreCode(storeCode));
     }
     const back = () => {
@@ -56,7 +70,8 @@ const UpdateEquipment=() => {
 
         }}>
             <FormControl sx={{ m: 1, minWidth: 200 }}>
-                    <TextField disabled={equipment!=null} value={storeCode} label='Store Code' onChange={(e)=>setstoreCode(e.target.value)} required></TextField>
+                    <TextField helperText={storeiderror ? "invalid store id":null}
+        error={storeiderror} disabled={equipment!=null} value={storeCode} label='Store Code' onChange={(e)=>setstoreCode(e.target.value)} required></TextField>
                     
             </FormControl>
             {equipment == null ?

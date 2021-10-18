@@ -25,7 +25,13 @@ const BorrowData = (data) => {
         
     }, [data])
     return (
-        <Card style={{backgroundColor:data.data.status==='open'? new Date(data.data.dueDate)< new Date()? colors.red[400]:colors.yellow[400]:colors.green[400]}}   sx={{width:400, maxWidth: 1000 ,display: 'flex'}}>
+        <Card style={{backgroundColor:data.data.status==='open'? new Date(data.data.dueDate)< new Date()? colors.red[400]:colors.yellow[400]:colors.green[400]}}   sx={{display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            borderRadius: '15px',
+            width: '100%',
+            position: 'relative',
+        m:'20'}}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                
                     <Typography component="div" variant="h5">Borrow Type: { data.data.type}</Typography>
@@ -38,13 +44,13 @@ const BorrowData = (data) => {
                     <Typography variant="subtitle1" color="text.secondary" component="div">State: 
                         { data.data.status}
                 </Typography>
-                 <Typography variant="subtitle1" color="text.secondary" component="div">State: 
+                 <Typography variant="subtitle1" color="text.secondary" component="div">
                           From Date: { data.data.fromDate.toString()}
                 </Typography>
-                 <Typography variant="subtitle1" color="text.secondary" component="div">State: 
+                 <Typography variant="subtitle1" color="text.secondary" component="div">
                           Due Date: { data.data.dueDate.toString()}
                 </Typography>
-                <Typography variant="subtitle1" color="text.secondary" component="div">State: 
+                <Typography variant="subtitle1" color="text.secondary" component="div"> 
                           Return Date: { data.data.returnDate!==null?data.data.returnDate.toString():'-'}
                 </Typography>
                 

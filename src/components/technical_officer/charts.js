@@ -52,19 +52,19 @@ const Charts = (type) => {
 	data={{ labels: labels,
         datasets:datasets}}
 	width={100}
-	height={50}
+	height={75}
 	options={{ maintainAspectRatio: true }}
 />:charttype==='line'? <Line
 	data={{ labels: labels,
         datasets:datasets}}
 	width={100}
-	height={50}
+	height={75}
 	options={{ maintainAspectRatio: true }}
 />: <Bar
 	data={{ labels: labels,
         datasets:datasets}}
 	width={100}
-	height={50}
+	height={75}
 	options={{ maintainAspectRatio: true, scales: {
       x: {
         stacked: true,

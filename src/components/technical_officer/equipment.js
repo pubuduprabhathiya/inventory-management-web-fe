@@ -1,5 +1,5 @@
 import { Preview } from "@mui/icons-material";
-import { Card, CardContent, CardMedia, colors, IconButton,  Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, colors, IconButton,  Link,  Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState,useEffect} from "react";
 
@@ -21,12 +21,26 @@ const Equipment = ({equipment, setequipment,selectequipment,fromDate, toDate}) =
             setcolourval(400);
         }
         else {
-            setcolourval(600);
+            setcolourval(700);
         }
      }, [selectequipment,equipment])
     return (
-        <Card style={{backgroundColor:colors.green[colourval]}}  onClick={(e)=> setborrowData(e)} sx={{ maxWidth: 500 ,display: 'flex'}}>
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+       
+        <Card style={{backgroundColor:equipment.availability===1?colors.green[colourval]:colors.red[colourval]}}  onClick={(e)=> setborrowData(e)} sx={{display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            borderRadius: '15px',
+            width: '100%',
+            position: 'relative'
+        }}>
+            
+            <Box sx={{  display: 'flex',
+                justifyContent: 'space-between',
+                margin: '20px',
+            }}><CardMedia component="img"
+                sx={{ maxHeight: 100 }}
+                image={ equipment.imageURL}
+                alt="Live from space album cover" />
                 <CardContent>
                     <Typography component="div" variant="h5">{equipment.Category.categoryName}</Typography>
                     <Typography variant="subtitle1" color="text.secondary" component="div">{equipment.model.modelName}</Typography>
@@ -35,17 +49,17 @@ const Equipment = ({equipment, setequipment,selectequipment,fromDate, toDate}) =
                 </CardContent>
                 
             </Box>
-            <CardMedia component="img"
-        sx={{ width: 151 }}
-                image={ equipment.imageURL}
-                alt="Live from space album cover" />
-             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            
+             <Box sx={{ display: 'flex', flexDirection: 'column' ,
+                justifyContent:'center',
+                margin: '20px', }}>
             <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
                     <IconButton  > <Preview/></IconButton>
             </Box>
-            <Typography component="div" variant="h5">{equipment.availability===1?'Available':'UnAvailable'}</Typography>
+            <Typography  component="div" variant="h5">{equipment.availability===1?'Available':'UnAvailable'}</Typography>
             </Box>
-        </Card>
+            </Card>
+           
     );
 
 };

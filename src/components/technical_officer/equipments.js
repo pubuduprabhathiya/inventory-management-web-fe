@@ -31,18 +31,19 @@ const Equipments = ({ fromDate, toDate}) => {
         <Box sx={{
       flexDirection: { xs: 'column', md: 'row' },
                 alignItems: 'center',
+                 width: '35%',
       bgcolor:colors.green[100],
     }}>
                 {equipments.map((equipment) => (
                 
-                <Box key={equipment.id}   sx={{
+                <Box data-testid="equipment" key={equipment.id}   sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: { xs: 'center', md: 'start' },
           m: 3,
 
         }}>
-                        <Equipment equipment={equipment} setequipment={setequipment} selectequipment={selectequipment} fromDate={fromDate} toDate={ toDate}  />
+                        <Equipment  equipment={equipment} setequipment={setequipment} selectequipment={selectequipment} fromDate={fromDate} toDate={ toDate}  />
                 </Box>
             ))}
         </Box>)

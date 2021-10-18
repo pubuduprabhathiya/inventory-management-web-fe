@@ -18,6 +18,7 @@ const TechnicalOfficer = () => {
             <Header/>
        
         <Switch>
+         
         <Route path='/technicalofficer/viewtrackofequipment'>
           <ViewTrack/>
         </Route>
