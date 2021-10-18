@@ -1,3 +1,4 @@
+
 import { Get_Report } from "../../actions/action_types";
 
 export default (report = [], action) => {
@@ -7,5 +8,6 @@ export default (report = [], action) => {
         default:
             return report;
     }
+
 
 };

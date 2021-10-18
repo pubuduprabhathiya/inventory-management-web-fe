@@ -1,3 +1,4 @@
+
 import { Get_Borrow_Data ,Get_Last_Borrow_Data} from "../../actions/action_types";
 
 export default (borrowdata = [], action) => {
@@ -10,5 +11,6 @@ export default (borrowdata = [], action) => {
             return borrowdata;
         
     }
+
 
 };

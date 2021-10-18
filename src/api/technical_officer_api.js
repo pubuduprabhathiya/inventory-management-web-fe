@@ -1,3 +1,4 @@
+
 import axios from 'axios';
 
 const url = 'http://localhost:5000/technicalofficer';
@@ -149,4 +150,5 @@ export const getReport = (fromdate, toDate, categories,reportType) =>axios.post(
 //     //list.map((date)=>[date,categories.map()]);
     
 //     return (list)
+
 // }
