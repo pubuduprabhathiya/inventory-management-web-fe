@@ -1,4 +1,3 @@
-
 import { Get_Categories } from "../../actions/action_types";
 
 export default (categories = [], action) => {
@@ -8,6 +7,5 @@ export default (categories = [], action) => {
         default:
             return categories;
     }
-
 
 };

@@ -1,4 +1,3 @@
-
 import { Get_Models } from "../../actions/action_types";
 
 export default (models = [], action) => {
@@ -8,6 +7,5 @@ export default (models = [], action) => {
         default:
             return models;
     }
-
 
 };

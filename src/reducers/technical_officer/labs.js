@@ -1,4 +1,3 @@
-
 import { Get_Labs } from "../../actions/action_types";
 
 export default (labs = [], action) => {
@@ -8,6 +7,5 @@ export default (labs = [], action) => {
         default:
             return labs;
     }
-
 
 };
