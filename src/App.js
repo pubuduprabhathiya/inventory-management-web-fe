@@ -1,15 +1,10 @@
-
 import { Switch, Route } from 'react-router-dom';
 import TechnicalOfficer from './router/technical_officer';
 import "../src/component/Layout/FontawsomeIcon";
 import Student from './router/student';
 import Lecturer from './router/lecturer';
 
-
-import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
-import TechnicalOfficer from './router/technical_officer';
 function App() {
-
   return(
     <Switch>
       <Route path='/technicalofficer'>
@@ -22,7 +17,6 @@ function App() {
         <Lecturer/>
       </Route>
       </Switch>
-
   );
 }
 

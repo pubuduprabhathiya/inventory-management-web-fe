@@ -1,4 +1,3 @@
-
 import { Get_Equipment_By_Category } from "../../actions/action_types";
 
 export default (equipments = [], action) => {
@@ -8,5 +7,4 @@ export default (equipments = [], action) => {
         default:
             return equipments;
     }
-
 };

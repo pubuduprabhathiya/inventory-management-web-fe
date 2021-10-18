@@ -1,4 +1,3 @@
-
 import { Store_Id_Error } from "../../actions/action_types";
 
 export default (error = {}, action) => {
@@ -8,6 +7,5 @@ export default (error = {}, action) => {
         default:
             return error;
     }
-
 
 };

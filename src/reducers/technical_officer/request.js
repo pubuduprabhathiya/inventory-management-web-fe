@@ -1,4 +1,3 @@
-
 import { Get_Request } from "../../actions/action_types";
 
 export default (request = [], action) => {
@@ -9,6 +8,5 @@ export default (request = [], action) => {
             return request;
         
     }
-
 
 };
