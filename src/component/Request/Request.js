@@ -28,10 +28,10 @@ const Request = (props)=>{
         return(<h1>No Data</h1>)
     }
 
-    //console.log(loadedData);
+    console.log(loadedData);
 
     const buttonClickHandler=(id)=>{
-        history.push(`/requestDetail/${id}`)
+        history.push(`/lecturer/requestDetail/${id}`)
     }
 
     const requestList = loadedData.map((request)=>{
