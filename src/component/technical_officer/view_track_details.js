@@ -5,7 +5,7 @@ import BorrowData from "./borrow_data";
 
 const ViewTracDetails = () => {
     const borrowData = useSelector(state => state.borrowdata)
-    console.log(borrowData,'hi');
+  
     return (
         !borrowData.length ? <Box /> : (
            

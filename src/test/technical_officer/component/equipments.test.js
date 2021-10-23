@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import * as reactRedux from 'react-redux'
-import Equipments from '../../../components/technical_officer/equipments';
+import Equipments from '../../../component/technical_officer/equipments';
 
 describe("equipments", () => {
 
@@ -14,7 +14,7 @@ describe("equipments", () => {
      test('Equipments',async () => {
        const dummyDispatch = jest.fn()
         useDispatchMock.mockReturnValue(dummyDispatch)
-        useSelectorMock.mockReturnValueOnce([{ id: '1-1-1-1', imageURL: '', Laboratory: { labName: 'lab name' }, model: { modelName: 'model name' }, Category: { categoryName: 'category name' }, availability: 1 }])
+        useSelectorMock.mockReturnValueOnce([{ id: '1-1-1-1', imageURL: '', Lab: { labName: 'lab name' }, Model: { modelName: 'model name' }, Category: { categoryName: 'category name' }, availability: 1 }])
          render(<Equipments fromDate={new Date()} toDate={ new Date()}/>);
       
      const listElement = await screen.findAllByTestId('equipment');

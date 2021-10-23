@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import * as reactRedux from 'react-redux'
 
-import ViewTracDetails from '../../../components/technical_officer/view_track_details';
+import ViewTracDetails from '../../../component/technical_officer/view_track_details';
 
 describe("View Track Details", () => {
 
@@ -17,7 +17,7 @@ describe("View Track Details", () => {
         useDispatchMock.mockReturnValue(dummyDispatch)
         useSelectorMock.mockReturnValueOnce([{
              type: "temporary", status: 'open', LecturerBorrowings: [],
-             TemporyBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
+             TemoryBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
               dueDate: '2021-09-30',
              returnDate: '2021-09-28',
              fromDate:'2021-09-25'

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import BorrowData from '../../../components/technical_officer/borrow_data';
+import BorrowData from '../../../component/technical_officer/borrow_data';
 
 
 describe('BorrowData Test', () => {
@@ -8,7 +8,7 @@ describe('BorrowData Test', () => {
   test('renders BorrowData type tempory',()=>{
          render(<BorrowData data={{
              type: "temporary", status: 'open', LecturerBorrowings: [],
-             TemporyBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
+             TemoryBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
              dueDate: new Date(),
              returnDate: null,
              fromDate:new Date()
@@ -19,7 +19,7 @@ describe('BorrowData Test', () => {
         test('renders BorrowData name',()=>{
          render(<BorrowData data={{
              type: "temporary", status: 'open', LecturerBorrowings: [],
-             TemporyBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
+             TemoryBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
              dueDate: new Date(),
              returnDate: null,
              fromDate:new Date()
@@ -30,7 +30,7 @@ describe('BorrowData Test', () => {
         test('renders BorrowData department',()=>{
          render(<BorrowData data={{
              type: "temporary", status: 'open', LecturerBorrowings: [],
-             TemporyBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
+             TemoryBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
              dueDate: new Date(),
              returnDate: null,
              fromDate:new Date()
@@ -42,7 +42,7 @@ describe('BorrowData Test', () => {
          test('renders BorrowData status',()=>{
          render(<BorrowData data={{
              type: "temporary", status: 'open', LecturerBorrowings: [],
-             TemporyBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
+             TemoryBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
              dueDate: '2021-09-30',
              returnDate: null,
              fromDate:'2021-09-25'
@@ -54,7 +54,7 @@ describe('BorrowData Test', () => {
         test('renders BorrowData fromdate',()=>{
          render(<BorrowData data={{
              type: "temporary", status: 'open', LecturerBorrowings: [],
-             TemporyBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
+             TemoryBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
               dueDate: '2021-09-30',
              returnDate: null,
              fromDate:'2021-09-25'
@@ -66,7 +66,7 @@ describe('BorrowData Test', () => {
         test('renders BorrowData duedate',()=>{
          render(<BorrowData data={{
              type: "temporary", status: 'open', LecturerBorrowings: [],
-             TemporyBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
+             TemoryBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
               dueDate: '2021-09-30',
              returnDate: null,
              fromDate:'2021-09-25'
@@ -78,7 +78,7 @@ describe('BorrowData Test', () => {
         test('renders BorrowData returnDate state open',()=>{
          render(<BorrowData data={{
              type: "temporary", status: 'open', LecturerBorrowings: [],
-             TemporyBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
+             TemoryBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
               dueDate: '2021-09-30',
              returnDate: null,
              fromDate:'2021-09-25'
@@ -90,7 +90,7 @@ describe('BorrowData Test', () => {
     test('renders BorrowData returnDate state close',()=>{
          render(<BorrowData data={{
              type: "temporary", status: 'open', LecturerBorrowings: [],
-             TemporyBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
+             TemoryBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
               dueDate: '2021-09-30',
              returnDate: '2021-09-28',
              fromDate:'2021-09-25'
@@ -102,7 +102,7 @@ describe('BorrowData Test', () => {
          render(<BorrowData data={{
              type: "lecture", status: 'open',
              LecturerBorrowings:[{ lecturer: { lastName: 'last', firstName: 'first', department: 'dep' } }],
-             TemporyBorrowings: [],
+             TemoryBorrowings: [],
              dueDate: new Date(),
              returnDate: null,
              fromDate:new Date()
@@ -110,7 +110,18 @@ describe('BorrowData Test', () => {
         const Element = screen.getByText('lecture',{exact:false});
         expect(Element).toBeInTheDocument();
      });
-   
+   test('renders BorrowData type normal',()=>{
+         render(<BorrowData data={{
+             type: "normal", status: 'open',
+             LecturerBorrowings:[{ lecturer: { lastName: 'last', firstName: 'first', department: 'dep' } }],
+             RequestBorrowings: [{ student: { lastName: 'last', firstName: 'first', department: 'dep' } }],
+             dueDate: new Date(),
+             returnDate: null,
+             fromDate:new Date()
+         }} />);
+        const Element = screen.getByText('normal',{exact:false});
+        expect(Element).toBeInTheDocument();
+     });
     
     
     

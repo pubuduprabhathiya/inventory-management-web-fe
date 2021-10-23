@@ -11,14 +11,19 @@ const BorrowData = (data) => {
     useEffect(() => {
         console.log(data.data, 'dasta');
         if (data.data.type === 'lecture') {
-            console.log(data.data.LecturerBorrowings[0].lecturer, 'dassta');
+            console.log(data.data.LecturerBorrowings.lecturer, 'dassta');
       
             const lec = data.data.LecturerBorrowings[0].lecturer;
             setdepartment(lec.department);
             setname(lec.firstName + ' ' + lec.lastName);
        
         } else if (data.data.type === 'temporary') {
-            const student = data.data.TemporyBorrowings[0].student;
+             console.log(data.data.TemoryBorrowings);
+            const student = data.data.TemoryBorrowings[0].student;
+            setdepartment(student.department);
+            setname(student.firstName + ' ' + student.lastName);
+        }else if (data.data.type === 'normal') {
+            const student = data.data.RequestBorrowings[0].student;
             setdepartment(student.department);
             setname(student.firstName + ' ' + student.lastName);
         }

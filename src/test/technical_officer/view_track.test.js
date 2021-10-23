@@ -1,6 +1,6 @@
 import { screen, fireEvent,render } from "@testing-library/react"
 //import { render } from "./test.utils";
-import ViewTrack from "../../pages/technical_officer/view_track";
+import ViewTrack from "../../screen/technical_officer/view_track";
 import * as reactRedux from 'react-redux'
 import { BrowserRouter } from "react-router-dom";
 import userEvent from '@testing-library/user-event'
@@ -15,7 +15,7 @@ describe('View Track tes', () => {
 
     test('category',async () => {
        const dummyDispatch = jest.fn()
-        useDispatchMock.mockReturnValue(dummyDispatch)
+       
         useSelectorMock.mockReturnValueOnce([{
                     categoryName: "Projecter",
                     id: 1
@@ -23,14 +23,22 @@ describe('View Track tes', () => {
                     categoryName: "camera",
                     id: 2
                 }]
-        ).mockReturnValueOnce([]).mockReturnValueOnce([])
+        ).mockReturnValueOnce([]).mockReturnValueOnce([]).mockReturnValueOnce([]).mockReturnValueOnce([]).mockReturnValueOnce([])
+         useDispatchMock.mockReturnValue(dummyDispatch)
         render(<ViewTrack />);
    const autocomplete =screen.getByRole('combobox');
-   const input =await autocomplete.querySelector('input')
-
-   autocomplete.focus()
-   // assign value to input field
-    userEvent.type(input, 'Projecter');
+  
+        const input =await autocomplete.querySelector('input')
+       
+        const btn =  await autocomplete.querySelector('button')
+        userEvent.click(btn);
+        fireEvent.change(input, { target: { value: 'Projecter' } })
+        fireEvent.keyDown(autocomplete, { key: 'ArrowDown' })
+        fireEvent.keyDown(autocomplete, { key: 'Enter' })
+        
+  
+        
+        expect(input.value).toBe('Projecter')
      
    expect(input.value).toBe('Projecter')
     });

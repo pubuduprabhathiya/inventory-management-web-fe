@@ -11,3 +11,4 @@ export const Get_Request = 'Get_Request';
 export const Get_Report = 'Get_Report';
 
 export const Store_Id_Error = 'Store_Id_Error';
+export const ERROR = 'ERROR';

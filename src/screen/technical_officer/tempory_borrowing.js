@@ -42,10 +42,10 @@ const TemporyBorrowing = () => {
     }, [error])
     useEffect(() => {
     
-        console.log(equipment != null);
+        console.log(equipment);
         if (equipment != null) {
             setcategory(equipment.Category.categoryName);
-            setmodel(equipment.model.modelName);
+            setmodel(equipment.Model.modelName);
             setstoreid(equipment.id);
         }
         else {    
@@ -71,17 +71,17 @@ const TemporyBorrowing = () => {
     }}>
         <FormControl sx={{ m: 1, width: 300 }}>
             
-            <TextField  value={userid} onChange={(e) => setuserid(e.target.value)} label='User Id'  ></TextField>
+            <TextField data-testid="userid"  value={userid} onChange={(e) => setuserid(e.target.value)} label='User Id'  ></TextField>
             
         </FormControl>
          <FormControl sx={{ m: 1, width: 300 }}>
             
-            <TextField helperText={storeiderror ? "invalid store id":null}
+            <TextField data-testid="storeid" helperText={storeiderror ? "invalid store id":null}
         error={storeiderror} value={storeid} onChange={(e) => setstoreid(e.target.value)} label='Store Id' onBlur={(e)=>getdatabystoreid(e.target.value)} ></TextField>
             
         </FormControl>
-        <FormControl sx={{ m: 1, minWidth: 300 }}>
-                    <TextField disabled={true} value={category} label='Category'  ></TextField>
+        <FormControl  sx={{ m: 1, minWidth: 300 }}>
+                    <TextField data-testid="category" disabled={true} value={category} label='Category'  ></TextField>
 
                     
         </FormControl>
@@ -93,7 +93,7 @@ const TemporyBorrowing = () => {
                     
         </FormControl>
         <FormControl sx={{ m: 1, minWidth: 300 }}>
-                    <TextField  value={reaaon} onChange={(e)=>setreaaon(e.target.value)} label='Reason'  ></TextField>
+                    <TextField data-testid="reason"  value={reaaon} onChange={(e)=>setreaaon(e.target.value)} label='Reason'  ></TextField>
 
                     
         </FormControl>
