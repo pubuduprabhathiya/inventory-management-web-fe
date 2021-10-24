@@ -1,7 +1,7 @@
 
 
 import React, { Component } from 'react';
-import LoginForm from '../../containers/Forms/LoginForm';
+import LoginForm from '../../containers/Forms/LoginForm2';
 
 
 class Login extends Component {
@@ -27,6 +27,7 @@ class Login extends Component {
 
     render() { 
         return ( 
+            
             <div className="container-fluid bg-success">
                 <div className="row" style={this.style1} >
                     <div className="col-sm-8 my-auto" >

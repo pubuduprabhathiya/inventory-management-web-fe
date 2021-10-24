@@ -66,7 +66,7 @@ class NewStudentApplication extends Component {
     }  ;
     AdminService.createStudent(newStudent)
       .then((response) => {
-        alert("New Student Registered!");
+        
         
         this.setState({
           // lastIndex:this.state.index,
@@ -81,8 +81,12 @@ class NewStudentApplication extends Component {
          
         });
       
-        // console.log(response.data[0].id);
-        window.location.reload();
+        if(response.code != 200){
+          alert(response.message);          
+        }else{
+          alert("New Student Registered!");
+          window.location.reload();
+        }
       })
       .catch((e) => {
         console.log(e);

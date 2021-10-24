@@ -50,7 +50,7 @@ class OfficeClerkSideMenu extends Component {
                 {tabName: "Repair History" , url: "/office-clerk/old-damage"},
                 // {tabName: "Add New Office Clerk" , url: "/admin/add-office-clerk"},
                 // {tabName: "Add New Laboratory" , url: "/admin/add-laboratory"},
-                {tabName: "<< Dashboard" , url: "/office-clerk/dashboard"},
+                {tabName: "<< Dashboard" , url: "/"},
                 
              
             ]

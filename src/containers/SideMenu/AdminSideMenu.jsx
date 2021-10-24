@@ -12,7 +12,7 @@ class AdminSideMenu extends Component {
                 {tabName: "Add New Technical Officer" , url: "/admin/add-technical-officer"},
                 {tabName: "Add New Office Clerk" , url: "/admin/add-office-clerk"},
                 {tabName: "Add New Laboratory" , url: "/admin/add-laboratory"},
-                {tabName: "<< Dashboard" , url: "/admin/dashboard"},
+                {tabName: "<< Dashboard" , url: "/"},
                 
              
             ]

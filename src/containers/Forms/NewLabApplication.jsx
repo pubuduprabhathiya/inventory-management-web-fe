@@ -31,23 +31,25 @@ class NewLabApplication extends Component {
     var newClerk = {
       labName: this.state.labName,
       department: this.state.department,
-    }  ;
+    };
+
     AdminService.createLaboratory(newClerk)
       .then((response) => {
-        alert("New Laboratory is Registered!");
         
-        this.setState({
-          
-     
+        console.log(response);
+        this.setState({         
           labName: "",
-          department: "",
-         
+          department: "",         
         });
-      
-        // console.log(response.data[0].id);
-        window.location.reload();
+        if(response.code != 200){
+          alert(response.message);          
+        }else{
+          alert("New Laboratory is Registered!");
+          window.location.reload();
+        }        
       })
       .catch((e) => {
+        alert("Error! Try again later!");
         console.log(e);
       });
   }

@@ -84,7 +84,7 @@ class NewTechnicalOfficerApplication extends Component {
     };
     AdminService.createTechnicalOfficer(newOfficer)
       .then((response) => {
-        alert("New Technical Officer Registered!");
+        
 
         this.setState({
           // lastIndex:this.state.index,
@@ -98,8 +98,12 @@ class NewTechnicalOfficerApplication extends Component {
           confirmPw: "",
         });
 
-        // console.log(response.data[0].id);
-        window.location.reload();
+        if(response.code != 200){
+          alert(response.message);          
+        }else{
+          alert("New Technical Officer Registered!");
+          window.location.reload();
+        }
       })
       .catch((e) => {
         console.log(e);

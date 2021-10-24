@@ -63,7 +63,7 @@ class NewOfficeClerkApplication extends Component {
     }  ;
     AdminService.createOfficeClerk(newClerk)
       .then((response) => {
-        alert("New Office Clerk Registered!");
+       
         
         this.setState({
           // lastIndex:this.state.index,
@@ -76,9 +76,16 @@ class NewOfficeClerkApplication extends Component {
       confirmPw:""
          
         });
+
+        if(response.code != 200){
+          alert(response.message);          
+        }else{
+          alert("New Office Clerk Registered!");
+          window.location.reload();
+        }
+
       
-        // console.log(response.data[0].id);
-        window.location.reload();
+
       })
       .catch((e) => {
         console.log(e);

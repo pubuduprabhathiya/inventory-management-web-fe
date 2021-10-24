@@ -3,24 +3,24 @@ import OldDamageItems from "../../../containers/OfficeClerkContainer/OldDamageIt
 import NavBar from "../../../containers/Navbar/Navbar";
 import OfficeClerkSideMenu from "../../../containers/SideMenu/OfficeClerkSideMenu";
 import { withRouter } from "react-router-dom";
-class NewDamageRequestView extends Component {
+class OldDamageRequestView extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.checkLogin();
+    // this.checkLogin();
   }
 
-  componentDidMount() {
-    this.checkLogin();
-  }
-  checkLogin(){
-    var type = localStorage.getItem('token');
-    var user = localStorage.getItem('user');
-    if(!type || user != "OfficeClerk"){
-      this.props.history.push("/");
-      return ;
-    }
-  }
+  // componentDidMount() {
+  //   this.checkLogin();
+  // }
+  // checkLogin(){
+  //   var type = localStorage.getItem('token');
+  //   var user = localStorage.getItem('user');
+  //   if(!type || user != "OfficeClerk"){
+  //     this.props.history.push("/");
+  //     return ;
+  //   }
+  // }
   render() {
     return (
       <div>
@@ -39,4 +39,4 @@ class NewDamageRequestView extends Component {
   }
 }
 
-export default withRouter(NewDamageRequestView);
+export default withRouter(OldDamageRequestView);

@@ -28,11 +28,9 @@ class NewLectureApplication extends Component {
     AdminService.getLastLecturer()
       .then((response) => {
         this.setState({
-          lastIndex: response.data[0].id,
-         
+          lastIndex: response.data[0].id,         
         });
-      
-        // console.log(response.data[0].id);
+
       })
       .catch((e) => {
         console.log(e);
@@ -67,23 +65,24 @@ class NewLectureApplication extends Component {
     }  ;
     AdminService.createLecture(newLecture)
       .then((response) => {
-        alert("New Lecture Registered!");
         
-        this.setState({
-          // lastIndex:this.state.index,
-     
+        
+        this.setState({     
       index:"",
       firstName: "",
       lastName:"",
       department: "",
       email: "",
       password: "",
-      confirmPw:""
-         
+      confirmPw:""         
         });
-      
-        // console.log(response.data[0].id);
-        window.location.reload();
+        if(response.code != 200){
+          alert(response.message);          
+        }else{
+          alert("New Lecture Registered!");
+          window.location.reload();
+        }
+
       })
       .catch((e) => {
         console.log(e);

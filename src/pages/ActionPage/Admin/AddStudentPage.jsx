@@ -9,19 +9,19 @@ class AddStudentPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.checkLogin();
+    // this.checkLogin();
   }
-  componentDidMount() {
-    this.checkLogin();
-  }
-  checkLogin(){
-    var type = localStorage.getItem('token');
-    var user = localStorage.getItem('user');
-    if(!type || user != "Admin"){
-      this.props.history.push("/");
-      return ;
-    }
-  }
+  // componentDidMount() {
+  //   this.checkLogin();
+  // }
+  // checkLogin(){
+  //   var type = localStorage.getItem('token');
+  //   var user = localStorage.getItem('user');
+  //   if(!type || user != "Admin"){
+  //     this.props.history.push("/");
+  //     return ;
+  //   }
+  // }
   render() {
     return (
       <div>
