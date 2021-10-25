@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from './store/actions/auth';
 
-import Main from './pages/Main';
+import Main from './screen/Main';
 
 
 
@@ -22,7 +22,29 @@ class App extends Component {
       </div>     
     );
   } 
+
 }
+// import { Switch, Route } from 'react-router-dom';
+// import TechnicalOfficer from './router/technical_officer';
+// import "../src/component/Layout/FontawsomeIcon";
+// import Student from './router/student';
+// import Lecturer from './router/lecturer';
+
+// function App() {
+//   return(
+//     <Switch>
+//       <Route path='/technicalofficer'>
+//         <TechnicalOfficer />
+//       </Route>
+//       <Route path='/student'>
+//         <Student/>
+//       </Route>
+//       <Route path='/lecturer'>
+//         <Lecturer/>
+//       </Route>
+//       </Switch>
+//   );
+// }
 
 const mapDispatchToProps = dispatch => {
   return {
