@@ -37,7 +37,7 @@
 // export default OfficeClerkSideMenu;
 
 import React, { Component } from 'react'
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../component/CustomButton';
 
 
 class OfficeClerkSideMenu extends Component {

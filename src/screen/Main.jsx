@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 
 
-import * as actions from '../store/actions/';
+import * as actions from '../store/actions';
 
 import Login from "./Login/Login";
 
@@ -18,11 +18,15 @@ import AddLaboratory from "./ActionPage/Admin/AddLaboratoryPage";
 
 
 import OfficeClerkDashboard from './Dashboard/OfficeClerkDashboard.jsx';
-import NewDamageViewPage from './ActionPage/OfficeClerk/NewDamageRequestViewPage.jsx';
+import NewDamageViewPage from './ActionPage/OfficeClerk/NewDamageRequestViewPage';
 import OldDamageViewPage from './ActionPage/OfficeClerk/OldDamageRequestViewPage';
 import PendingDamageViewPage from './ActionPage/OfficeClerk/PendingRepairViewPage';
 
 import CustomDashboard from './Dashboard/CustomDashboard';
+
+import Student from '../router/student';
+import Lecturer from '../router/lecturer';
+import TechnicalOfficer from '../router/technical_officer';
 
 const Main = (props) => {
     return (
@@ -49,6 +53,7 @@ const Content = ({ isAuthenticated }) => {
 
     if (isAuthenticated) {
         let userType = localStorage.getItem('userType');
+        console.log(userType + "aaaa");  
         if(userType === "Admin")routes = () => (        
                 <Switch >
                     <Route path="/" exact component={AdminDashboard}/>
@@ -59,19 +64,28 @@ const Content = ({ isAuthenticated }) => {
                     <Route path="/admin/add-laboratory" component={AddLaboratory}/>
                 </Switch>
             );
-        if(userType === "Student")routes = () => (        
+        if(userType === "Student")routes = () => (              
                 <Switch >
-                    <Route path="/" component={CustomDashboard}/>
+                    <Route path="/"  exact component={CustomDashboard}/>
+                    {/* <Route path='/student'>
+                        <Student/>
+                    </Route>                     */}
                 </Switch>
             );
         if(userType === "Lecturer")routes = () => (        
                 <Switch >
-                    <Route path="/" component={CustomDashboard}/>
+                    <Route path="/" exact component={CustomDashboard}/>
+                    <Route path='/lecturer'>
+                        <Lecturer/>
+                    </Route> 
                 </Switch>
             );
         if(userType === "TechnicalOfficer")routes = () => (        
                 <Switch >
-                    <Route path="/" component={CustomDashboard}/>
+                    <Route path="/" exact component={CustomDashboard}/>
+                    <Route path='/technicalofficer'>
+                        <TechnicalOfficer/>
+                    </Route> 
                 </Switch>
             );
         if(userType === "OfficeClerk")routes = () => (        

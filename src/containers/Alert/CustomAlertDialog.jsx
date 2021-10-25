@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Dialog from '../../components/Dialog';
+import Dialog from '../../component/Dialog';
 
 class CustomConfirm extends Component {
   state = {

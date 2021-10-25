@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import BrokenItemCard from "../../components/BrokenItemCard";
+import BrokenItemCard from "../../component/BrokenItemCard";
 // import { Link } from "react-router-dom";
 import OfficeClerkService from "../../api/office_clerk_api";
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import OldBrokenItemCard from '../../components/OldBrokenItem';
+import OldBrokenItemCard from '../../component/OldBrokenItem';
 import { Link } from "react-router-dom";
 import OfficeClerkService from "../../api/office_clerk_api";
 

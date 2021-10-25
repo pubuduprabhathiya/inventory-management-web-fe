@@ -6,7 +6,7 @@ import Charts from "../../component/technical_officer/charts";
 
 import {  LocalizationProvider,DesktopDatePicker } from "@mui/lab";
 import DateAdapter from '@mui/lab/AdapterDateFns';
-import { getCategories, getReport } from "../../actions/technical_officer";
+import { getCategories, getReport } from "../../store/actions/technical_officer";
 import { Excel } from "../../component/technical_officer/excel";
 
 const Report = () => {
