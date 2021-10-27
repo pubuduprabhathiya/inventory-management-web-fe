@@ -32,9 +32,9 @@ const Main = (props) => {
     return (
         <BrowserRouter>
             <div>
-                {/* <Header /> */}
+            
                 <Content isAuthenticated={props.isAuthenticated}  />
-                {/* <Footer /> */}
+            
             </div>
         </BrowserRouter>
     );
@@ -53,7 +53,8 @@ const Content = ({ isAuthenticated }) => {
 
     if (isAuthenticated) {
         let userType = localStorage.getItem('userType');
-        console.log(userType + "aaaa");  
+        console.log("userType");  
+        console.log(userType);  
         if(userType === "Admin")routes = () => (        
                 <Switch >
                     <Route path="/" exact component={AdminDashboard}/>
@@ -67,9 +68,9 @@ const Content = ({ isAuthenticated }) => {
         if(userType === "Student")routes = () => (              
                 <Switch >
                     <Route path="/"  exact component={CustomDashboard}/>
-                    {/* <Route path='/student'>
+                    <Route path='/student'>
                         <Student/>
-                    </Route>                     */}
+                    </Route>                    
                 </Switch>
             );
         if(userType === "Lecturer")routes = () => (        
@@ -110,8 +111,9 @@ const Content = ({ isAuthenticated }) => {
 };
 
 const mapStateToProps = state => {
+    console.log("state"+state.reducer.token );
     return {
-        isAuthenticated: !(state.token === null || state.token === undefined),
+        isAuthenticated: !(state.reducer.token === null || state.reducer.token === undefined),
         // userType : this.state.userType
     };
 };

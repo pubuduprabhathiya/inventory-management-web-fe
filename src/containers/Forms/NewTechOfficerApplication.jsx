@@ -73,6 +73,7 @@ class NewTechnicalOfficerApplication extends Component {
     }
   }
 
+
   createTechnicalOfficer() {
     var newOfficer = {
       index: this.state.index,
@@ -176,6 +177,7 @@ class NewTechnicalOfficerApplication extends Component {
               <br />
               <select
                 value={this.state.labId}
+                
                 onChange={this.handleChange}
                 className="custom-select"
                 style={{ width: "100%", border: "none" }}

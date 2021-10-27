@@ -23,6 +23,7 @@ const authStart = ( state, action ) => {
 };
 
 const authSuccess = (state, action) => {
+    console.log("start update");
     return updateObject( state, { 
         token: action.token,
         user: action.user,
@@ -51,6 +52,7 @@ const setAuthRedirectPath = (state, action) => {
 
 
 const reducer = ( state = initialState, action ) => {
+    console.log(action,"action");
     switch ( action.type ) {
         case actionTypes.AUTH_START: return authStart(state, action);
         case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);

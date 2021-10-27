@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 
-import { login } from "../../api/auth_api";
 
-import jwt from "jwt-decode";
-import { withRouter } from "react-router-dom";
+
+import * as actions from '../../store/actions/auth';
+import { connect } from 'react-redux';
+
 
 class LoginForm extends Component {
   constructor(props) {
@@ -12,56 +13,24 @@ class LoginForm extends Component {
       email: "",
       password: "",
     };
-    this.getRoute();
+    // this.getRoute();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  componentDidMount() {
+    if (this.props.authRedirectPath !== '/') {
+        this.props.onSetAuthRedirectPath();
+    }
+}
 
   handleSubmit = async (event) => {
     // alert("New Lecturer Registered!");
     event.preventDefault();
-    const data = {
-      email: this.state.email,
-      password: this.state.password,
-    };
-    try {
-      let tokenData = await login(data);
-      console.log(tokenData.data.token);
-
-      const token = tokenData.data.token;
-      if (token) {
-        localStorage.setItem("token", token);
-        const user = jwt(token); //
-        console.log(user.type);
-        localStorage.setItem("user", user.type);
-        this.props.history.push(this.getRoute(user.type));
-      }
-    } catch (e) {
-      console.log("no token");
-      alert("New invalid email or password!");
-      this.props.history.push("/");
-      return;
-    }
+    await this.props.onAuth(this.state.email, this.state.password);
+    
   };
 
-  getRoute(type) {
-    if (type == "Admin") {
-      return "/admin/dashboard";
-    }
-    if (type == "Student") {
-      return "/custom/dashboard";
-    }
-    if (type == "OfficeClerk") {
-      return "/office-clerk/dashboard";
-    }
-    if (type == "TechnicalOfficer") {
-      return "/custom/dashboard";
-    }
-    if (type == "Lecturer") {
-      return "/custom/dashboard";
-    }
 
-    return "/";
-  }
 
   render() {
     return (
@@ -110,4 +79,21 @@ class LoginForm extends Component {
   }
 }
 
-export default withRouter(LoginForm);
+const mapStateToProps = state => {
+    return {
+        loading: state.loading,
+        error: state.error,
+        isAuthenticated: !(state.token === null || state.token === undefined),
+        token: state.token,
+        authRedirectPath: state.authRedirectPath
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (email, password) => dispatch(actions.auth(email, password)),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
