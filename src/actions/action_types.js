@@ -12,3 +12,8 @@ export const Get_Report = 'Get_Report';
 
 export const Store_Id_Error = 'Store_Id_Error';
 export const ERROR = 'ERROR';
+export const Add_Category = 'Add_Category';
+export const Category_Name_Error = 'Category_Name_Error';
+export const Model_Name_Error = 'Model_Name_Error';
+export const Avalilability_Error = 'Avalilability_Error';
+export const Userid_error = 'Userid_error';

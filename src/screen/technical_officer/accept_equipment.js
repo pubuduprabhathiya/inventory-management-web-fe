@@ -12,7 +12,7 @@ const AcceptEquipment = () => {
     const [open, setopen] = useState(false);
     const borrowdata = useSelector(state => state.borrowdata);
     const [isvalied, setisvalied] = useState(false);
-    const [damage, setdamage] = useState('notdamaged');
+    const [damage, setdamage] = useState('notdamage');
     const [name, setname] = useState('');
     const [userid, setuserid] = useState('');
 const error = useSelector(state => state.error);
@@ -192,8 +192,8 @@ const error = useSelector(state => state.error);
                                      data-testid="selectdamage"
                                     labelId='select-label'
                                     value={damage} onChange={(e) => setdamage(e.target.value)} label='Select one..'>
-                                    <MenuItem value='notdamaged'>Not Damage</MenuItem>
-                                    <MenuItem value='damaged'>Damage</MenuItem>
+                                    <MenuItem value='notdamage'>Not Damage</MenuItem>
+                                    <MenuItem value='damage'>Damage</MenuItem>
                                 </Select>
                             </FormControl>
 

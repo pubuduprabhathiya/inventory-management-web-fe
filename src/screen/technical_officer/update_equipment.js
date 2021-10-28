@@ -12,7 +12,7 @@ const UpdateEquipment=() => {
     const [storeCode, setstoreCode] = useState('');
     const [category, setcategory] = useState('');
     const [model, setmodel] = useState('');
-    const [damage, setdamage] = useState('notdamaged');
+    const [damage, setdamage] = useState('notdamage');
     const [lab, setlab] = useState('');
     const equipment = useSelector(state => state.equipment);
     const [open, setOpen] = useState(false);
@@ -79,14 +79,16 @@ const UpdateEquipment=() => {
     }
     const back = () => {
        setisvalied(false);
+         setsubmit(false);
    //dispatch(getEquipmentByStoreCode(''));
     }
     const handleClickOpen = () => {
     setOpen(true);
   };
     const getBArcode = () => {
+        
         JsBarcode("#barcode", equipment.id);
-        setbarcodedownload(true);
+      setbarcodedownload(true);
     }
 
 
@@ -122,10 +124,10 @@ const UpdateEquipment=() => {
         }}>
             <FormControl sx={{ m: 1, minWidth: 200 }}>
                     <TextField data-testid="storeid" helperText={storeiderror ? "invalid store id":null}
-        error={storeiderror} disabled={equipment!=null} value={storeCode} label='Store Code' onChange={(e)=>setstoreCode(e.target.value)} required></TextField>
+        error={storeiderror} disabled={isvalied} value={storeCode} label='Store Code' onChange={(e)=>setstoreCode(e.target.value)} required></TextField>
                     
             </FormControl>
-            {!isvalied && equipment == null ?
+            {!isvalied || equipment == null ?
             <Box sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -164,9 +166,9 @@ const UpdateEquipment=() => {
                     
                     </FormControl>
                     <FormControl sx={{ m: 1, minWidth: 200 }}>
-                        <Select label="select one .." value={damage} onChange={(e)=>setdamage(e.target.value)} >
-                            <MenuItem value='notdamaged'>Not Damage</MenuItem>
-                            <MenuItem value='damaged'>Damage</MenuItem>
+                        <Select data-testid="damageselect" label="select one .." value={damage} onChange={(e)=>setdamage(e.target.value)} >
+                            <MenuItem value='notdamage'>Not Damage</MenuItem>
+                            <MenuItem value='damage'>Damage</MenuItem>
                     </Select>
 
                     

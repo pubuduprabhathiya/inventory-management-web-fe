@@ -130,7 +130,96 @@ describe("Tempory Borrowing", () => {
 
         const Submit = screen.getByText('Submit');
          userEvent.click(Submit);
-         expect(dummyDispatch).toHaveBeenCalledTimes(2);
+         expect(dummyDispatch).toHaveBeenCalledTimes(1);
         
-    });
+     });
+   test('submit reason error', async () => {
+       const equ={ storeid:null,id: '1-1-1-1', imageURL: '', Lab: { labName: 'lab name' }, Model: { modelName: 'model name' }, Category: { categoryName: 'category name' }, availability: 1 }
+
+       const dummyDispatch = jest.fn()
+        useDispatchMock.mockReturnValue(dummyDispatch)
+       useSelectorMock.mockReturnValueOnce(null).mockReturnValueOnce({storeid:null }).mockReturnValueOnce(equ).mockReturnValueOnce({storeid:null }).mockReturnValueOnce(equ).mockReturnValueOnce({storeid:null })
+        render(<BrowserRouter><TemporyBorrowing /></BrowserRouter>);
+         const userid = screen.getByTestId('userid');
+         const userinput = await userid.querySelector('input')
+         fireEvent.change(userinput, { target: { value: 'userid' } })
+
+        const storeid = screen.getByTestId('storeid');
+        const input = await storeid.querySelector('input')
+        input.focus();
+        fireEvent.change(input, { target: { value: '1-1-1-1' } })
+        input.blur();
+        // const reason = screen.getByTestId('reason');
+        //  const inputcat = await reason.querySelector('input')
+        //  fireEvent.change(inputcat, { target: { value: 'reason' } })
+
+        const Submit = screen.getByText('Submit');
+     userEvent.click(Submit);
+     const ele = screen.getByText('invalid reason');
+         expect(ele).toBeInTheDocument();
+        
+   });
+  test('submit userid error', async () => {
+       const equ={ storeid:null,id: '1-1-1-1', imageURL: '', Lab: { labName: 'lab name' }, Model: { modelName: 'model name' }, Category: { categoryName: 'category name' }, availability: 1 }
+
+       const dummyDispatch = jest.fn()
+        useDispatchMock.mockReturnValue(dummyDispatch)
+       useSelectorMock.mockReturnValueOnce(null).mockReturnValueOnce({storeid:null }).mockReturnValueOnce(equ).mockReturnValueOnce({storeid:null }).mockReturnValueOnce(equ).mockReturnValueOnce({storeid:null })
+        render(<BrowserRouter><TemporyBorrowing /></BrowserRouter>);
+         const userid = screen.getByTestId('userid');
+         const userinput = await userid.querySelector('input')
+         //fireEvent.change(userinput, { target: { value: 'd' } })
+
+        const storeid = screen.getByTestId('storeid');
+        const input = await storeid.querySelector('input')
+        input.focus();
+        fireEvent.change(input, { target: { value: '1-1-1-1' } })
+        input.blur();
+        const reason = screen.getByTestId('reason');
+         const inputcat = await reason.querySelector('input')
+         fireEvent.change(inputcat, { target: { value: 'reason' } })
+   // fireEvent.change(userinput, { target: { value: '' } })
+
+    
+        const Submit = screen.getByText('Submit');
+     userEvent.click(Submit);
+     const ele = screen.getByText('invalid store id');
+         expect(ele).toBeInTheDocument();
+        
+  });
+  
+   test('toDate', async () => {
+       const equ={ storeid:null,id: '1-1-1-1', imageURL: '', Lab: { labName: 'lab name' }, Model: { modelName: 'model name' }, Category: { categoryName: 'category name' }, availability: 1 }
+
+       const dummyDispatch = jest.fn()
+        useDispatchMock.mockReturnValue(dummyDispatch)
+       useSelectorMock.mockReturnValueOnce(null).mockReturnValueOnce({storeid:null }).mockReturnValueOnce(equ).mockReturnValueOnce({storeid:null }).mockReturnValueOnce(equ).mockReturnValueOnce({storeid:null })
+        render(<BrowserRouter><TemporyBorrowing /></BrowserRouter>);
+        
+        const storeid = screen.getByTestId('todate');
+        const input = await storeid.querySelector('input')
+        input.focus();
+         var date = new Date('2021-10-25');
+        fireEvent.change(input, { target: { value:date  } })
+        
+        expect(input.value).toBe("/25");
+        
+   });
+  test('FromDate', async () => {
+       const equ={ storeid:null,id: '1-1-1-1', imageURL: '', Lab: { labName: 'lab name' }, Model: { modelName: 'model name' }, Category: { categoryName: 'category name' }, availability: 1 }
+
+       const dummyDispatch = jest.fn()
+        useDispatchMock.mockReturnValue(dummyDispatch)
+       useSelectorMock.mockReturnValueOnce(null).mockReturnValueOnce({storeid:null }).mockReturnValueOnce(equ).mockReturnValueOnce({storeid:null }).mockReturnValueOnce(equ).mockReturnValueOnce({storeid:null })
+        render(<BrowserRouter><TemporyBorrowing /></BrowserRouter>);
+        
+        const storeid = screen.getByTestId('fromdate');
+        const input = await storeid.querySelector('input')
+    input.focus();
+    var date = new Date('2021-10-25');
+        fireEvent.change(input, { target: { value:date  } })
+        
+        expect(input.value).toBe("/25");
+        
+     });
 })

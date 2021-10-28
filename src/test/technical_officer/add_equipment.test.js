@@ -43,6 +43,27 @@ describe('Add Equipment', () => {
         
         
     });
+     test('Add category', async() => {
+      const dummyDispatch = jest.fn()
+        useDispatchMock.mockReturnValue(dummyDispatch)
+        useSelectorMock.mockReturnValueOnce([{
+                    categoryName: "Projecter",
+                    id: 1
+                }, {
+                    categoryName: "camera",
+                    id: 2
+            }]).mockReturnValueOnce([]).mockReturnValueOnce([{labName:"lab",id:1}]).mockReturnValueOnce(null).mockReturnValueOnce([{modelName:"model",id:1}])
+        render(<BrowserRouter><AddEquipment /></BrowserRouter>);
+         const Submit = screen.getByText('Add Category');
+         userEvent.click(Submit);
+        const category =screen.getByTestId('addcategory');
+  
+        
+         expect(category).toBeInTheDocument();
+        
+        
+     });
+     
     test('model', async() => {
       const dummyDispatch = jest.fn()
         useDispatchMock.mockReturnValue(dummyDispatch)
@@ -206,7 +227,7 @@ describe('Add Equipment', () => {
         fireEvent.keyDown(category, { key: 'ArrowDown' })
          expect(input.value).toBe('Projecter')
         fireEvent.keyDown(category, { key: 'Enter' })
-        
+       
        userEvent.click(Submit);
        const error = screen.getByText('Plese Select Model');
         expect(error).toBeInTheDocument()

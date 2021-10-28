@@ -33,3 +33,5 @@ export const normalIssueEquipment = (userid, storeid, fromdate, todate,requestId
 export const temporyIssueEquipment = (userid, storeid, fromdate, todate,reason) =>axios.post(`${url}/temporyborrowing/`,{userid, storeid, fromdate, todate,reason});
 
 export const getReport = (fromdate, toDate, categories,reportType) =>axios.post(`${url}/report/`,{fromdate, toDate, categories,reportType});
+export const addCategory = (category) =>axios.post(`${url}/addcategory/`,{category});
+export const addModel = (model,category) =>axios.post(`${url}/addmodel/`,{model , category});

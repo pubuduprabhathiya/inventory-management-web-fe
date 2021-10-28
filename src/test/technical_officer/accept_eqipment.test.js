@@ -160,8 +160,8 @@ describe('Accept Equipment', () => {
 
         const select = screen.getByTestId('selectdamage');
         const input =await select.querySelector('input')
-        await fireEvent.change(input, { target: { value: 'damaged' } });
-        expect(input.value).toBe('notdamaged')
+        await fireEvent.change(input, { target: { value: 'damage' } });
+        expect(input.value).toBe('notdamage')
     });
     test('Submit', async () => {
     

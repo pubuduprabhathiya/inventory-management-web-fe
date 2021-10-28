@@ -16,6 +16,32 @@ const NormalBorrowing = () => {
     const dispatch = useDispatch();
     const [fromdate, setfromdate] = useState(new Date());
     const [toDate, settoDate] = useState(new Date());
+    const [useriderror, setuseriderror] = useState(false);
+    const error = useSelector(state => state.error);
+    const [sub, setsub] = useState(false);
+    const [availablerror, setavailablerror] = useState(false);
+
+
+ useEffect(() => {
+        console.log(error)
+        if (error.Userid) {
+            setuseriderror(true);
+            setsub(false);
+        }
+        else {
+            setuseriderror(false);
+     }
+      if (error.available) {
+            setavailablerror(true);
+            setsub(false);
+        }
+        else {
+            setavailablerror(false);
+        }
+       
+    }, [error])
+
+
    const handleClickOpen = () => {
     setopen(true);
     };
@@ -37,14 +63,15 @@ const NormalBorrowing = () => {
         }
     }, [request])
     const back = () => {
-         setisvalied(false);
+        setisvalied(false);
+         setsub(false);
     }
     const submit = () => {
-        if ( isvalied) {
+        if ( isvalied && !sub) {
             dispatch(NormalIssueEquipment(id, request.Equipment.id, fromdate, toDate,request.id));
             //window.location.reload();
         }
-       
+        setsub(true);
     }
 
 
@@ -60,7 +87,8 @@ const NormalBorrowing = () => {
             }}>
                 
                 <FormControl sx={{ m: 1, width: 300 }}>
-                    <TextField data-testid="userid" disabled={isvalied} value={id} onChange={ (e)=>setid(e.target.value)} label='User Id'  ></TextField>
+                    <TextField helperText={useriderror ? "user id is invalid":availablerror?"No Request found":null}
+        error={useriderror} data-testid="userid" disabled={isvalied} value={id} onChange={ (e)=>setid(e.target.value)} label='User Id'  ></TextField>
                 </FormControl>
                 {!isvalied && request!== undefined ? <Box>
                
@@ -164,7 +192,7 @@ const NormalBorrowing = () => {
                     
                         </FormControl>
                         <FormControl sx={{ m: 1, minWidth: 200 }}>
-                     <Button variant="contained" color="success" onClick={() => submit()} >Submit</Button>
+                            <Button disabled={ sub} variant="contained" color="success" onClick={() => submit()} >Submit</Button>
 
                     
                     </FormControl>

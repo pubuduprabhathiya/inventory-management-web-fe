@@ -168,16 +168,34 @@ describe("update equipment", () => {
         const imageinput = await image.querySelector('input')
         //await fireEvent.change(imageinput, { target: { files: [file] } })
 
-         await waitFor(() =>
-             fireEvent.change(imageinput, {
-          
-          target: { files: [file] },
-          
-             })
-        );
+       
         const Submit = screen.getByText('Sumbit');
          userEvent.click(Submit);
          expect(dummyDispatch).toHaveBeenCalled();
+
+        
+        
+        
+     });
+     test('change damage',async () => {
+       const dummyDispatch = jest.fn()
+        useDispatchMock.mockReturnValue(dummyDispatch)
+        const equ = { id: '1-1-1-1', imageURL: '', Lab: { labName: 'lab name' }, Model: { modelName: 'model name' }, Category: { categoryName: 'category name' }, availability: 1 };
+        useSelectorMock.mockReturnValueOnce(null).mockReturnValueOnce({ storeid: null }).mockReturnValueOnce(equ)
+            .mockReturnValueOnce({ storeid: null }).mockReturnValueOnce(equ)
+            .mockReturnValueOnce({ storeid: null })
+        
+        
+         render(<BrowserRouter><UpdateEquipment /></BrowserRouter>);
+        const storeid = screen.getByTestId('storeid');
+         const input =await storeid.querySelector('input')
+      
+        fireEvent.change(input, { target: { value: '1-1-1-1' } });
+         const select = screen.getByTestId('damageselect');
+        const damageinput =await select.querySelector('input')
+        fireEvent.change(damageinput, { target: { value: 'damage' } });
+         expect(damageinput.value).toBe('damage');
         
     });
+ 
 })

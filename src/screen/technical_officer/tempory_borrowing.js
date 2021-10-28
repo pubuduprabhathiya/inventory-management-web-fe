@@ -22,6 +22,10 @@ const TemporyBorrowing = () => {
     const dispatch = useDispatch();
     const error = useSelector(state => state.error);
     const [storeiderror, setstoreiderror] = useState(false);
+    const [useriderror, setuseriderror] = useState(false);
+    const [reasonerror, setreasonerror] = useState(false);
+    const [sub, setsub] = useState(false);
+    const [availablerror, setavailablerror] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -35,9 +39,24 @@ const TemporyBorrowing = () => {
     useEffect(() => {
         if (error.storeid) {
             setstoreiderror(true);
+            setsub(false);
         }
         else {
             setstoreiderror(false);
+        }
+          if (error.Userid) {
+            setuseriderror(true);
+            setsub(false);
+        }
+        else {
+            setuseriderror(false);
+        }
+        if (error.available) {
+            setavailablerror(true);
+            setsub(false);
+        }
+        else {
+            setavailablerror(false);
         }
     }, [error])
     useEffect(() => {
@@ -56,10 +75,38 @@ const TemporyBorrowing = () => {
     }, [equipment]);
 
     const submit = () => {
-        if (userid !== '' && !storeiderror && storeid!=='' && reaaon!=='') {
+        if ( equipment != null) {
+            setstoreiderror(false);
+        }
+        else {
+            setstoreiderror(true);
+            setsub(false);
+            return;
+            
+        }
+         if (userid !== '') {
+            setuseriderror(false);
+        }
+        else {
+            setuseriderror(true);
+            setsub(false);
+            return;
+            
+        }
+         if ( reaaon!=='') {
+            setreasonerror(false);
+        }
+        else {
+            setreasonerror(true);
+            setsub(false);
+            return;
+            
+        }
+        if (!sub) {
             dispatch(temporyIssueEquipment(userid, storeid, fromDate, toDate,reaaon));
             //window.location.reload();
         }
+         setsub(true);
     }
     
     return(<Box sx={{
@@ -71,13 +118,14 @@ const TemporyBorrowing = () => {
     }}>
         <FormControl sx={{ m: 1, width: 300 }}>
             
-            <TextField data-testid="userid"  value={userid} onChange={(e) => setuserid(e.target.value)} label='User Id'  ></TextField>
+            <TextField  helperText={useriderror ? "user id is invalid":null}
+        error={useriderror} data-testid="userid"  value={userid} onChange={(e) => setuserid(e.target.value)} label='User Id'  ></TextField>
             
         </FormControl>
          <FormControl sx={{ m: 1, width: 300 }}>
             
-            <TextField data-testid="storeid" helperText={storeiderror ? "invalid store id":null}
-        error={storeiderror} value={storeid} onChange={(e) => setstoreid(e.target.value)} label='Store Id' onBlur={(e)=>getdatabystoreid(e.target.value)} ></TextField>
+            <TextField data-testid="storeid" helperText={storeiderror ? "invalid store id":availablerror?"Equipment is not Avalable":null}
+        error={storeiderror||availablerror} value={storeid} onChange={(e) => setstoreid(e.target.value)} label='Store Id' onBlur={(e)=>getdatabystoreid(e.target.value)} ></TextField>
             
         </FormControl>
         <FormControl  sx={{ m: 1, minWidth: 300 }}>
@@ -93,13 +141,14 @@ const TemporyBorrowing = () => {
                     
         </FormControl>
         <FormControl sx={{ m: 1, minWidth: 300 }}>
-                    <TextField data-testid="reason"  value={reaaon} onChange={(e)=>setreaaon(e.target.value)} label='Reason'  ></TextField>
+                    <TextField  helperText={reasonerror ? "invalid reason":null}
+        error={reasonerror} data-testid="reason"  value={reaaon} onChange={(e)=>setreaaon(e.target.value)} label='Reason'  ></TextField>
 
                     
         </FormControl>
-        <FormControl sx={{ m: 1, minWidth: 300 }}>
+        <FormControl data-testid="fromdate" sx={{ m: 1, minWidth: 300 }}>
              <LocalizationProvider dateAdapter={DateAdapter}>
-              <DesktopDatePicker label="From Date"
+              <DesktopDatePicker  label="From Date"
                     inputFormat="MM/dd/yyyy"
                     disabled={true}
                 maxDate={new Date()}
@@ -110,9 +159,9 @@ const TemporyBorrowing = () => {
        
             </LocalizationProvider>
         </FormControl>
-         <FormControl sx={{ m: 1, minWidth: 300 }}>
+         <FormControl data-testid="todate" sx={{ m: 1, minWidth: 300 }}>
              <LocalizationProvider dateAdapter={DateAdapter}>
-              <DesktopDatePicker label="To Date"
+              <DesktopDatePicker  label="To Date"
                 maxDate={new Date().setDate(fromDate.getDate()+1)}
                 minDate={fromDate}
           inputFormat="MM/dd/yyyy"
@@ -150,7 +199,7 @@ const TemporyBorrowing = () => {
             
             <FormControl sx={{ m: 1, minWidth: 200 }}>
                 
-                <Button variant="contained" color="success" onClick={() => submit()} >Submit</Button>
+                <Button disabled={sub} variant="contained" color="success" onClick={() => submit()} >Submit</Button>
                 
 
                     

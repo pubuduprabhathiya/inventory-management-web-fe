@@ -43,7 +43,7 @@ describe("Issue Equipment", () => {
     test('update',async () => {
        const dummyDispatch = jest.fn()
         useDispatchMock.mockReturnValue(dummyDispatch)
-        useSelectorMock.mockReturnValueOnce([])
+      useSelectorMock.mockReturnValueOnce([]).mockReturnValueOnce({Userid:null})
         
         
         render(<BrowserRouter><IssueEquipment /></BrowserRouter>);

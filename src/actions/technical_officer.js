@@ -1,7 +1,7 @@
 
 import toDate from 'date-fns/toDate';
 import * as api from '../api/technical_officer_api';
-import {ERROR,Store_Id_Error,Get_Report, Get_Equipment_By_Category, Get_Borrow_Data,Get_Categories,Get_Models,Get_Labs,Add_Equipment, Get_Equipment,Get_Last_Borrow_Data,Get_Request } from './action_types';
+import {Userid_error,Avalilability_Error,Model_Name_Error,Category_Name_Error,ERROR,Store_Id_Error,Get_Report, Get_Equipment_By_Category, Get_Borrow_Data,Get_Categories,Get_Models,Get_Labs,Add_Equipment, Get_Equipment,Get_Last_Borrow_Data,Get_Request } from './action_types';
 
 export const findIteamsByCatogary = (category) => async (dispatch) => {
 
@@ -132,8 +132,18 @@ export const getRequestData = (id) => async (dispatch) => {
   try {
     const data = await api.getRequestData(id);
     console.log(data.data)
-     dispatch({type:Get_Request ,payload:data.data});
+    if (data.data === null) {
+       dispatch({ type: Avalilability_Error, payload: "NoRe" });
+    }
+    else if (data.data==="User Id Invaild") {
+       dispatch({ type: Userid_error, payload: data.data });
+    }
+    else {
+          dispatch({type:Get_Request ,payload:data.data});
+
+    }
   } catch (error) {
+      dispatch({ type: Avalilability_Error, payload: "NoRe" });
     console.log(error.message);
   }
 }
@@ -141,9 +151,21 @@ export const getRequestData = (id) => async (dispatch) => {
 
 export const temporyIssueEquipment = (userid,storeid,fromdate,t0date,reason) => async (dispatch) => {
   try {
-    const data = await api.temporyIssueEquipment(userid, storeid, fromdate, t0date,reason);
-    window.location.reload();
+    const data = await api.temporyIssueEquipment(userid, storeid, fromdate, t0date, reason);
+    console.log(data);
+   
+    if (data.data.message === "Equipment is Unavailable") {
+      dispatch({ type: Avalilability_Error, payload: data.data.message });
+    }
+    else if (data.data.message === "User id is invalid") {
+      dispatch({ type: Userid_error, payload: data.data.message });
+    }
+    else {
+       window.location.reload();
+    }
+    
   } catch (error) {
+    
      console.log(error);
   }
 }
@@ -165,6 +187,29 @@ export const getReport = (fromDate, toDate, categories,reportType) =>async (disp
     console.log(error);
   }
 }
-
+export const addCategory = (category) => async (dispatch) => {
+  console.log(category);
+  try {
+    const result = await api.addCategory(category);
+    console.log(result);
+    dispatch({ type: Get_Categories, payload: result.data });
+  } catch (error) {
+    console.log(error);
+      dispatch({type:Category_Name_Error,payload:error});
+  }
+  
+}
+export const addModel = (model, category) => async (dispatch) => {
+   console.log(model, category);
+  try {
+    const result = await api.addModel(model,category.id);
+    console.log(result);
+    dispatch({ type: Get_Models, payload: result.data });
+  } catch (error) {
+    console.log(error);
+      dispatch({type:Model_Name_Error,payload:error});
+  }
+  
+}
 
 

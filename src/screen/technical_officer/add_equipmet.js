@@ -6,6 +6,8 @@ import { getCategories, getModels, getLabs, addEquipment } from "../../actions/t
 import JsBarcode from "jsbarcode";
 import Barcode from "../../component/technical_officer/barcode";
 import FileBase from 'react-file-base64';
+import AddCategory from "../../component/technical_officer/add_category";
+import AddModel from "../../component/technical_officer/add_model";
 
 
 const AddEquipment = () => {
@@ -29,7 +31,8 @@ const AddEquipment = () => {
     const [laberror, setlaberror] = useState(false);
     const [imgURLerror, setimgURLerror] = useState(false);
     const [imgPreview, setimgPreview] = useState("");
-    
+    const [addcategory, setaddcategory] = useState(false);
+    const [addModel, setaddModel] = useState(false)
     useEffect(() => {
 
         dispatch(getCategories());
@@ -37,15 +40,20 @@ const AddEquipment = () => {
         
     }, [dispatch]);
 useEffect(() => {
-  
+    setaddcategory(false);
+    setaddModel(false);
 }, [categories])
     
     useEffect(() => {
         dispatch(getModels(category));
         console.log(submit, "sub")
-       
+        setaddModel(false);
         setmodel({modelName:''});
     }, [category])
+
+    useEffect(() => {
+        setaddModel(false);
+    }, [models])
     useEffect(() => {
           console.log(submit,'c',equipment,'e');
         if (equipment !== null & submit) {
@@ -68,20 +76,26 @@ useEffect(() => {
         }
         else {
             setcategoryerror(true);
-            
+            setsubmit(false);
+           
         }
         if ( model!=null && model.modelName !== '') {
             setmodelerror(false);
         }
         else {
             setmodelerror(true);
+            setsubmit(false);
             
+            
+           
         }
         if ( lab!=null && lab.labName !== '') {
             setlaberror(false);
         }
         else {
             setlaberror(true);
+             setsubmit(false);
+           
             
         }
         if ( imgPreview!=="" ) {
@@ -89,9 +103,14 @@ useEffect(() => {
         }
         else {
             setimgURLerror(true);
+             setsubmit(false);
+           
             
         }
-        if (!submit && !categoryerror && !modelerror && !laberror && !imgURLerror) {
+        if (!( model!=null && model.modelName !== '') || !( model!=null && model.modelName !== '')|| !( lab!=null && lab.labName !== '') || !( imgPreview!=="" )) {
+            return;
+        }
+        if (!submit) {
             dispatch(addEquipment(category, model, lab, imgPreview));
         }
         setsubmit(true);
@@ -125,7 +144,13 @@ useEffect(() => {
           m: 3,
 
             }}>
-                
+                <Box sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: { xs: 'center', md: 'center' },
+          m: 3,
+
+            }}>
             <Autocomplete
           disablePortal
                 value={category}
@@ -138,7 +163,17 @@ useEffect(() => {
           sx={{ width: 300, m: 3}}
           renderInput={(params) => <TextField  helperText={categoryerror ? "Plese Select category":null}
         error={categoryerror} {...params} label="Category" />}
-        />
+                />
+            <Button variant="contained" color="success" onClick={() => setaddcategory(true)}>Add Category</Button>
+
+            </Box>
+              <Box sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: { xs: 'center', md: 'center' },
+          m: 3,
+
+            }}>
                  <Autocomplete
           disablePortal
                 value={model}
@@ -152,6 +187,10 @@ useEffect(() => {
           renderInput={(params) => <TextField helperText={modelerror ? "Plese Select Model":null}
         error={modelerror} {...params} label="Model" />}
                 />
+                { category!=null && category.categoryName !== ''?<Button variant="contained" color="success" onClick={() => setaddModel(true)}>Add Model</Button>:<Box/>
+}
+            </Box>
+            
                  <Autocomplete
           disablePortal
           value={lab}
@@ -182,7 +221,8 @@ useEffect(() => {
                     
                 <Barcode barcodedownload={barcodedownload} setbarcodedownload={ setbarcodedownload}/>
                 </FormControl>
-                
+            <AddCategory open={addcategory} setOpen={setaddcategory} />
+            <AddModel open={addModel} setOpen={setaddModel} cat={category }/>
             </Box> 
     )
 

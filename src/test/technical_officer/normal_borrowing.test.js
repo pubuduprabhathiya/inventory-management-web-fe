@@ -19,7 +19,7 @@ describe("Normal Borrowing", () => {
     test('store id',async () => {
        const dummyDispatch = jest.fn()
         useDispatchMock.mockReturnValue(dummyDispatch)
-        useSelectorMock.mockReturnValueOnce([])
+        useSelectorMock.mockReturnValueOnce([]).mockReturnValueOnce({Userid:null})
         
         
          render(<BrowserRouter><NormalBorrowing /></BrowserRouter>);
@@ -35,7 +35,7 @@ describe("Normal Borrowing", () => {
      const req={
          Equipment: { id: '1-1-1-1', imageURL: '', Lab: { labName: 'lab name' }, Model: { modelName: 'model name' }, Category: { categoryName: 'category name' }, availability: 1 }
          ,returnDate:new Date(),requestDate:new Date()}
-     useSelectorMock.mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce(req)
+     useSelectorMock.mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce({Userid:null}).mockReturnValueOnce(req).mockReturnValueOnce(req)
         
         
          render(<NormalBorrowing />);
@@ -48,7 +48,7 @@ describe("Normal Borrowing", () => {
     test('Next',async () => {
        const dummyDispatch = jest.fn()
         useDispatchMock.mockReturnValue(dummyDispatch)
-        useSelectorMock.mockReturnValueOnce([])
+        useSelectorMock.mockReturnValueOnce([]).mockReturnValueOnce({Userid:null}).mockReturnValueOnce({Userid:null}).mockReturnValueOnce([]).mockReturnValueOnce([])
         
         
          render(<BrowserRouter><NormalBorrowing /></BrowserRouter>);
@@ -64,7 +64,7 @@ describe("Normal Borrowing", () => {
      const req={
          Equipment: { id: '1-1-1-1', imageURL: '', Lab: { labName: 'lab name' }, Model: { modelName: 'model name' }, Category: { categoryName: 'category name' }, availability: 1 }
          ,returnDate:new Date(),requestDate:new Date()}
-     useSelectorMock.mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce(req)
+     useSelectorMock.mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce({Userid:null}).mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce({Userid:null}).mockReturnValueOnce(req)
         
         
          render(<NormalBorrowing />);
@@ -80,7 +80,7 @@ describe("Normal Borrowing", () => {
      const req={
          Equipment: { id: '1-1-1-1', imageURL: '', Lab: { labName: 'lab name' }, Model: { modelName: 'model name' }, Category: { categoryName: 'category name' }, availability: 1 }
          ,returnDate:new Date(),requestDate:new Date()}
-     useSelectorMock.mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce(req)
+     useSelectorMock.mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce({Userid:null}).mockReturnValueOnce(req)
         
         
          render(<NormalBorrowing />);
@@ -96,7 +96,7 @@ describe("Normal Borrowing", () => {
      const req={
          Equipment: { id: '1-1-1-1', imageURL: '', Lab: { labName: 'lab name' }, Model: { modelName: 'model name' }, Category: { categoryName: 'category name' }, availability: 1 }
          ,returnDate:new Date(),requestDate:new Date()}
-     useSelectorMock.mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce(req)
+         useSelectorMock.mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce(req).mockReturnValueOnce({Userid:null}).mockReturnValueOnce({Userid:null}).mockReturnValueOnce(req)
         
         
          render(<NormalBorrowing />);
