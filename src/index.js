@@ -1,17 +1,55 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.min.css';
+
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+
+// import React from 'react';
+// import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// import {BrowserRouter} from 'react-router-dom';
+
+// import { applyMiddleware, createStore } from 'redux';
+import reducers from './store/reducers/reducers';
+// import thunk from 'redux-thunk'
+// import { Provider } from 'react-redux';
+
+
+// import App from "./App";
+
+// import rootReducer from './store/reducers/auth';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(reducers, composeEnhancers(
+    applyMiddleware(thunk)
+));
+
+// const app = (
+//     <Provider store={store}>
+//         <BrowserRouter>
+//             <App />
+//         </BrowserRouter>
+//     </Provider>
+// );
+
+
+// const store = createStore(reducers, applyMiddleware(thunk));
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById( 'root' )
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// ReactDOM.render( app, document.getElementById( 'root' ) );
