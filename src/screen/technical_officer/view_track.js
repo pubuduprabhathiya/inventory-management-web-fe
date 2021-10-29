@@ -5,7 +5,7 @@ import { TextField, Autocomplete, Typography, colors, Container } from "@mui/mat
 import { Box } from "@mui/system";
 import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { findIteamsByCatogary, getBorrowData,getCategories } from "../../actions/technical_officer";
+import { findIteamsByCatogary, getBorrowData,getCategories } from "../../store/actions/technical_officer";
 
 import Equipments from "../../component/technical_officer/equipments";
 import ViewTracDetails from "../../component/technical_officer/view_track_details";

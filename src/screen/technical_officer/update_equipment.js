@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getEquipmentByStoreCode, updataEquipment } from "../../actions/technical_officer";
+import { getEquipmentByStoreCode, updataEquipment } from "../../store/actions/technical_officer";
 import ScanScreen from "../../component/technical_officer/scan_screen";
 import JsBarcode from "jsbarcode";
 import Barcode from "../../component/technical_officer/barcode";

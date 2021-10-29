@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 import React, { useState,useEffect} from "react";
 
 import { useDispatch } from 'react-redux';
-import { getBorrowData } from "../../actions/technical_officer";
+import { getBorrowData } from "../../store/actions/technical_officer";
 const Equipment = ({equipment, setequipment,selectequipment,fromDate, toDate}) => {
     
     const dispatch = useDispatch();

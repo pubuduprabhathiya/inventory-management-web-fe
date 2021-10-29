@@ -2,7 +2,7 @@ import { Button, FormControl, TextField,InputLabel,Checkbox,Fab,Autocomplete} fr
 import { Box } from "@mui/system";
 import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { getCategories, getModels, getLabs, addEquipment } from "../../actions/technical_officer";
+import { getCategories, getModels, getLabs, addEquipment } from "../../store/actions/technical_officer";
 import JsBarcode from "jsbarcode";
 import Barcode from "../../component/technical_officer/barcode";
 import FileBase from 'react-file-base64';

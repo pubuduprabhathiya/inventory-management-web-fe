@@ -2,7 +2,7 @@ import { Typography,FormControl,TextField,Button, Select, MenuItem, InputLabel }
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { normalIssueEquipment, getRequestData, NormalIssueEquipment } from "../../actions/technical_officer";
+import { normalIssueEquipment, getRequestData, NormalIssueEquipment } from "../../store/actions/technical_officer";
 import ScanScreen from "../../component/technical_officer/scan_screen";
 import {  LocalizationProvider,DesktopDatePicker } from "@mui/lab";
 import DateAdapter from '@mui/lab/AdapterDateFns';

@@ -5,7 +5,7 @@ import { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import { colors } from "@mui/material";
 import { useDispatch } from 'react-redux';
-import { getBorrowData } from "../../actions/technical_officer";
+import { getBorrowData } from "../../store/actions/technical_officer";
 
 const Equipments = ({ fromDate, toDate}) => {
     const equipments = useSelector(state => state.equipments);
