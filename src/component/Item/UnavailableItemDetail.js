@@ -2,7 +2,7 @@ import Modal from "../UI/Modal";
 import classes from './UnavailableItemDetail.module.css';
 
 const UnavailableItemDetail = (props)=>{
-    //console.log(props.itm);
+    console.log(props.date);
     return(
         <Modal onClose = {props.onClose}>
             <div className={classes.total}>

@@ -29,7 +29,7 @@ const StudentCheckAvailability = (props)=>{
     if(status ==='completed' && (!loadedData||loadedData.length===0)){
         return(<h1>No Data</h1>)
     }
-    // console.log(loadedData);
+    console.log(loadedData);
     return(
         <StudentLayout>
             <MainContainer title='Check Availability'>
