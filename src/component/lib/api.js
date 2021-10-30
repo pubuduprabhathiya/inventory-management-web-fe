@@ -22,7 +22,8 @@ export async function getCheckAvailability(){
 }
 
 export async function getBorrowingHistory(){
-    const response = await fetch(`${url}/borrow`);
+    //const response = await fetch(`${url}/borrow`);
+    const response = await fetch(`http://localhost:5000/student/borrow`);
     const data = await response.json();
     if(!response.ok){
         throw new Error(data.message || 'Could not fetch data');
@@ -49,7 +50,8 @@ export async function getBorrowingHistory(){
 }
 
 export async function getCategories(detail){
-    const response = await fetch(`${url}/category`);
+    // const response = await fetch(`${url}/category`);
+    const response = await fetch(`http://localhost:5000/student/category`);
     const data = await response.json();
 
     if(!response.ok){
@@ -65,7 +67,8 @@ export async function getCategories(detail){
 
 
 export async function getModel(detail){
-    const response = await fetch(`${url}/model/${detail.enterCategory}`);
+    // const response = await fetch(`${url}/model/${detail.enterCategory}`);
+    const response = await fetch(`http://localhost:5000/student/model/${detail.enterCategory}`);
     const data = await response.json();
 
     if(!response.ok){
@@ -83,7 +86,8 @@ export async function getModel(detail){
 export async function getLaboratory(detail){
     // const abortController = new AbortController();
     // const signal = abortController.signal;
-    const response = await fetch(`${url}/lab/${detail.category}/${detail.model}`);
+    // const response = await fetch(`${url}/lab/${detail.category}/${detail.model}`);
+    const response = await fetch(`http://localhost:5000/student/lab/${detail.category}/${detail.model}`);
     const data = await response.json();
 
     if(!response.ok){
@@ -100,7 +104,8 @@ export async function getLaboratory(detail){
 export async function getStoreCode(detail){
     // const abortController = new AbortController();
     // const signal = abortController.signal;
-    const response = await fetch(`${url}/storeCode/${detail.category}/${detail.model}/${detail.lab}`);
+    //const response = await fetch(`${url}/storeCode/${detail.category}/${detail.model}/${detail.lab}`);
+    const response = await fetch(`http://localhost:5000/student/storeCode/${detail.category}/${detail.model}/${detail.lab}`);
     const data = await response.json();
 
     if(!response.ok){
@@ -115,7 +120,8 @@ export async function getStoreCode(detail){
 }
 
 export async function getAvailableItems(category){
-    const response = await fetch(`${url}/ava`);
+    //const response = await fetch(`${url}/ava`);
+    const response = await fetch(`http://localhost:5000/student/ava`);
     const data = await response.json();
 
     if(!response.ok){
@@ -126,7 +132,8 @@ export async function getAvailableItems(category){
 }
 
 export async function getLecturers(detail){
-    const response = await fetch(`${url}/lecturer/${detail.labId}`);
+    //const response = await fetch(`${url}/lecturer/${detail.labId}`);
+    const response = await fetch(`http://localhost:5000/student/lecturer/${detail.labId}`);
     const data = await response.json();
 
     if(!response.ok){
@@ -144,7 +151,8 @@ export async function getLecturers(detail){
 }
 
 export async function sendStudentNormalBorrowingRequest(detail){
-    const response = await fetch(`${url}/student/sendNormalRequest`,{
+
+    const response = await fetch(`http://localhost:5000/student/sendNormalRequest`,{
         method:'POST',
         body: JSON.stringify({studentId:detail.studentId,lecId:detail.lecId,equipmentId:detail.equipmentId,requestDate:detail.requestDate,returnDate:detail.returnDate}),
         headers:{
@@ -159,7 +167,7 @@ export async function sendStudentNormalBorrowingRequest(detail){
 }
 
 export async function sendLecturerNormalBorrowingRequest(detail){
-    const response = await fetch(`${url}/lecturer/sendNormalRequest`,{
+    const response = await fetch(`http://localhost:5000/lecturer/sendNormalRequest`,{
         method:'POST',
         body: JSON.stringify({lecId:detail.lecId,equipmentId:detail.equipmentId,requestDate:detail.requestDate,returnDate:detail.returnDate}),
         headers:{
@@ -174,7 +182,7 @@ export async function sendLecturerNormalBorrowingRequest(detail){
 }
 
 export async function sendStudentTemporyBorrowingRequest(detail){
-    const response = await fetch(`${url}/student/sendTemporyRequest`,{
+    const response = await fetch(`http://localhost:5000/student/sendTemporyRequest`,{
         method:'POST',
         body: JSON.stringify({studentId:detail.studentId,equipmentId:detail.equipmentId,reason:detail.reason,requestDate:detail.requestDate,returnDate:detail.returnDate}),
         headers:{
@@ -189,7 +197,7 @@ export async function sendStudentTemporyBorrowingRequest(detail){
 }
 
 export async function sendLecturerTemporyBorrowingRequest(detail){
-    const response = await fetch(`${url}/lecturer/sendTemporyRequest`,{
+    const response = await fetch(`http://localhost:5000/lecturer/sendTemporyRequest`,{
         method:'POST',
         body: JSON.stringify({lecId:detail.lecId,equipmentId:detail.equipmentId,reason:detail.reason,requestDate:detail.requestDate,returnDate:detail.returnDate}),
         headers:{
@@ -223,7 +231,7 @@ export async function sendLecturerTemporyBorrowingRequest(detail){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function getPendingRequests(){
-    const response = await fetch(`${url}/pending`);
+    const response = await fetch(`http://localhost:5000/lecturer/pending`);
     const data = await response.json();
 
     if(!response.ok){
@@ -236,7 +244,7 @@ export async function getPendingRequests(){
             storeCode: data[key]['equipmentId'],
             requestDate: data[key]['requestDate'],
             returnDate: data[key]['returnDate'],
-            studentId: data[key]['RequestBorrowing.studentId'],
+            studentId: data[key]['RequestBorrowings.studentId'],
             requestId: data[key]['id'],
         }
         pendingList.push(newObj);
@@ -245,7 +253,7 @@ export async function getPendingRequests(){
 }
 
 export async function getPendingDetails(id){
-    const response = await fetch(`${url}/requestDetail/${id}`);
+    const response = await fetch(`http://localhost:5000/lecturer/requestDetail/${id}`);
     const data = await response.json();
 
     console.log(response);
@@ -260,7 +268,7 @@ export async function getPendingDetails(id){
             storeCode: data[key]['id'],
             requestDate: data[key]['Requests.requestDate'],
             returnDate: data[key]['Requests.returnDate'],
-            studentId: data[key]['Requests.RequestBorrowing.studentId'],
+            studentId: data[key]['Requests.RequestBorrowings.studentId'],
             reason: data[key]['Requests.reason'],
             category: data[key]['Category.categoryName'],
             model: data[key]['Model.modelName'],
@@ -272,7 +280,7 @@ export async function getPendingDetails(id){
 }
 
 export async function approvePending(id){
-    const response = await fetch(`${url}/approve/${id}`,{
+    const response = await fetch(`http://localhost:5000/lecturer/approve/${id}`,{
         method:'POST',
         //body: JSON.stringify({user:id}),
         headers:{
@@ -287,7 +295,7 @@ export async function approvePending(id){
 }
 
 export async function rejectPending(id){
-    const response = await fetch(`${url}/reject/${id}`,{
+    const response = await fetch(`http://localhost:5000/lecturer/reject/${id}`,{
         method:'POST',
         //body: JSON.stringify({user:id}),
         headers:{
