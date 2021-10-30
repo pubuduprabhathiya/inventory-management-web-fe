@@ -15,6 +15,7 @@ import AddLecturePage from "./ActionPage/Admin/AddLecturePage";
 import AddTechnicalPage from "./ActionPage/Admin/AddTechnicalOfficerPage";
 import AddOfficeClerkPage from "./ActionPage/Admin/AddOfficeClerkPage";
 import AddLaboratory from "./ActionPage/Admin/AddLaboratoryPage";
+import UpdateUser from "./ActionPage/Admin/UpdateUserPage"
 
 
 import OfficeClerkDashboard from './Dashboard/OfficeClerkDashboard.jsx';
@@ -63,6 +64,7 @@ const Content = ({ isAuthenticated }) => {
                     <Route path="/admin/add-technical-officer" component={AddTechnicalPage}/>
                     <Route path="/admin/add-office-clerk" component={AddOfficeClerkPage}/>
                     <Route path="/admin/add-laboratory" component={AddLaboratory}/>
+                    <Route path="/admin/update-password" exact component={UpdateUser}/>
                 </Switch>
             );
         if(userType === "Student")routes = () => (              

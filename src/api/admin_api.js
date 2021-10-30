@@ -1,4 +1,4 @@
-import {deleteRequest,getRequest,postRequestWithHeader,putRequest,getRequestWithHeaders} from "./util";
+import {deleteRequest,getRequest,postRequestWithHeader,putRequest,getRequestWithHeaders,putRequestWithHeader} from "./util";
 
 class AdminService {
   getAllLabs() {
@@ -47,6 +47,8 @@ getLastTechnicalOfficer() {
 return getRequestWithHeaders("users/admin/last-technicalofficer",config);
 }
 
+
+
 createStudent(data) {
   const config = {
     headers:{
@@ -88,6 +90,24 @@ createLaboratory(data) {
 return postRequestWithHeader("users/admin/create-laboratory",data,config);
 }
 
+
+//! new
+getUserData(userEmail) {
+  const config = {
+    headers:{
+        Authorization: "Bearer "+localStorage.getItem('token')
+    }
+  };
+return postRequestWithHeader("users/admin/get-user",userEmail,config);
+}
+updatePassword(userData) {
+  const config = {
+    headers:{
+        Authorization: "Bearer "+localStorage.getItem('token')
+    }
+  };
+return putRequestWithHeader("users/admin/update-user",userData,config);
+}
 
 
 }

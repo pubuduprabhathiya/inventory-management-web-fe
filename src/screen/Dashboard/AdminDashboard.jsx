@@ -66,6 +66,12 @@ class AdminDashboard extends Component {
              Add Laboratory
             </a>
             </Link>
+            <Link to={"/admin/update-password"} >
+            <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
+              <i className="fa fa-lock fa-5x"></i><br/>
+             Update Password
+            </a>
+            </Link>
             
           </p>
         </div>

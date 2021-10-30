@@ -12,6 +12,7 @@ class AdminSideMenu extends Component {
                 {tabName: "Add New Technical Officer" , url: "/admin/add-technical-officer"},
                 {tabName: "Add New Office Clerk" , url: "/admin/add-office-clerk"},
                 {tabName: "Add New Laboratory" , url: "/admin/add-laboratory"},
+                {tabName: "Update User Password" , url: "/admin/update-password"},
                 {tabName: "<< Dashboard" , url: "/"},
                 
              
@@ -28,7 +29,7 @@ class AdminSideMenu extends Component {
 
     style1= {
         width: 250,
-        height: 500,
+        height: 600,
         paddingTop: 19,
         paddingBottom: 175,
         paddingLeft: 37,
