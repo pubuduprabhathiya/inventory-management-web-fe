@@ -6,8 +6,7 @@ class UpdateUserApplication extends Component {
     super(props);
     this.state = {
       index: "",
-      firstName: "",
-      lastName: "",      
+      userType: "",      
       email: "",
       password: "",
       confirmPw: "",
@@ -54,6 +53,9 @@ class UpdateUserApplication extends Component {
     AdminService.getUserData(emailData)
       .then((response) => {
         console.log(response);
+        this.setState({
+            userType: response.data.type,
+        })
       })
       .catch((e) => {
         console.log(e);
@@ -146,37 +148,22 @@ class UpdateUserApplication extends Component {
                 <form onSubmit={this.handleSubmit}>
                   
                   <div className="form-group m-1">
-                    <label>First Name:</label>
+                    <label>User Role:</label>
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="First Name"
+                      placeholder="User Type"
                       required
                       disabled
-                      value={this.state.firstName}
+                      value={this.state.userType}
                       onChange={(event) => {
                         this.setState({
-                          firstName: event.target.value,
+                            userType: event.target.value,
                         });
                       }}
                     ></input>
                   </div>
-                  <div className="form-group m-1">
-                    <label>Last Name:</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Last Name"
-                      required
-                      disabled
-                      value={this.state.lastName}
-                      onChange={(event) => {
-                        this.setState({
-                          lastName: event.target.value,
-                        });
-                      }}
-                    ></input>
-                  </div>
+                  
                   
                   <div className="form-group m-1">
                     <label>Email address:</label>
@@ -237,7 +224,7 @@ class UpdateUserApplication extends Component {
                     Cancel
                   </a>
                   <button type="submit" className="btn btn-primary">
-                    Update
+                    Update Password
                   </button>
                 </form>
               </div>

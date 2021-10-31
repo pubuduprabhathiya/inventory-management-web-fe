@@ -34,17 +34,20 @@ const Main = (props) => {
         <BrowserRouter>
             <div>
             
-                <Content isAuthenticated={props.isAuthenticated}  />
+                <Content isAuthenticated={props.isAuthenticated} error={props.error} />
             
             </div>
         </BrowserRouter>
     );
 }
 
-const Content = ({ isAuthenticated }) => {
+const Content = ({ isAuthenticated ,error}) => {
 
-    console.log(isAuthenticated);
-
+    console.log(error);
+    
+    if(error != null){
+        alert(error);
+    }
    
     let routes = () => (
         <Switch>
@@ -113,10 +116,10 @@ const Content = ({ isAuthenticated }) => {
 };
 
 const mapStateToProps = state => {
-    console.log("state"+state.reducer.token );
+    console.log("state"+state.reducer.error );
     return {
         isAuthenticated: !(state.reducer.token === null || state.reducer.token === undefined),
-        // userType : this.state.userType
+        error:state.reducer.error
     };
 };
 

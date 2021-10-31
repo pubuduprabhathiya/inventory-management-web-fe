@@ -27,6 +27,10 @@ class LoginForm extends Component {
     // alert("New Lecturer Registered!");
     event.preventDefault();
     await this.props.onAuth(this.state.email, this.state.password);
+    console.log("abc"+this.props.error );
+    if(this.props.error != null){
+      alert(this.props.error);
+    }
     
   };
 
@@ -81,11 +85,11 @@ class LoginForm extends Component {
 
 const mapStateToProps = state => {
     return {
-        loading: state.loading,
-        error: state.error,
-        isAuthenticated: !(state.token === null || state.token === undefined),
-        token: state.token,
-        authRedirectPath: state.authRedirectPath
+        loading: state.reducer.loading,
+        error: state.reducer.error,
+        isAuthenticated: !(state.reducer.token === null || state.reducer.token === undefined),
+        token: state.reducer.token,
+        // authRedirectPath: state.reducer.authRedirectPath
     };
 };
 

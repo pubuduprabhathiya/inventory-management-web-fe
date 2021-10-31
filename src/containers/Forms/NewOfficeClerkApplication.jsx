@@ -12,7 +12,7 @@ class NewOfficeClerkApplication extends Component {
       password: "",
       confirmPw:""
     };
-    this.retrieveLastID();
+    // this.retrieveLastID();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.createOfficeClerk = this.createOfficeClerk.bind(this);
   }
