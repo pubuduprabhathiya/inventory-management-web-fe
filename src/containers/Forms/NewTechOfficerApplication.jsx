@@ -56,6 +56,7 @@ class NewTechnicalOfficerApplication extends Component {
   handleChange(event) {
     // console.log(this.state.labId);
     this.setState({ labId: event.target.value });
+    //retreve(event.target.value);
   }
 
   handleSubmit(event) {
@@ -86,11 +87,8 @@ class NewTechnicalOfficerApplication extends Component {
     };
     AdminService.createTechnicalOfficer(newOfficer)
       .then((response) => {
-        
-
         this.setState({
           // lastIndex:this.state.index,
-
           index: "",
           firstName: "",
           lastName: "",

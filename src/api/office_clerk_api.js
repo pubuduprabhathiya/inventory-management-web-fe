@@ -1,26 +1,51 @@
-import {deleteRequest,getRequest,postRequest,putRequest} from "./util";
+import {postRequestWithHeader, getRequestWithHeaders, putRequestWithHeader } from "./util";
 
 class OfficeClerkService {
   getNewDamages() {
-    return getRequest("users/office-clerk/get-new-damage-item");
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    };
+    return getRequestWithHeaders("users/office-clerk/get-new-damage-item",config);
   }
 
   getPendingDamages() {
-    return getRequest("users/office-clerk/get-under-repair-item");
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    };
+    return getRequestWithHeaders("users/office-clerk/get-under-repair-item",config);
   }
 
   getOldDamages() {
-    return getRequest("users/office-clerk/get-old-damage-item");
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    };
+    return getRequestWithHeaders("users/office-clerk/get-old-damage-item",config);
   }
 
   markAsSendToR(id) {
-    return putRequest(`users/office-clerk/send-to-repair/${id}`);
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    };
+    return putRequestWithHeader(`users/office-clerk/send-to-repair/${id}`,config);
     
   }
 
-  markAsFinishedR(id) {
-    return putRequest(`users/office-clerk/finish-repair/${id}`);
-    
+  markAsFinishedR(id,itemId) {
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    };
+    console.log(`users/office-clerk/finish-repair/${id}/${itemId}`);
+    return putRequestWithHeader(`users/office-clerk/finish-repair/${id}/${itemId}`,config);    
   }
 
 //   get(id) {

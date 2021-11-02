@@ -27,7 +27,7 @@ class LoginForm extends Component {
     // alert("New Lecturer Registered!");
     event.preventDefault();
     await this.props.onAuth(this.state.email, this.state.password);
-    console.log("abc"+this.props.error );
+    // console.log("abc"+this.props.error );
     if(this.props.error != null){
       alert(this.props.error);
     }

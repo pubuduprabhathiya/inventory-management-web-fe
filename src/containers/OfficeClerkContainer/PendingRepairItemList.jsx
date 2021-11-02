@@ -6,7 +6,7 @@ import OfficeClerkService from "../../api/office_clerk_api";
 class PendingRepairItemList extends Component {
     constructor(props) {
         super(props);
-        this.retrieveTutorials = this.retrieveTutorials.bind(this);
+        this.getPendingDamages = this.getPendingDamages.bind(this);
         this.clickItem = this.clickItem.bind(this);
         this.clickYes = this.clickYes.bind(this);
         this.clickNo = this.clickNo.bind(this);
@@ -16,23 +16,24 @@ class PendingRepairItemList extends Component {
             itemList:[],
             isClick: false,
             selectID: "",
+            selectedItemID:""
         };
     }
 
     componentDidMount() {
-        this.retrieveTutorials();
+        this.getPendingDamages();
       }
     
   
     
-      retrieveTutorials() {
+      getPendingDamages() {
     
         OfficeClerkService.getPendingDamages()
           .then(response => {
             this.setState({
               itemList: response.data
             });
-            // console.log(response.data);
+            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
@@ -40,19 +41,26 @@ class PendingRepairItemList extends Component {
       }
 
       clickItem(id) {
-        this.setState({
-          isClick: true,
-          selectID: id,
-        });
+        let ss = "";
+        let gg = "";
+        for (let i = 0; i < this.state.itemList.length; i++) {
+          if(this.state.itemList[i].id == id){
+            this.setState({
+              isClick: true,
+              selectID: this.state.itemList[i].damageId ,
+              selectedItemID: this.state.itemList[i].id,
+            });
+
+          }
+        }
+        
+        
       }
     
       clickYes() {
-        this.markAsFinishedRepair(this.state.selectID);
-        this.refreshList();
-        this.setState({
-          isClick: false,
-        });
-        window.location.reload();
+        console.log("select"+ this.state.selectID + " and " + this.state.selectedItemID);
+        this.markAsFinishedRepair(this.state.selectID,this.state.selectedItemID);
+     
       }
     
       clickNo() {
@@ -65,18 +73,23 @@ class PendingRepairItemList extends Component {
         this.setState({
           itemList: [],
         });
-        this.retrieveTutorials();
+        this.getPendingDamages();
       }
     
     
     
-      markAsFinishedRepair(id) {
-        OfficeClerkService.markAsFinishedR(id)
+      markAsFinishedRepair(id,itemID) {
+        OfficeClerkService.markAsFinishedR(id,itemID)
           .then((response) => {
             // this.setState({
             //     itemList: response.data
             // });
             console.log(response.data);
+            this.refreshList();
+            this.setState({
+              isClick: false,
+            });
+            window.location.reload();
           })
           .catch((e) => {
             console.log(e);
@@ -132,20 +145,20 @@ class PendingRepairItemList extends Component {
               <div>
                 {this.state.itemList.map((item) => {
                   // console.log("item");
-                  // console.log(item.equipment.category);
+                  console.log(item.damageId);
                   return (
                     <div>
                       <a onClick={() => this.clickItem(item.id)}>
                         <BrokenItemCard
-                          key={item.id}
-                          model={item.equipment.modelName}
-                          category={item.equipment.category}
-                          storeCode={item.equipment.storeCode}
-                          issue={item.reason}
-                          labName={item.equipment.labName}
-                          openDate={item.openDate}
-                          image={item.equipment.imageURL}
-                        />
+                    key={item.id}
+                    model={item["Model.modelName"]}
+                    category={item["Category.categoryName"]}
+                    storeCode={item.id}
+                    issue={item.reason}
+                    labName={item["Lab.labName"]}
+                    openDate={item.openDate}
+                    image={item.imageURL}
+                  />
                       </a>
       
                       <br />

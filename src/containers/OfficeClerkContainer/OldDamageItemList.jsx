@@ -7,51 +7,51 @@ class OldDamageItemList extends Component {
     constructor(props) {
         super(props);
         this.retrieveTutorials = this.retrieveTutorials.bind(this);
-    // this.refreshList = this.refreshList.bind(this);
-    // this.setActiveTutorial = this.setActiveTutorial.bind(this);
-    // this.removeAllTutorials = this.removeAllTutorials.bind(this);
-    // this.searchTitle = this.searchTitle.bind(this);
+        // this.refreshList = this.refreshList.bind(this);
+        // this.setActiveTutorial = this.setActiveTutorial.bind(this);
+        // this.removeAllTutorials = this.removeAllTutorials.bind(this);
+        // this.searchTitle = this.searchTitle.bind(this);
         this.state = {
-            itemList:[]
+            itemList: []
         };
     }
 
     componentDidMount() {
         this.retrieveTutorials();
-      }
-    
+    }
+
     //   onChangeSearchTitle(e) {
     //     const searchTitle = e.target.value;
-    
+
     //     this.setState({
     //       searchTitle: searchTitle
     //     });
     //   }
-    
-      retrieveTutorials() {
-     
+
+    retrieveTutorials() {
+
         OfficeClerkService.getOldDamages()
-          .then(response => {
-            this.setState({
-              itemList: response.data
+            .then(response => {
+                this.setState({
+                    itemList: response.data
+                });
+                // console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
             });
-            // console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      }
-    
+    }
 
-    
 
-   
 
-    render() {  
-        if(this.state.itemList.length == 0){
-            return (  
+
+
+
+    render() {
+        if (this.state.itemList.length == 0) {
+            return (
                 <div style={this.newStyle}>
-                    <h3 style={{textAlign:"center",}}>Repair History</h3>
+                    <h3 style={{ textAlign: "center", }}>Repair History</h3>
                     <br />
                     <div>
                         <h4>No Old Damage Record</h4>
@@ -59,38 +59,46 @@ class OldDamageItemList extends Component {
                 </div>
             );
         }
-        return (  
+        return (
             <div style={this.newStyle}>
-                <h3 style={{textAlign:"center",}}>Repair History</h3>
+                <h3 style={{ textAlign: "center", }}>Repair History</h3>
                 <br />
                 <div>
-                {
-                    
-                    this.state.itemList.map((item)=>{
-                        console.log("item");
-                        console.log(item.equipment.category);
-return <div>
-    <OldBrokenItemCard  key={item.id}  model ={item.equipment.modelName} category={item.equipment.category} storeCode = {item.equipment.storeCode} issue ={item.reason} labName={item.equipment.labName} openDate = {item.openDate} image = {item.equipment.imageURL} closeDate = {item.closeDate}/>
-    <br />
-</div>
+                    {
 
-                    }                                       
-                        
-                      
-                   )
-                } 
+                        this.state.itemList.map((item) => {
+                            return <div>
+                                <OldBrokenItemCard                                                                    
+                                    key={item.id}
+                                    model={item["Model.modelName"]}
+                                    category={item["Category.categoryName"]}
+                                    storeCode={item.id}
+                                    issue={item.reason}
+                                    labName={item["Lab.labName"]}
+                                    openDate={item.openDate}
+                                    image={item.imageURL}
+                                    closeDate={item.closeDate} 
+                                />
+                                <br />
+                            </div>
+
+                        }
+
+
+                        )
+                    }
 
                 </div>
             </div>
         );
     }
 
-    newStyle= {
+    newStyle = {
         // margin: 40,
         padding: 30,
-         background:" #bef1be",
-          borderRadius: 20,
+        background: " #bef1be",
+        borderRadius: 20,
     };
 }
- 
+
 export default OldDamageItemList;
