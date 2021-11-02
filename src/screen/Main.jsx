@@ -29,6 +29,8 @@ import Student from '../router/student';
 import Lecturer from '../router/lecturer';
 import TechnicalOfficer from '../router/technical_officer';
 
+import PopUp from "../containers/Alert/CustomAlertDialog"; 
+
 const Main = (props) => {
     return (
         <BrowserRouter>
@@ -37,6 +39,7 @@ const Main = (props) => {
                 <Content isAuthenticated={props.isAuthenticated} error={props.error} />
             
             </div>
+            {props.error != null ? <PopUp errorMsg={props.error} /> : null}
         </BrowserRouter>
     );
 }
@@ -44,9 +47,10 @@ const Main = (props) => {
 const Content = ({ isAuthenticated ,error}) => {
 
     console.log(error);
+
     
     if(error != null){
-        alert(error);
+   
     }
    
     let routes = () => (

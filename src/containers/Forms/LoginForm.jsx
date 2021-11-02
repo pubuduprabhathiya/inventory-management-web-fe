@@ -6,32 +6,47 @@ import * as actions from '../../store/actions/auth';
 import { connect } from 'react-redux';
 
 
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       password: "",
+
     };
     // this.getRoute();
     this.handleSubmit = this.handleSubmit.bind(this);
+    // this.togglePop = this.togglePop.bind(this);
   }
 
   componentDidMount() {
     if (this.props.authRedirectPath !== '/') {
-        this.props.onSetAuthRedirectPath();
+      this.props.onSetAuthRedirectPath();
     }
-}
+  }
+
+  // togglePop = () => {
+  //   this.setState({
+  //     seen: !this.state.seen
+  //   });
+  // };
 
   handleSubmit = async (event) => {
     // alert("New Lecturer Registered!");
     event.preventDefault();
     await this.props.onAuth(this.state.email, this.state.password);
     // console.log("abc"+this.props.error );
-    if(this.props.error != null){
-      alert(this.props.error);
-    }
-    
+    // if (this.props.error != null) {
+    //   alert(this.props.error + "aa");
+    //   alert(this.state.seen);
+    //   this.setState({
+    //     seen:true,
+    //     error: this.props.error
+    //   });
+     
+    // }
+
   };
 
 
@@ -78,26 +93,27 @@ class LoginForm extends Component {
 
           <p>Forgot password? Get help</p>
         </form>
+       
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-    return {
-        loading: state.reducer.loading,
-        error: state.reducer.error,
-        isAuthenticated: !(state.reducer.token === null || state.reducer.token === undefined),
-        token: state.reducer.token,
-        // authRedirectPath: state.reducer.authRedirectPath
-    };
+  return {
+    loading: state.reducer.loading,
+    error: state.reducer.error,
+    isAuthenticated: !(state.reducer.token === null || state.reducer.token === undefined),
+    token: state.reducer.token,
+    // authRedirectPath: state.reducer.authRedirectPath
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onAuth: (email, password) => dispatch(actions.auth(email, password)),
-        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
-    };
+  return {
+    onAuth: (email, password) => dispatch(actions.auth(email, password)),
+    onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
