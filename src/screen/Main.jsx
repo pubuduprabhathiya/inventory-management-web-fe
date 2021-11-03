@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {io} from "socket.io-client";
+
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import { connect } from 'react-redux';
@@ -29,18 +31,24 @@ import Lecturer from '../router/lecturer';
 import TechnicalOfficer from '../router/technical_officer';
 
 const Main = (props) => {
+    const [socket, setSocket] = useState(null);
+
+    useEffect(()=>{
+        setSocket(io("http://localhost:5000"));
+    },[]);
+
     return (
         <BrowserRouter>
             <div>
             
-                <Content isAuthenticated={props.isAuthenticated}  />
+                <Content isAuthenticated={props.isAuthenticated} socket={socket}/>
             
             </div>
         </BrowserRouter>
     );
 }
 
-const Content = ({ isAuthenticated }) => {
+const Content = ({ isAuthenticated, socket }) => {
 
     console.log(isAuthenticated);
 
@@ -65,22 +73,30 @@ const Content = ({ isAuthenticated }) => {
                     <Route path="/admin/add-laboratory" component={AddLaboratory}/>
                 </Switch>
             );
-        if(userType === "Student")routes = () => (              
+        if(userType === "Student")routes = () =>{
+            socket?.emit("newUser","180244B");
+            socket ?console.log("Student has socket now"):console.log("Student has not socket");
+            return(              
                 <Switch >
                     <Route path="/"  exact component={CustomDashboard}/>
                     <Route path='/student'>
-                        <Student/>
+                        <Student socket={socket}/>
                     </Route>                    
                 </Switch>
             );
-        if(userType === "Lecturer")routes = () => (        
+        };
+        if(userType === "Lecturer")routes = () => {
+            socket?.emit("newUser","123456L");
+            socket ? console.log("Lecturer has socket"): console.log("Lecturer has not socket");
+            return(        
                 <Switch >
                     <Route path="/" exact component={CustomDashboard}/>
                     <Route path='/lecturer'>
-                        <Lecturer/>
+                        <Lecturer socket={socket}/>
                     </Route> 
                 </Switch>
             );
+        };
         if(userType === "TechnicalOfficer")routes = () => (        
                 <Switch >
                     <Route path="/" exact component={CustomDashboard}/>

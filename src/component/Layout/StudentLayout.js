@@ -5,7 +5,7 @@ import Header from "./Header";
 const StudentLayout = (props)=>{
     return (
     <Fragment>
-      <Header/>
+      <Header socket={props.socket}/>
       <main>
         <StudentDashboard/>
         {props.children}

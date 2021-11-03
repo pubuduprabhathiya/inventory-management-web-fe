@@ -4,12 +4,13 @@ import HeaderIcon from './HeaderIcon';
 import HeaderButton from "./HeaderButton";
 
 const Header = (props) =>{
+    //console.log(props.socket.id);
     return(
         <Fragment>
             <header className={classes.header}>
                 <h1>Inventory Management System</h1>
                 <div className={classes.divalign}>
-                    <HeaderIcon/>
+                    <HeaderIcon socket={props.socket}/>
                     <HeaderButton/>
                 </div>
             </header>

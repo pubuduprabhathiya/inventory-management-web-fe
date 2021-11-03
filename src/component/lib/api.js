@@ -166,6 +166,38 @@ export async function sendStudentNormalBorrowingRequest(detail){
     return data;
 }
 
+export async function sendNotificationByStudent(detail){
+    const response = await fetch(`http://localhost:5000/student/sendNotification`,{
+        method: 'POST',
+        body: JSON.stringify({studentId:detail.studentId,lecId:detail.lecId,notification:detail.notification}),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    const data= await response.json();
+    if(!response.ok){
+        throw new Error(data.message || 'Could not etch');
+    }
+    return data;
+}
+
+export async function getNotifications(detail){
+    // const response = await fetch(`${url}/category`);
+    const response = await fetch(`http://localhost:5000/student/getNotification/${detail.id}`);
+    const data = await response.json();
+
+    if(!response.ok){
+        throw new Error(data.message || 'Could not fetch');
+    }
+    console.log(data);
+    // const categoryList = [''];
+    // for(const key in data){
+    //     const category = data[key]['Category.categoryName'];
+    //     categoryList.push(category);
+    // }
+    return data;
+}
+
 export async function sendLecturerNormalBorrowingRequest(detail){
     const response = await fetch(`http://localhost:5000/lecturer/sendNormalRequest`,{
         method:'POST',

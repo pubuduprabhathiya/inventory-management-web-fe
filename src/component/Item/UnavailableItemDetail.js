@@ -7,18 +7,18 @@ const UnavailableItemDetail = (props)=>{
         <Modal onClose = {props.onClose}>
             <div className={classes.total}>
             <div className={classes.unavailabel}>
-                <h4>Category:</h4>
-                <h4>Model:</h4>
-                <h4>Store Code:</h4>
-                <h4>Lab Name:</h4>
-                <h4>Available on:</h4>
+                <h5>Category:</h5>
+                <h5>Model:</h5>
+                <h5>Store Code:</h5>
+                <h5>Lab Name:</h5>
+                <h5>Available on:</h5>
             </div>
             <div className={classes.unavailabel}>
-                <h4>{props.itm.category}</h4>
-                <h4>{props.itm.model}</h4>
-                <h4>{props.itm.storeCode}</h4>
-                <h4>{props.itm.labName}</h4>
-                <h4>{props.date}</h4>
+                <h5>{props.itm.category}</h5>
+                <h5>{props.itm.model}</h5>
+                <h5>{props.itm.storeCode}</h5>
+                <h5>{props.itm.labName}</h5>
+                <h5>{props.date}</h5>
             </div>
                 
             </div>

@@ -75,6 +75,9 @@ const TemporaryCheckout = (props)=>{
         if(enteredCategoryIsValid){
             sendModel({enterCategory:enterCategory});
             console.log('Loaded model Data');
+            resetModelInput();
+            resetLabNameInput();
+            resetStoreCodeInput();
         }
     },[enterCategory]);
 
@@ -83,15 +86,18 @@ const TemporaryCheckout = (props)=>{
             //console.log({category:enterCategory,model:enterModel});
             sendLab({category:enterCategory,model:enterModel});
             console.log('Loaded lab Data');
+            resetLabNameInput();
+            resetStoreCodeInput();
         }
-    },[enterCategory,enterModel]);
+    },[enterModel]);
 
     useEffect(()=>{
         if(enteredCategoryIsValid && enteredModelIsValid && enteredLabNameIsValid){
             sendStoreCode({category:enterCategory,model:enterModel,lab:enterLabName});
             console.log('Loading store code');
+            resetStoreCodeInput();
         }
-    },[enterCategory,enterModel,enterLabName]);
+    },[enterLabName]);
 
     if(categoryStatus==='pending'){
         return(

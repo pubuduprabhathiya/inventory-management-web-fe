@@ -4,7 +4,7 @@ import Layout from "../../component/Layout/Layout";
 
 const CreateNormalRequestScreen = (props)=>{
     return(
-        <Layout>
+        <Layout socket={props.socket}>
             <MainContainer title='Normal Request'>
                 <NormalCheckout type='lecturer' key='lec'/>
             </MainContainer>
