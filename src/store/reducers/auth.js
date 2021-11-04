@@ -13,6 +13,7 @@ const initialState = {
     firstName: null,
     lastName: null,
     userType: null,
+    userEmail: null,
     error: null,
     loading: false,
     authRedirectPath: '/'
@@ -30,6 +31,7 @@ const authSuccess = (state, action) => {
         firstName: action.firstName,
         lastName: action.lastName,
         userType: action.userType,
+        userEmail:action.userEmail,
         error: null,
         loading: false
      } );
@@ -43,7 +45,7 @@ const authFail = (state, action) => {
 };
 
 const authLogout = (state, action) => {
-    return updateObject(state, { token: null, user: null, firstName: null, lastName: null, userType: null });
+    return updateObject(state, { token: null, user: null, firstName: null, lastName: null, userType: null, userEmail:null });
 };
 
 const setAuthRedirectPath = (state, action) => {

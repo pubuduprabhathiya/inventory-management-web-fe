@@ -70,6 +70,7 @@ class LoginForm extends Component {
               }}
             ></input>
           </div>
+    
           <div className="form-group">
             <label for="pwd">Password:</label>
             <input
@@ -123,3 +124,5 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+
+
