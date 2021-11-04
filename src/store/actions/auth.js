@@ -10,7 +10,7 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token, userID, firstName, lastName, userType) => {
+export const authSuccess = (token, userID, firstName, lastName, userType,userEmail) => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     return {
         type: actionTypes.AUTH_SUCCESS,
@@ -18,7 +18,8 @@ export const authSuccess = (token, userID, firstName, lastName, userType) => {
         user: userID,
         firstName: firstName,
         lastName: lastName,
-        userType: userType
+        userType: userType,
+        userEmail: userEmail
     };
 };
 
@@ -92,6 +93,7 @@ export const auth = (email, password, onLogin = () => { }) => {
                 const firstName = decoded.firstName;
                 const lastName = decoded.lastName;
                 const userType = decoded.type;
+                const userEmail = decoded.email;
                 console.log(userType);
 
                 const expirationDate = new Date(new Date().getTime() + expiresIn * 9000);
@@ -103,7 +105,7 @@ export const auth = (email, password, onLogin = () => { }) => {
                 localStorage.setItem('lastName', lastName);
                 localStorage.setItem('userType', userType);
 
-                dispatch(authSuccess(token, userID, firstName, lastName, userType))
+                dispatch(authSuccess(token, userID, firstName, lastName, userType,userEmail))
 
                 onLogin();
                 dispatch(checkAuthTimeout(expiresIn));

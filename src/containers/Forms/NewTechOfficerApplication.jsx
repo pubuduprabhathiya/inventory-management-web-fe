@@ -15,8 +15,8 @@ class NewTechnicalOfficerApplication extends Component {
       confirmPw: "",
       labList: [],
     };
-    this.retrieveLastID();
-    this.retrieveLabs();
+    // this.retrieveLastID();
+    // this.retrieveLabs();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.createTechnicalOfficer = this.createTechnicalOfficer.bind(this);
@@ -56,6 +56,7 @@ class NewTechnicalOfficerApplication extends Component {
   handleChange(event) {
     // console.log(this.state.labId);
     this.setState({ labId: event.target.value });
+    //retreve(event.target.value);
   }
 
   handleSubmit(event) {
@@ -69,6 +70,7 @@ class NewTechnicalOfficerApplication extends Component {
     if (this.state.password != this.state.confirmPw) {
       alert("Password not match with confirm password");
     } else {
+      console.log("lab id "+ this.state.labId);
       this.createTechnicalOfficer();
     }
   }
@@ -85,11 +87,8 @@ class NewTechnicalOfficerApplication extends Component {
     };
     AdminService.createTechnicalOfficer(newOfficer)
       .then((response) => {
-        
-
         this.setState({
           // lastIndex:this.state.index,
-
           index: "",
           firstName: "",
           lastName: "",
@@ -185,8 +184,8 @@ class NewTechnicalOfficerApplication extends Component {
                 <option selected>Choose...</option>
 
                 {this.state.labList.map((item) => {
-                  console.log("item");
-                  console.log(item);
+                  // console.log("item");
+                  // console.log(item);
                   return (
                     <option key={item.id} value={item.id}>
                       {item.labName}

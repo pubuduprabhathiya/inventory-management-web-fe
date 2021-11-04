@@ -45,6 +45,14 @@ export const putRequest = async (url, data, headers = {}) => {
 		return generateErrorOutput(error);
 	}
 };
+export const putRequestWithHeader = async (url, data, headers) => {
+	try {
+		let response = (data) ? await axios.put(url, data, headers) : await axios.put(url, headers);
+		return generateSuccessOutput(response);
+	} catch (error) {
+		return generateErrorOutput(error);
+	}
+};
 
 export const deleteRequest = async (url) => {
 	try {

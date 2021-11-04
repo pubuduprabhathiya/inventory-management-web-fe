@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import * as actions from '../store/actions';
 
 import Login from "./Login/Login";
+import Help from "./Help/helpScreen";
 
 import AdminDashboard from './Dashboard/AdminDashboard';
 import AddStudentPage from './ActionPage/Admin/AddStudentPage';
@@ -17,18 +18,22 @@ import AddLecturePage from "./ActionPage/Admin/AddLecturePage";
 import AddTechnicalPage from "./ActionPage/Admin/AddTechnicalOfficerPage";
 import AddOfficeClerkPage from "./ActionPage/Admin/AddOfficeClerkPage";
 import AddLaboratory from "./ActionPage/Admin/AddLaboratoryPage";
+import UpdateUser from "./ActionPage/Admin/UpdateUserPage"
 
 
 import OfficeClerkDashboard from './Dashboard/OfficeClerkDashboard.jsx';
 import NewDamageViewPage from './ActionPage/OfficeClerk/NewDamageRequestViewPage';
 import OldDamageViewPage from './ActionPage/OfficeClerk/OldDamageRequestViewPage';
 import PendingDamageViewPage from './ActionPage/OfficeClerk/PendingRepairViewPage';
+import CheckAvailability from './ActionPage/OfficeClerk/CheckAvailabilityViewPage';
 
 import CustomDashboard from './Dashboard/CustomDashboard';
 
 import Student from '../router/student';
 import Lecturer from '../router/lecturer';
 import TechnicalOfficer from '../router/technical_officer';
+
+import PopUp from "../containers/Alert/CustomAlertDialog"; 
 
 const Main = (props) => {
     const [socket, setSocket] = useState(null);
@@ -41,21 +46,27 @@ const Main = (props) => {
         <BrowserRouter>
             <div>
             
-                <Content isAuthenticated={props.isAuthenticated} socket={socket}/>
+                <Content isAuthenticated={props.isAuthenticated} error={props.error} socket={socket}/>
             
             </div>
+            {props.error != null ? <PopUp errorMsg={props.error} /> : null}
         </BrowserRouter>
     );
 }
 
-const Content = ({ isAuthenticated, socket }) => {
+const Content = ({ isAuthenticated ,error,socket}) => {
 
-    console.log(isAuthenticated);
+    console.log(error);
 
+    
+    if(error != null){
+   
+    }
    
     let routes = () => (
         <Switch>
-            <Route path="/" exact component={Login} />           
+            <Route path="/" exact component={Login} /> 
+            <Route path="/help" exact component={Help} />           
         </Switch>
     );
 
@@ -71,6 +82,7 @@ const Content = ({ isAuthenticated, socket }) => {
                     <Route path="/admin/add-technical-officer" component={AddTechnicalPage}/>
                     <Route path="/admin/add-office-clerk" component={AddOfficeClerkPage}/>
                     <Route path="/admin/add-laboratory" component={AddLaboratory}/>
+                    <Route path="/admin/update-password" exact component={UpdateUser}/>
                 </Switch>
             );
         if(userType === "Student")routes = () =>{
@@ -111,6 +123,8 @@ const Content = ({ isAuthenticated, socket }) => {
                     <Route path="/office-clerk/new-damage" ><NewDamageViewPage/></Route>
                     <Route path="/office-clerk/old-damage" ><OldDamageViewPage/></Route>
                     <Route path="/office-clerk/pending-damage" ><PendingDamageViewPage/></Route>
+                    <Route path="/office-clerk/item-list" ><CheckAvailability/></Route>
+                    
      
                 </Switch>
             );        
@@ -127,10 +141,10 @@ const Content = ({ isAuthenticated, socket }) => {
 };
 
 const mapStateToProps = state => {
-    console.log("state"+state.reducer.token );
+    console.log("state"+state.reducer.error );
     return {
         isAuthenticated: !(state.reducer.token === null || state.reducer.token === undefined),
-        // userType : this.state.userType
+        error:state.reducer.error
     };
 };
 

@@ -15,7 +15,7 @@ class NewLectureApplication extends Component {
       confirmPw:""
     };
 
-    this.retrieveLastID();
+    // this.retrieveLastID();
     this.createNewLecture = this.createNewLecture.bind(this);
 
     this.handleSubmit = this.handleSubmit.bind(this);

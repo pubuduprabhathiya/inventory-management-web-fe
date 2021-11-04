@@ -48,8 +48,7 @@ class OfficeClerkSideMenu extends Component {
                 {tabName: "New Damage Item" , url: "/office-clerk/new-damage"},
                 {tabName: "Mark As Repaired" , url: "/office-clerk/pending-damage"},
                 {tabName: "Repair History" , url: "/office-clerk/old-damage"},
-                // {tabName: "Add New Office Clerk" , url: "/admin/add-office-clerk"},
-                // {tabName: "Add New Laboratory" , url: "/admin/add-laboratory"},
+                {tabName: "Check Availability" , url: "/office-clerk/item-list"},
                 {tabName: "<< Dashboard" , url: "/"},
                 
              
@@ -87,7 +86,7 @@ class OfficeClerkSideMenu extends Component {
                 {
                     this.state.urls.map(item=>                                       
                         
-                      <CustomButton  key={item.id}  tabName ={item.tabName} isActive={this.getButtonClass(item.tabName)} url={item.url} />
+                      <CustomButton  key={item.tabName}  tabName ={item.tabName} isActive={this.getButtonClass(item.tabName)} url={item.url} />
                    )
                 } 
        

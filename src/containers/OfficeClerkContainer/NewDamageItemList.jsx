@@ -6,7 +6,7 @@ import OfficeClerkService from "../../api/office_clerk_api";
 class NewDamageItemList extends Component {
   constructor(props) {
     super(props);
-    this.retrieveTutorials = this.retrieveTutorials.bind(this);
+    this.getNewDamages = this.getNewDamages.bind(this);
     this.clickItem = this.clickItem.bind(this);
     this.clickYes = this.clickYes.bind(this);
     this.clickNo = this.clickNo.bind(this);
@@ -16,12 +16,12 @@ class NewDamageItemList extends Component {
     this.state = {
       itemList: [],
       isClick: false,
-      selectID: "",
+      selectDamageId: "",
     };
   }
 
   componentDidMount() {
-    this.retrieveTutorials();
+    this.getNewDamages();
   }
 
 
@@ -29,12 +29,12 @@ class NewDamageItemList extends Component {
   clickItem(id) {
     this.setState({
       isClick: true,
-      selectID: id,
+      selectDamageId: id,
     });
   }
 
   clickYes() {
-    this.markAsSendToRepair(this.state.selectID);
+    this.markAsSendToRepair(this.state.selectDamageId);
     this.refreshList();
     this.setState({
         isClick:false
@@ -49,15 +49,17 @@ class NewDamageItemList extends Component {
     });
   }
 
-  retrieveTutorials() {
+  getNewDamages() {
 
     OfficeClerkService.getNewDamages()
       .then((response) => {
+        console.log("response");
+        console.log(response);
         this.setState({
           itemList: response.data,
           isClick:false
         });
-        // console.log(response.data);
+        console.log(this.state.itemList);
       })
       .catch((e) => {
         console.log(e);
@@ -69,7 +71,7 @@ class NewDamageItemList extends Component {
       itemList: [],
       
     });
-    this.retrieveTutorials();
+    this.getNewDamages();
   }
 
 
@@ -77,9 +79,6 @@ class NewDamageItemList extends Component {
   markAsSendToRepair(id) {
     OfficeClerkService.markAsSendToR(id)
       .then((response) => {
-        // this.setState({
-        //     itemList: response.data
-        // });
         console.log(response.data);
       })
       .catch((e) => {
@@ -131,19 +130,19 @@ class NewDamageItemList extends Component {
         <div>
           {this.state.itemList.map((item) => {
             // console.log("item");
-            // console.log(item.equipment.category);
+            // console.log(item["Model.modelName"]);
             return (
               <div>
-                <a onClick={() => this.clickItem(item.id)}>
+                <a onClick={() => this.clickItem(item.damageId)}>
                   <BrokenItemCard
                     key={item.id}
-                    model={item.equipment.modelName}
-                    category={item.equipment.category}
-                    storeCode={item.equipment.storeCode}
+                    model={item["Model.modelName"]}
+                    category={item["Category.categoryName"]}
+                    storeCode={item.id}
                     issue={item.reason}
-                    labName={item.equipment.labName}
+                    labName={item["Lab.labName"]}
                     openDate={item.openDate}
-                    image={item.equipment.imageURL}
+                    image={item.imageURL}
                   />
                 </a>
 
