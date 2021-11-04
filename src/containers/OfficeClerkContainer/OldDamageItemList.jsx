@@ -64,9 +64,7 @@ class OldDamageItemList extends Component {
                 <h3 style={{ textAlign: "center", }}>Repair History</h3>
                 <br />
                 <div>
-                    {
-
-                        this.state.itemList.map((item) => {
+                    {this.state.itemList.map((item) => {
                             return <div>
                                 <OldBrokenItemCard                                                                    
                                     key={item.id}

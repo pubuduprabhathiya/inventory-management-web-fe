@@ -28,6 +28,15 @@ class OfficeClerkService {
     return getRequestWithHeaders("users/office-clerk/get-old-damage-item",config);
   }
 
+  getAllItems() {
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    };
+    return getRequestWithHeaders("users/office-clerk/check-availability",config);
+  }
+
   markAsSendToR(id) {
     const config = {
       headers: {

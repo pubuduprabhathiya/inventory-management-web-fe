@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import * as actions from '../store/actions';
 
 import Login from "./Login/Login";
+import Help from "./Help/helpScreen";
 
 import AdminDashboard from './Dashboard/AdminDashboard';
 import AddStudentPage from './ActionPage/Admin/AddStudentPage';
@@ -22,6 +23,7 @@ import OfficeClerkDashboard from './Dashboard/OfficeClerkDashboard.jsx';
 import NewDamageViewPage from './ActionPage/OfficeClerk/NewDamageRequestViewPage';
 import OldDamageViewPage from './ActionPage/OfficeClerk/OldDamageRequestViewPage';
 import PendingDamageViewPage from './ActionPage/OfficeClerk/PendingRepairViewPage';
+import CheckAvailability from './ActionPage/OfficeClerk/CheckAvailabilityViewPage';
 
 import CustomDashboard from './Dashboard/CustomDashboard';
 
@@ -55,7 +57,8 @@ const Content = ({ isAuthenticated ,error}) => {
    
     let routes = () => (
         <Switch>
-            <Route path="/" exact component={Login} />           
+            <Route path="/" exact component={Login} /> 
+            <Route path="/help" exact component={Help} />           
         </Switch>
     );
 
@@ -104,6 +107,8 @@ const Content = ({ isAuthenticated ,error}) => {
                     <Route path="/office-clerk/new-damage" ><NewDamageViewPage/></Route>
                     <Route path="/office-clerk/old-damage" ><OldDamageViewPage/></Route>
                     <Route path="/office-clerk/pending-damage" ><PendingDamageViewPage/></Route>
+                    <Route path="/office-clerk/item-list" ><CheckAvailability/></Route>
+                    
      
                 </Switch>
             );        

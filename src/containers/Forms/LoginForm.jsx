@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import {  Link } from "react-router-dom";
 
 
 import * as actions from '../../store/actions/auth';
@@ -90,8 +90,14 @@ class LoginForm extends Component {
           <button type="submit m-1" className="btn btn-primary">
             Submit
           </button>
+ 
+          <Link to={"/help"} >
+                <a href="">
+                <p>Forgot password? Get help</p>
+                </a>
+            </Link>
 
-          <p>Forgot password? Get help</p>
+         
         </form>
        
       </div>

@@ -55,6 +55,12 @@ class OfficeClerkDashboard extends Component {
              Repair History
             </a>
             </Link>
+            <Link to={"/office-clerk/item-list"} >
+            <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
+              <i className="fa fa-search fa-5x"></i><br/>         
+              Check Availability
+            </a>
+            </Link>
             
           </p>
         </div>
