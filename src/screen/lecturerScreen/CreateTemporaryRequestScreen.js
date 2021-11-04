@@ -4,7 +4,7 @@ import Layout from "../../component/Layout/Layout";
 
 const CreateTemporaryRequestScreen = (props)=>{
     return(
-        <Layout>
+        <Layout socket={props.socket}>
             <MainContainer title='Temporary Request'>
                 <TemporaryCheckout type='lecturer'/>
             </MainContainer>

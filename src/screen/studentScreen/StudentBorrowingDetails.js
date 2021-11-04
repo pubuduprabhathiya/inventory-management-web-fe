@@ -6,7 +6,7 @@ const StudentBorrowingDetails = (props)=>{
     
 
     return(
-        <StudentLayout>
+        <StudentLayout socket={props.socket}>
             <MainContainer title='Borrowing Items'>
                 <Borrowings/>
             </MainContainer>
