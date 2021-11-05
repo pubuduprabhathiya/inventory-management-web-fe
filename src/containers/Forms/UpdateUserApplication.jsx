@@ -10,6 +10,8 @@ class UpdateUserApplication extends Component {
       email: "",
       password: "",
       confirmPw: "",
+      firstName: "",
+      lastName: "",
       isSearch : false
     };
     this.retrieveUser = this.retrieveUser.bind(this);
@@ -54,7 +56,9 @@ class UpdateUserApplication extends Component {
       .then((response) => {
         console.log(response);
         this.setState({
-            userType: response.data.type,
+            userType: response.data.userType,
+            firstName: response.data.firstName,
+            lastName: response.data.lastName,
         })
       })
       .catch((e) => {
@@ -156,11 +160,33 @@ class UpdateUserApplication extends Component {
                       required
                       disabled
                       value={this.state.userType}
-                      onChange={(event) => {
-                        this.setState({
-                            userType: event.target.value,
-                        });
-                      }}
+                     
+                    ></input>
+                  </div>
+
+                  <div className="form-group m-1">
+                    <label>First Name:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="First Name"
+                      required
+                      disabled
+                      value={this.state.firstName}
+                    
+                    ></input>
+                  </div>
+
+                  <div className="form-group m-1">
+                    <label>LAst Name:</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Last Name"
+                      required
+                      disabled
+                      value={this.state.lastName}
+                  
                     ></input>
                   </div>
                   
