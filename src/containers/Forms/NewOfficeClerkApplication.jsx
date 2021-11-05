@@ -10,7 +10,10 @@ class NewOfficeClerkApplication extends Component {
       lastName:"",
       email: "",
       password: "",
-      confirmPw:""
+      confirmPw:"",
+      isError: false,
+      msg:"",
+      isSuccess: false
     };
     // this.retrieveLastID();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -78,10 +81,18 @@ class NewOfficeClerkApplication extends Component {
         });
 
         if(response.code != 200){
-          alert(response.message);          
+          this.setState({
+            isError:true,
+            isSuccess:false,
+            msg: response.message
+          });     
         }else{
-          alert("New Office Clerk Registered!");
-          window.location.reload();
+          this.setState({
+            isSuccess:true,
+            isError:false,
+            msg: "New Office Clerk Registered!"
+          });
+         
         }
 
       
@@ -107,6 +118,12 @@ class NewOfficeClerkApplication extends Component {
     return (
       <div style={this.newStyle}>
         <h3 style={{ textAlign: "center" }}>Office Clerk Application</h3>
+        {this.state.isError ? <div className="alert alert-danger">
+            <strong>Error!</strong> {this.state.msg}.
+        </div> : null}
+        {this.state.isSuccess ? <div className="alert alert-primary">
+            <strong>Success!</strong> New Office Clerk Registered!"
+        </div> : null}
         <div>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group m-1 ">

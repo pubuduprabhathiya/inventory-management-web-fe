@@ -14,6 +14,9 @@ class NewTechnicalOfficerApplication extends Component {
       password: "",
       confirmPw: "",
       labList: [],
+      isError: false,
+      msg:"",
+      isSuccess: false
     };
     // this.retrieveLastID();
     // this.retrieveLabs();
@@ -99,10 +102,19 @@ class NewTechnicalOfficerApplication extends Component {
         });
 
         if(response.code != 200){
-          alert(response.message);          
+          this.setState({
+            isError:true,
+            isSuccess:false,
+            msg: response.message
+          });          
         }else{
-          alert("New Technical Officer Registered!");
-          window.location.reload();
+          this.setState({
+            isSuccess:true,
+            isError:false,
+            msg: "New Technical Officer Registered!"
+          });
+          // alert("New Technical Officer Registered!");
+          // window.location.reload();
         }
       })
       .catch((e) => {
@@ -122,6 +134,12 @@ class NewTechnicalOfficerApplication extends Component {
     return (
       <div style={this.newStyle}>
         <h3 style={{ textAlign: "center" }}>Technical Officer Application</h3>
+        {this.state.isError ? <div className="alert alert-danger">
+            <strong>Error!</strong> {this.state.msg}.
+        </div> : null}
+        {this.state.isSuccess ? <div className="alert alert-primary">
+            <strong>Success!</strong> New Technical Officer Registered!
+        </div> : null}
         <div>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group m-1 ">

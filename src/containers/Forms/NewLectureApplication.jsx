@@ -12,7 +12,10 @@ class NewLectureApplication extends Component {
       department: "",
       email: "",
       password: "",
-      confirmPw:""
+      confirmPw:"",
+      isError: false,
+      msg:"",
+      isSuccess: false
     };
 
     // this.retrieveLastID();
@@ -77,10 +80,21 @@ class NewLectureApplication extends Component {
       confirmPw:""         
         });
         if(response.code != 200){
-          alert(response.message);          
+          this.setState({
+            isError:true, 
+            isSuccess:false,
+            
+            msg: response.message
+          });          
         }else{
-          alert("New Lecture Registered!");
-          window.location.reload();
+          this.setState({
+            isSuccess:true,
+            isError:false, 
+            msg: "New Lecture is Registered!"
+          });
+          this.retrieveLastID();
+          // alert("New Lecture Registered!");
+          // window.location.reload();
         }
 
       })
@@ -102,6 +116,12 @@ class NewLectureApplication extends Component {
     return (
       <div style={this.newStyle}>
         <h3 style={{ textAlign: "center" }}>Lecturer Application</h3>
+        {this.state.isError ? <div className="alert alert-danger">
+            <strong>Error!</strong> {this.state.msg}.
+        </div> : null}
+        {this.state.isSuccess ? <div className="alert alert-primary">
+            <strong>Success!</strong> New Lecture is Registered!
+        </div> : null}
         <div>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group m-1 ">

@@ -4,23 +4,14 @@ import NewLabApplication from "../../../containers/Forms/NewLabApplication";
 import NavBar from "../../../containers/Navbar/Navbar";
 import AdminSideMenu from "../../../containers/SideMenu/AdminSideMenu";
 
+
+
 class AddLaboratory extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    // this.checkLogin();
   }
-  // componentDidMount() {
-  //   this.checkLogin();
-  // }
-  // checkLogin(){
-  //   var type = localStorage.getItem('token');
-  //   var user = localStorage.getItem('user');
-  //   if(!type || user != "Admin"){
-  //     this.props.history.push("/");
-  //     return ;
-  //   }
-  // }
+
   render() {
     return (
       <div>
@@ -38,5 +29,7 @@ class AddLaboratory extends Component {
     );
   }
 }
+
+
 
 export default withRouter(AddLaboratory);

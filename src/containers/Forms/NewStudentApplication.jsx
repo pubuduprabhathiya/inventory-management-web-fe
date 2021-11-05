@@ -12,7 +12,10 @@ class NewStudentApplication extends Component {
       department: "",
       email: "",
       password: "",
-      confirmPw:""
+      confirmPw:"",
+      isError: false,
+      msg:"",
+      isSuccess: false
     };
 
     this.createNewStudent = this.createNewStudent.bind(this);
@@ -82,10 +85,19 @@ class NewStudentApplication extends Component {
         });
       
         if(response.code != 200){
-          alert(response.message);          
+          this.setState({
+            isError:true,
+            isSuccess:false,
+            msg: response.message
+          });   
         }else{
-          alert("New Student Registered!");
-          window.location.reload();
+          this.setState({
+            isSuccess:true,
+            isError:false,
+            msg: "New Student Registered!"
+          });
+          // alert("");
+          // window.location.reload();
         }
       })
       .catch((e) => {
@@ -105,6 +117,12 @@ class NewStudentApplication extends Component {
     return (
       <div style={this.newStyle}>
         <h3 style={{ textAlign: "center" }}>Student Application</h3>
+        {this.state.isError ? <div className="alert alert-danger">
+            <strong>Error!</strong> {this.state.msg}.
+        </div> : null}
+        {this.state.isSuccess ? <div className="alert alert-primary">
+            <strong>Success!</strong> New Student Registered!
+        </div> : null}
         <div>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group m-1 ">

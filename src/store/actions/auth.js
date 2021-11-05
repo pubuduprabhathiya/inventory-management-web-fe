@@ -30,25 +30,15 @@ export const authFail = (error) => {
     };
 };
 
-export const updateName = (firstName, lastName) => {
-    localStorage.setItem('firstName', firstName);
-    localStorage.setItem('lastName', lastName);
+export const updateError = (newError) => {
+    localStorage.setItem('error', newError);  
 
     return {
-        type: actionTypes.UPDATE_NAME,
-        firstName: firstName,
-        lastName: lastName
+        type: actionTypes.UPDATE_ERROR,
+        error: newError,      
     }
 }
 
-export const updateProfilePicture = (profilePic) => {
-    localStorage.setItem('profilePic', profilePic);
-
-    return {
-        type: actionTypes.UPDATE_PROFILE_PICTURE,
-        profilePic: profilePic
-    }
-}
 
 
 export const logout = () => {

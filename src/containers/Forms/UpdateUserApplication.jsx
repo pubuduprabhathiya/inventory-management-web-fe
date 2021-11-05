@@ -12,7 +12,10 @@ class UpdateUserApplication extends Component {
       confirmPw: "",
       firstName: "",
       lastName: "",
-      isSearch : false
+      isSearch : false,
+      isError: false,
+      msg:"",
+      isSuccess: false
     };
     this.retrieveUser = this.retrieveUser.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -34,17 +37,26 @@ class UpdateUserApplication extends Component {
   }
 
   handleSearch(event) {
-    alert("Are you sure?");
+    // alert("Are you sure?");
     event.preventDefault();
     console.log(this.state);
     
     if (this.state.email == "") {
-      alert("Please enter correct mail");
+      this.setState({
+        isError:true,
+        isSuccess:false,
+        msg: "Please enter correct mail"
+      });
+      // alert("");
       return;
     }
+
     this.setState({
-        isSearch: true
+      isError:false,
+      isSuccess:false,
+      msg: "Something went wrong"
     });
+    
     this.retrieveUser(this.state.email);    
   }
 
@@ -55,13 +67,25 @@ class UpdateUserApplication extends Component {
     AdminService.getUserData(emailData)
       .then((response) => {
         console.log(response);
-        this.setState({
+        if(response.code != 200){
+          this.setState({
+            isError:true,
+            msg: response.message,
+            isSearch:false
+          });
+          // alert(response.message);          
+        }else{
+          this.setState({
+            isSearch:true,
             userType: response.data.userType,
             firstName: response.data.firstName,
             lastName: response.data.lastName,
         })
+        }
+        
       })
       .catch((e) => {
+        alert("Server Error! Try again later!");
         console.log(e);
       });
   }
@@ -95,10 +119,17 @@ class UpdateUserApplication extends Component {
         });
 
         if(response.code != 200){
-          alert(response.message);          
+          this.setState({
+            isError:true,
+            msg: response.message
+          });         
         }else{
-          alert("password change");
-          window.location.reload();
+          this.setState({
+            isSuccess:true,
+            msg: "Password has changed"
+          });
+          // alert("password change");
+          // window.location.reload();
         }
       })
       .catch((e) => {
@@ -119,6 +150,12 @@ class UpdateUserApplication extends Component {
         return (
             <div style={this.newStyle}>
               <h3 style={{ textAlign: "center" }}>Update User Password</h3>
+              {this.state.isError ? <div className="alert alert-danger">
+            <strong>Error!</strong> {this.state.msg}.
+        </div> : null}
+        {this.state.isSuccess ? <div className="alert alert-primary">
+            <strong>Success!</strong> Password has changed
+        </div> : null}
               <div>
                 <form onSubmit={this.handleSearch}>                          
                   <div className="form-group m-1">
@@ -148,6 +185,12 @@ class UpdateUserApplication extends Component {
         return (
             <div style={this.newStyle}>
               <h3 style={{ textAlign: "center" }}>Update User Password</h3>
+              {this.state.isError ? <div className="alert alert-danger">
+            <strong>Error!</strong> {this.state.msg}.
+        </div> : null}
+        {this.state.isSuccess ? <div className="alert alert-primary">
+            <strong>Success!</strong> Password has changed
+        </div> : null}
               <div>
                 <form onSubmit={this.handleSubmit}>
                   

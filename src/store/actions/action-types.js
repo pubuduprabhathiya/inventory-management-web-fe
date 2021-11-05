@@ -4,7 +4,7 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const SET_AUTH_REDIRECT_PATH = 'SET_AUTH_REDIRECT_PATH';
 
-export const UPDATE_NAME = 'UPDATE_NAME';
+export const UPDATE_ERROR = 'UPDATE_ERROR';
 export const UPDATE_PROFILE_PICTURE = 'UPDATE_PROFILE_PICTURE';
 
 export const Get_Equipment_By_Category = 'Get_Equipment_By_Category';
