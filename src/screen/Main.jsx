@@ -29,6 +29,7 @@ import CheckAvailability from './ActionPage/OfficeClerk/CheckAvailabilityViewPag
 
 import CustomDashboard from './Dashboard/CustomDashboard';
 import StudentDashboard from './Dashboard/StudentDashboard';
+import LecturerDashboard from './Dashboard/lecturerDashboard';
 
 import Student from '../router/student';
 import Lecturer from '../router/lecturer';
@@ -103,7 +104,7 @@ const Content = ({ isAuthenticated ,error,userId,socket}) => {
             socket ? console.log("Lecturer has socket"): console.log("Lecturer has not socket");
             return(        
                 <Switch >
-                    <Route path="/" exact component={CustomDashboard}/>
+                    <Route path="/" exact component={LecturerDashboard}/>
                     <Route path='/lecturer'>
                         <Lecturer socket={socket}/>
                     </Route> 
