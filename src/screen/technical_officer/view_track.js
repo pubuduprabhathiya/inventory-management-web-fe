@@ -30,7 +30,7 @@ const ViewTrack = () => {
     setsearchstring(newValue);
     console.log(newValue);
     dispatch(findIteamsByCatogary(newValue));
-    dispatch(getBorrowData());
+   // dispatch(getBorrowData());
    
   }
   return (

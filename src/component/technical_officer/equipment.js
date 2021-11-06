@@ -26,7 +26,7 @@ const Equipment = ({equipment, setequipment,selectequipment,fromDate, toDate}) =
      }, [selectequipment,equipment])
     return (
        
-        <Card style={{backgroundColor:equipment.availability===1?colors.green[colourval]:colors.red[colourval]}}  onClick={(e)=> setborrowData(e)} sx={{display: 'flex',
+        <Card data-testid="equipment" style={{backgroundColor:equipment.availability===1?colors.green[colourval]:colors.red[colourval]}}  onClick={(e)=> setborrowData(e)} sx={{display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
             borderRadius: '15px',
@@ -43,8 +43,8 @@ const Equipment = ({equipment, setequipment,selectequipment,fromDate, toDate}) =
                 alt="Live from space album cover" />
                 <CardContent>
                     <Typography component="div" variant="h5">{equipment.Category.categoryName}</Typography>
-                    <Typography variant="subtitle1" color="text.secondary" component="div">{equipment.model.modelName}</Typography>
-                    <Typography variant="subtitle1" color="text.secondary" component="div">{equipment.Laboratory.labName}</Typography>
+                    <Typography variant="subtitle1" color="text.secondary" component="div">{equipment.Model.modelName}</Typography>
+                    <Typography variant="subtitle1" color="text.secondary" component="div">{equipment.Lab.labName}</Typography>
                     <Typography variant="subtitle1" color="text.secondary" component="div">{equipment.id}</Typography>
                 </CardContent>
                 

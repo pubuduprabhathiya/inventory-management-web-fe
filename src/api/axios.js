@@ -1,7 +1,7 @@
    
 import axios from 'axios';
 
-const BASE_API = "http://localhost:5000";
+const BASE_API = "https://insep.herokuapp.com/";
 
 const instance = axios.create({
     baseURL: BASE_API

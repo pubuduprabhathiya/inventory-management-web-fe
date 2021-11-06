@@ -1,12 +1,13 @@
 import toDate from 'date-fns/toDate';
 import * as api from '../../api/technical_officer_api';
-import {Store_Id_Error,Get_Report, Get_Equipment_By_Category, Get_Borrow_Data,Get_Categories,Get_Models,Get_Labs,Add_Equipment, Get_Equipment,Get_Last_Borrow_Data,Get_Request } from './action_types';
+import {Userid_error,Avalilability_Error,Model_Name_Error,Category_Name_Error,ERROR,Store_Id_Error,Get_Report, Get_Equipment_By_Category, Get_Borrow_Data,Get_Categories,Get_Models,Get_Labs,Add_Equipment, Get_Equipment,Get_Last_Borrow_Data,Get_Request } from './action_types';
 
 export const findIteamsByCatogary = (category) => async (dispatch) => {
 
   console.log(category);
     try {
-    const  data  = await api.findIteamsByCatogary(category);
+      const data = await api.findIteamsByCatogary(category);
+      console.log(data, 'equ');
     dispatch({ type: Get_Equipment_By_Category, payload: data.data });
   } catch (error) {
     console.log(error.message);
@@ -56,9 +57,10 @@ export const getLabs = () => async (dispatch) => {
     console.log(error.message);
   }
 }
-export const addEquipment = (category, model, lab) =>async (dispatch) => {
+export const addEquipment = (category, model, lab, imgPreview) => async (dispatch) => {
+   console.log(category, model, lab, imgPreview);
   try {
-    const result = await api.addEquipment(category.id, model.id, lab.id);
+    const result = await api.addEquipment(category.id, model.id, lab.id,imgPreview);
     console.log(result);
     dispatch({ type: Add_Equipment, payload: result.data });
   } catch (error) {
@@ -71,6 +73,7 @@ export const getEquipmentByStoreCode = (storecode) => async (dispatch) => {
   try {
     if (storecode !== '') {
       const data = await api.getEquipmentByStoreCode(storecode);
+       console.log(data.data);
       if (data.data == null) {
         dispatch({ type: Store_Id_Error, payload: 'invalid' });
       }
@@ -90,11 +93,13 @@ export const getEquipmentByStoreCode = (storecode) => async (dispatch) => {
     
   }
 }
-export const updataEquipment = (store_code,status) => async (dispatch) => {
-  
+export const updataEquipment = (store_code,status,imgPreview,issetimage) => async (dispatch) => {
+  console.log(store_code,status,imgPreview,issetimage);
   try {
-    const data = await api.updateEquipment(store_code,status);
+    const data = await api.updateEquipment(store_code, status, imgPreview, issetimage);
+    window.location.reload();
   } catch (error) {
+     dispatch({type:ERROR,payload:error});
     console.log(error);
   }
 }
@@ -126,8 +131,18 @@ export const getRequestData = (id) => async (dispatch) => {
   try {
     const data = await api.getRequestData(id);
     console.log(data.data)
-     dispatch({type:Get_Request ,payload:data.data});
+    if (data.data === null) {
+       dispatch({ type: Avalilability_Error, payload: "NoRe" });
+    }
+    else if (data.data==="User Id Invaild") {
+       dispatch({ type: Userid_error, payload: data.data });
+    }
+    else {
+          dispatch({type:Get_Request ,payload:data.data});
+
+    }
   } catch (error) {
+      dispatch({ type: Avalilability_Error, payload: "NoRe" });
     console.log(error.message);
   }
 }
@@ -135,9 +150,21 @@ export const getRequestData = (id) => async (dispatch) => {
 
 export const temporyIssueEquipment = (userid,storeid,fromdate,t0date,reason) => async (dispatch) => {
   try {
-    const data = await api.temporyIssueEquipment(userid, storeid, fromdate, t0date,reason);
-    window.location.reload();
+    const data = await api.temporyIssueEquipment(userid, storeid, fromdate, t0date, reason);
+    console.log(data);
+   
+    if (data.data.message === "Equipment is Unavailable") {
+      dispatch({ type: Avalilability_Error, payload: data.data.message });
+    }
+    else if (data.data.message === "User id is invalid") {
+      dispatch({ type: Userid_error, payload: data.data.message });
+    }
+    else {
+       window.location.reload();
+    }
+    
   } catch (error) {
+    
      console.log(error);
   }
 }
@@ -159,6 +186,29 @@ export const getReport = (fromDate, toDate, categories,reportType) =>async (disp
     console.log(error);
   }
 }
-
+export const addCategory = (category) => async (dispatch) => {
+  console.log(category);
+  try {
+    const result = await api.addCategory(category);
+    console.log(result);
+    dispatch({ type: Get_Categories, payload: result.data });
+  } catch (error) {
+    console.log(error);
+      dispatch({type:Category_Name_Error,payload:error});
+  }
+  
+}
+export const addModel = (model, category) => async (dispatch) => {
+   console.log(model, category);
+  try {
+    const result = await api.addModel(model,category.id);
+    console.log(result);
+    dispatch({ type: Get_Models, payload: result.data });
+  } catch (error) {
+    console.log(error);
+      dispatch({type:Model_Name_Error,payload:error});
+  }
+  
+}
 
 
