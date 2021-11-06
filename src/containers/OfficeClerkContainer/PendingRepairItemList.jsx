@@ -129,7 +129,7 @@ class PendingRepairItemList extends Component {
             return (
                  
                     <div style={this.newStyle}>
-                        <h3 style={{textAlign:"center",}}>New Damage Item</h3>
+                        <h3 style={{textAlign:"center",}}>Items Under Repairing</h3>
                         <br />
                         <div>
                             <h4>No Item Under Repairing</h4>
@@ -140,7 +140,7 @@ class PendingRepairItemList extends Component {
           }
           return (
             <div style={this.newStyle}>
-              <h3 style={{ textAlign: "center" }}>New Damage Item</h3>
+              <h3 style={{ textAlign: "center" }}>Items Under Repairing</h3>
               <br />
               <div>
                 {this.state.itemList.map((item) => {
