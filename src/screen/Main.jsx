@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {io} from "socket.io-client";
+
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import { connect } from 'react-redux';
@@ -34,11 +36,17 @@ import TechnicalOfficer from '../router/technical_officer';
 import PopUp from "../containers/Alert/CustomAlertDialog"; 
 
 const Main = (props) => {
+    const [socket, setSocket] = useState(null);
+
+    useEffect(()=>{
+        setSocket(io("http://localhost:5000"));
+    },[]);
+
     return (
         <BrowserRouter>
             <div>
             
-                <Content isAuthenticated={props.isAuthenticated} error={props.error} />
+                <Content isAuthenticated={props.isAuthenticated} error={props.error} userId={props.id} socket={socket}/>
             
             </div>
             {props.error != null ? <PopUp errorMsg={props.error} /> : null}
@@ -46,7 +54,7 @@ const Main = (props) => {
     );
 }
 
-const Content = ({ isAuthenticated ,error}) => {
+const Content = ({ isAuthenticated ,error,userId,socket}) => {
 
     console.log(error);
 
@@ -77,22 +85,30 @@ const Content = ({ isAuthenticated ,error}) => {
                     <Route path="/admin/update-password" exact component={UpdateUser}/>
                 </Switch>
             );
-        if(userType === "Student")routes = () => (              
+        if(userType === "Student")routes = () =>{
+            socket?.emit("newUser",userId);
+            socket ?console.log("Student has socket now"+userId):console.log("Student has not socket");
+            return(              
                 <Switch >
                     <Route path="/"  exact component={CustomDashboard}/>
                     <Route path='/student'>
-                        <Student/>
+                        <Student socket={socket}/>
                     </Route>                    
                 </Switch>
             );
-        if(userType === "Lecturer")routes = () => (        
+        };
+        if(userType === "Lecturer")routes = () => {
+            socket?.emit("newUser",userId);
+            socket ? console.log("Lecturer has socket"): console.log("Lecturer has not socket");
+            return(        
                 <Switch >
                     <Route path="/" exact component={CustomDashboard}/>
                     <Route path='/lecturer'>
-                        <Lecturer/>
+                        <Lecturer socket={socket}/>
                     </Route> 
                 </Switch>
             );
+        };
         if(userType === "TechnicalOfficer")routes = () => (        
                 <Switch >
                     <Route path="/" exact component={CustomDashboard}/>
@@ -128,7 +144,8 @@ const mapStateToProps = state => {
     console.log("state"+state.reducer.error );
     return {
         isAuthenticated: !(state.reducer.token === null || state.reducer.token === undefined),
-        error:state.reducer.error
+        error:state.reducer.error,
+        id: state.reducer.user,
     };
 };
 

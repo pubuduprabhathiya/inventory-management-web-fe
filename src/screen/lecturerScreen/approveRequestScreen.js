@@ -4,7 +4,7 @@ import Layout from "../../component/Layout/Layout";
 
 const ApproveRequestScreen = (props)=>{
     return(
-        <Layout>
+        <Layout socket={props.socket}>
             <MainContainer title='Approve Requests'>
                 <Request/>
             </MainContainer>

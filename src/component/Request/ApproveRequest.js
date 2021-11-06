@@ -57,7 +57,7 @@ const ApproveRequest = (props)=>{
     }
     
     if(approveStatus==='completed' || rejectStatus==='completed'){
-        history.push('/approveRequest');
+        history.push('/lecturer/approveRequest');
     }
 
     const request = loadedData.map(filteredReq=>(

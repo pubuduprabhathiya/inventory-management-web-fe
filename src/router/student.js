@@ -6,20 +6,20 @@ import StudentNormalRequest from '../screen/studentScreen/StudentNormalRequest';
 import StudentTemporalRequest from '../screen/studentScreen/StudentTemporalRequest';
 import '../component/Layout/FontawsomeIcon';
 
-const Student = ()=>{
+const Student = (props)=>{
     return(
         <Switch>
             <Route path='/student/checkAvailability'>
-                <StudentCheckAvailability/>
+                <StudentCheckAvailability socket={props.socket}/>
             </Route>
             <Route path='/student/createNormalRequest'>
-                <StudentNormalRequest/>
+                <StudentNormalRequest socket={props.socket}/>
             </Route>
             <Route path='/student/createTemporaryRequest'>
-                <StudentTemporalRequest/>
+                <StudentTemporalRequest socket={props.socket}/>
             </Route>
             <Route path='/student/borrowingItems'>
-                <StudentBorrowingDetails/>
+                <StudentBorrowingDetails socket={props.socket}/>
             </Route>
       </Switch>
     );

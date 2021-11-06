@@ -12,6 +12,8 @@ import Moment from 'moment';
 const Items = (props)=>{
     const history = useHistory();
     const [val,setValue] = useState(0);
+    const [enterValue, setEnterValue] = useState('');
+    const [has, setHas] = useState(false);
     const onAvailableClickHandler = ()=>{
         history.push(props.to);  
     }
@@ -21,15 +23,20 @@ const Items = (props)=>{
     const hideHandler = ()=>{
         setValue(0);
     }
+
+    const valueChangeHandler = (event)=>{
+        setEnterValue(event.target.value);
+    }
+    console.log(props.itemlist);
     const itemList = props.itemlist.map((item)=>{
-        //console.log(item);
             let iteDetail = {category:item['Category.categoryName'],model:item['Model.modelName'],storeCode:item['id'],labName:item['Lab.labName']};
             return(
                 <Fragment key={item['keyid']}>
+                    {item['Category.categoryName'].toLowerCase().startsWith(enterValue.toLowerCase()) ?
                     <Card>
                     <div className={classes.item}>
                         <div>
-                            <img src={itemImage} alt='Projector display here'></img>
+                            <img src={item['imageURL']} alt='Projector display here'></img>
                         </div>
                         <div className={classes.item}>
                             <div className={classes.detailBilock}>
@@ -48,16 +55,22 @@ const Items = (props)=>{
                         <div>
                             {item['availability'] ? <Button title='Available' availability={true} onClickHandler={onAvailableClickHandler}></Button>: <Button title='Unavailable' availability={false} onClickHandler={()=>onUnavailableHandler(item['id'])}/>}
                         </div>
-                    </div>
-                </Card>
-                {item['id'] === val && <UnavailableItemDetail itm = {iteDetail} date={Moment(item['returnDate']).format('DD-MM-YYYY')} onClose = {hideHandler}></UnavailableItemDetail>}
+                    </div> 
+                </Card>:
+                null
+                }
+                {item['id'] === val && item['status']==='damage' && <UnavailableItemDetail itm = {iteDetail} date={'Not available'} onClose = {hideHandler}></UnavailableItemDetail>}
+                {item['id'] === val && item['status']!='damage' && <UnavailableItemDetail itm = {iteDetail} date={Moment(item['returnDate']).format('DD-MM-YYYY')} onClose = {hideHandler}></UnavailableItemDetail>}
                 </Fragment>    
             );
     });
 
+
     return(
         <div>
-            <ul>{itemList}</ul>
+            <input type = 'text' placeholder='Search categories' onChange={valueChangeHandler} className={classes.formStyle}/> 
+            {itemList.filter(item => item.props.children[0]!=null).length>0 ? <ul>{itemList}</ul> : <h4>No matching equipments</h4> }
+
         </div>
     );
 }

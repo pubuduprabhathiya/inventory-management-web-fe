@@ -11,6 +11,14 @@ import Main from './screen/Main';
 
 
 class App extends Component {
+
+  // constructor(props){
+  //   super(props);
+  //   this.state = {
+  //     socket: null
+  //   };
+  // }
+
   componentDidMount () {
     this.props.onTryAutoSignup();
   }

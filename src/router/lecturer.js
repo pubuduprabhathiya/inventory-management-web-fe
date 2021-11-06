@@ -7,23 +7,23 @@ import RequestDetail from '../screen/lecturerScreen/RequestDetailScreen';
 import '../component/Layout/FontawsomeIcon';
 
 
-const Lecturer = ()=>{
+const Lecturer = (props)=>{
     return(
         <Switch>
             <Route path='/lecturer/checkAvailability'>
-                <CheckAvailabilityScreen/>
+                <CheckAvailabilityScreen socket={props.socket}/>
             </Route>
             <Route path='/lecturer/createNormalRequest'>
-                <CreateNormalRequestScreen/>
+                <CreateNormalRequestScreen socket={props.socket}/>
             </Route>
             <Route path='/lecturer/createTemporaryRequest'>
-                <CreateTemporaryRequestScreen/>
+                <CreateTemporaryRequestScreen socket={props.socket}/>
             </Route>
             <Route path='/lecturer/approveRequest'>
-                <ApproveRequestScreen/>
+                <ApproveRequestScreen socket={props.socket}/>
             </Route>
             <Route path='/lecturer/requestDetail/:id'>
-                <RequestDetail/>
+                <RequestDetail socket={props.socket}/>
             </Route>
         </Switch>
     );

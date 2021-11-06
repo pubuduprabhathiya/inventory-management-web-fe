@@ -30,8 +30,9 @@ const StudentCheckAvailability = (props)=>{
         return(<h1>No Data</h1>)
     }
     // console.log(loadedData);
+    // console.log(props.socket.id);
     return(
-        <StudentLayout>
+        <StudentLayout socket={props.socket}>
             <MainContainer title='Check Availability'>
                 <Items itemlist={loadedData} to='/student/createNormalRequest'/>
             </MainContainer>

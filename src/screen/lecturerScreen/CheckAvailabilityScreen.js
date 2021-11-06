@@ -25,9 +25,9 @@ const CheckAvailabilityScreen = (props)=>{
         return(<h1>No Data</h1>)
     }
     return(
-        <Layout>
+        <Layout socket={props.socket}>
             <MainContainer title='Check Availability'>
-                <Items itemlist={loadedData} to='/createNormalRequest'/>
+                <Items itemlist={loadedData} to='/lecturer/createNormalRequest'/>
             </MainContainer>
         </Layout>
         

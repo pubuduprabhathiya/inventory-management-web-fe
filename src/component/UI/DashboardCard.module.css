@@ -7,11 +7,12 @@
     border-radius: 14px;
     background-color: black;
     margin-top: 1rem; 
+    height: 4rem;
 }
 
 @media screen and (max-width:1440px) {
     .card{
         justify-content: space-evenly;
-        max-height: 3rem;
+        max-height: 4rem;
     }
 }

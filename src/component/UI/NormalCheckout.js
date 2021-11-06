@@ -7,8 +7,9 @@ import useInput from '../hook/use-input';
 import useInputDatePicker from '../hook/use-inputDatePicker';
 import useHttp from "../hook/use-http";
 import {  useEffect } from "react";
-import { getCategories,getModel,getLaboratory,getStoreCode,getLecturers,sendStudentNormalBorrowingRequest,sendLecturerNormalBorrowingRequest } from "../lib/api";
+import { getCategories,getModel,getLaboratory,getStoreCode,getLecturers,sendStudentNormalBorrowingRequest,sendLecturerNormalBorrowingRequest, sendNotificationByStudent } from "../lib/api";
 import LoadingSpinner from "../Layout/LoadingSpinner";
+import { connect } from 'react-redux';
 
 
 
@@ -74,6 +75,7 @@ const NormalCheckout = (props)=>{
         inputBlurHandler : fromDateBlurHandler,
         reset: resetfromDateInput,
     }=useInputDatePicker(value => value!==null);
+    
 
     const {
         value:entertoDate,
@@ -91,6 +93,8 @@ const NormalCheckout = (props)=>{
     const {sendRequest:sendLecturer, status:lecturerStatus,data:lecturerData,error:lecturerError}=useHttp(getLecturers,true);
     const {sendRequest:sendData}= useHttp(sendStudentNormalBorrowingRequest,true);
     const {sendRequest:sendLecturerData}= useHttp(sendLecturerNormalBorrowingRequest,true);
+    const {sendRequest: sendNotification} = useHttp(sendNotificationByStudent,true);
+
 
     useEffect(()=>{
         sendCategory();
@@ -100,6 +104,11 @@ const NormalCheckout = (props)=>{
     useEffect(()=>{
         if(enteredCategoryIsValid){
             sendModel({enterCategory:enterCategory});
+            console.log('Fetching models');
+            resetModelInput();
+            resetStoreCodeInput();
+            resetLabNameInput();
+            resetIDInput();
             //console.log('Loaded model Data');
         }
     },[enterCategory]);
@@ -108,23 +117,29 @@ const NormalCheckout = (props)=>{
         if(enteredCategoryIsValid && enteredModelIsValid){
             //console.log({category:enterCategory,model:enterModel});
             sendLab({category:enterCategory,model:enterModel});
-            //console.log('Loaded lab Data');
+            console.log('Loaded lab Data');
+            resetStoreCodeInput();
+            resetLabNameInput();
+            resetIDInput();
         }
-    },[enterCategory,enterModel]);
+    },[enterModel]);
 
     useEffect(()=>{
         if(enteredCategoryIsValid && enteredModelIsValid && enteredLabNameIsValid){
             sendStoreCode({category:enterCategory,model:enterModel,lab:enterLabName});
-            //console.log('Loading store code');
+            console.log('Loading store code');
+            resetStoreCodeInput();
+            resetIDInput();
         }
-    },[enterCategory,enterModel,enterLabName]);
+    },[enterLabName]);
 
     useEffect(()=>{
         if(enteredCategoryIsValid && enteredModelIsValid && enteredLabNameIsValid && enteredStoreCodeIsValid && props.type === 'student'){
             sendLecturer({labId:enterLabName});
-            //console.log('loading lacturers');
+            console.log('loading lacturers');
+            resetIDInput();
         }
-    },[enterCategory,enterModel,enterLabName,enterStoreCode]);
+    },[enterStoreCode]);
 
     if(categoryStatus==='pending'){
         return(
@@ -202,7 +217,14 @@ const NormalCheckout = (props)=>{
             console.log(lecId);
             console.log(enterfromDate);
             console.log(entertoDate);
-            sendData({studentId:'180244B',lecId:lecId,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
+            console.log(props.id);
+            props.socket.emit("sendNotification",{
+                senderName: props.id,
+                receiverName: lecId,
+                type: enterCategory,
+            });
+            sendData({studentId: props.id,lecId:lecId,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
+            sendNotification({studentId: props.id,lecId:lecId, notification: enterCategory});
             resetIDInput();
         }else{
             if(!enteredCategoryIsValid && !enteredModelIsValid && !enteredStoreCodeIsValid && !enteredLabNameIsValid && !enteredfromDateIsValid && !enteredtoDateIsValid){
@@ -215,8 +237,8 @@ const NormalCheckout = (props)=>{
             console.log(enterLabName)
             console.log(enterfromDate);
             console.log(entertoDate);
-            //sendData({studentId:'180244B',lecId:lecId,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
-            sendLecturerData({lecId:'123456L',equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
+            console.log(props.id);
+            sendLecturerData({lecId:props.id,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
         }  
         resetCategoryInput();
         resetModelInput();
@@ -259,7 +281,7 @@ const NormalCheckout = (props)=>{
                 {storeCodeHasError && <p className='error-text'>choose store code</p>}
             </div>
             {props.type==='student' && <div className={idInputClasses}>
-                <label htmlFor='storeCode'>Lecturer</label>
+                <label htmlFor='lecturer'>Lecturer</label>
                 <DropDown optionList={lecList} onChange={idChangeHandler} value={enterID} onBlure={idBlurHandler}/>
                 {idHasError && <p className='error-text'>choose lecturer</p>}
             </div>}
@@ -302,5 +324,11 @@ const NormalCheckout = (props)=>{
     );
 }
 
-export default NormalCheckout;
+const mapStateToProps = state => {
+    return {
+        id: state.reducer.user,
+    };
+};
+
+export default connect(mapStateToProps,null)(NormalCheckout);
 

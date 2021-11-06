@@ -4,7 +4,7 @@ import TemporaryCheckout from "../../component/UI/TemporaryCheckout";
 
 const StudentTemporalRequest = (props)=>{
     return(
-        <StudentLayout>
+        <StudentLayout socket={props.socket}>
             <MainContainer title='Tempory Request'>
                 <TemporaryCheckout type='student'/>
             </MainContainer>
