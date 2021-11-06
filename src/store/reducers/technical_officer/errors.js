@@ -1,6 +1,5 @@
 
 import {Avalilability_Error,Userid_error,Model_Name_Error, Store_Id_Error ,ERROR,Category_Name_Error} from "../../actions/action_types";
-import { Store_Id_Error } from "../../actions/action_types";
 
 export default (error = {}, action) => {
     switch (action.type) {

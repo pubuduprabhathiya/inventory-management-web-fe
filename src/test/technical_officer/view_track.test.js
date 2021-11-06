@@ -2,7 +2,7 @@ import { screen, fireEvent,render } from "@testing-library/react"
 //import { render } from "./test.utils";
 import ViewTrack from "../../screen/technical_officer/view_track";
 import * as reactRedux from 'react-redux'
-import { BrowserRouter } from "react-router-dom";
+//import { BrowserRouter } from "react-router-dom";
 import userEvent from '@testing-library/user-event'
 
 describe('View Track tes', () => {

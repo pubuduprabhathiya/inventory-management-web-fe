@@ -27,6 +27,7 @@ import CustomDashboard from './Dashboard/CustomDashboard';
 import Student from '../router/student';
 import Lecturer from '../router/lecturer';
 import TechnicalOfficer from '../router/technical_officer';
+import technical_officer_dashboard from "./Dashboard/technical_officer_dashboard";
 
 const Main = (props) => {
     return (
@@ -83,7 +84,7 @@ const Content = ({ isAuthenticated }) => {
             );
         if(userType === "TechnicalOfficer")routes = () => (        
                 <Switch >
-                    <Route path="/" exact component={CustomDashboard}/>
+                    <Route path="/" exact component={technical_officer_dashboard}/>
                     <Route path='/technicalofficer'>
                         <TechnicalOfficer/>
                     </Route> 

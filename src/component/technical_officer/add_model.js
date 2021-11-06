@@ -2,7 +2,7 @@ import { Dialog,DialogTitle,DialogContent,FormControl,TextField,IconButton,Butto
 import { useEffect, useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategory, addModel} from "../../actions/technical_officer";
+import { addCategory, addModel} from "../../store/actions/technical_officer";
 
 const AddModel = ({ open, setOpen,cat }) => {
     

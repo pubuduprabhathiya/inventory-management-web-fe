@@ -1,5 +1,5 @@
 import toDate from 'date-fns/toDate';
-import * as api from '../api/technical_officer_api';
+import * as api from '../../api/technical_officer_api';
 import {Userid_error,Avalilability_Error,Model_Name_Error,Category_Name_Error,ERROR,Store_Id_Error,Get_Report, Get_Equipment_By_Category, Get_Borrow_Data,Get_Categories,Get_Models,Get_Labs,Add_Equipment, Get_Equipment,Get_Last_Borrow_Data,Get_Request } from './action_types';
 
 export const findIteamsByCatogary = (category) => async (dispatch) => {
