@@ -46,7 +46,7 @@ const Main = (props) => {
         <BrowserRouter>
             <div>
             
-                <Content isAuthenticated={props.isAuthenticated} error={props.error} socket={socket}/>
+                <Content isAuthenticated={props.isAuthenticated} error={props.error} userId={props.id} socket={socket}/>
             
             </div>
             {props.error != null ? <PopUp errorMsg={props.error} /> : null}
@@ -54,7 +54,7 @@ const Main = (props) => {
     );
 }
 
-const Content = ({ isAuthenticated ,error,socket}) => {
+const Content = ({ isAuthenticated ,error,userId,socket}) => {
 
     console.log(error);
 
@@ -86,8 +86,8 @@ const Content = ({ isAuthenticated ,error,socket}) => {
                 </Switch>
             );
         if(userType === "Student")routes = () =>{
-            socket?.emit("newUser","180244B");
-            socket ?console.log("Student has socket now"):console.log("Student has not socket");
+            socket?.emit("newUser",userId);
+            socket ?console.log("Student has socket now"+userId):console.log("Student has not socket");
             return(              
                 <Switch >
                     <Route path="/"  exact component={CustomDashboard}/>
@@ -98,7 +98,7 @@ const Content = ({ isAuthenticated ,error,socket}) => {
             );
         };
         if(userType === "Lecturer")routes = () => {
-            socket?.emit("newUser","123456L");
+            socket?.emit("newUser",userId);
             socket ? console.log("Lecturer has socket"): console.log("Lecturer has not socket");
             return(        
                 <Switch >
@@ -144,7 +144,8 @@ const mapStateToProps = state => {
     console.log("state"+state.reducer.error );
     return {
         isAuthenticated: !(state.reducer.token === null || state.reducer.token === undefined),
-        error:state.reducer.error
+        error:state.reducer.error,
+        id: state.reducer.user,
     };
 };
 

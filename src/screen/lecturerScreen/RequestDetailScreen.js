@@ -4,7 +4,7 @@ import Layout from "../../component/Layout/Layout";
 
 const RequestDetail = (props)=>{
     return(
-        <Layout>
+        <Layout socket={props.socket}>
             <ContainerCard title='Request Details'>
                 <ApproveRequest/>
             </ContainerCard>

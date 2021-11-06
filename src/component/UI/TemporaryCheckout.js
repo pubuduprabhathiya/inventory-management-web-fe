@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { getCategories,getModel,getLaboratory,getStoreCode,sendStudentTemporyBorrowingRequest,sendLecturerTemporyBorrowingRequest } from "../lib/api";
 import Moment from 'moment';
 import LoadingSpinner from "../Layout/LoadingSpinner";
+import { connect } from 'react-redux';
 
 let mList=[];
 let sList = [];
@@ -150,9 +151,9 @@ const TemporaryCheckout = (props)=>{
             return;
         }
         if(props.type==='student'){
-            sendStudentData({studentId:'180244B',equipmentId:enterStoreCode,reason:enterReason,requestDate:Moment(new Date()).format('DD-MM-YYYY'),returnDate:Moment(new Date()).format('DD-MM-YYYY')});
+            sendStudentData({studentId:props.id,equipmentId:enterStoreCode,reason:enterReason,requestDate:Moment(new Date()).format('DD-MM-YYYY'),returnDate:Moment(new Date()).format('DD-MM-YYYY')});
         }else{
-            sendLecturerData({lecId:'123456L',equipmentId:enterStoreCode,reason:enterReason,requestDate:Moment(new Date()).format('DD-MM-YYYY'),returnDate:Moment(new Date()).format('DD-MM-YYYY')});
+            sendLecturerData({lecId:props.id,equipmentId:enterStoreCode,reason:enterReason,requestDate:Moment(new Date()).format('DD-MM-YYYY'),returnDate:Moment(new Date()).format('DD-MM-YYYY')});
         }
         console.log('submitted!');
         console.log(enterCategory);
@@ -210,5 +211,11 @@ const TemporaryCheckout = (props)=>{
     );
 }
 
-export default TemporaryCheckout;
+const mapStateToProps = state => {
+    return {
+        id: state.reducer.user,
+    };
+};
+
+export default connect(mapStateToProps,null)(TemporaryCheckout);
 

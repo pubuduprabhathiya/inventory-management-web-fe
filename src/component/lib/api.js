@@ -21,9 +21,9 @@ export async function getCheckAvailability(){
     return details;
 }
 
-export async function getBorrowingHistory(){
+export async function getBorrowingHistory(dtail){
     //const response = await fetch(`${url}/borrow`);
-    const response = await fetch(`http://localhost:5000/student/borrow`);
+    const response = await fetch(`http://localhost:5000/student/borrow/${dtail.id}`);
     const data = await response.json();
     if(!response.ok){
         throw new Error(data.message || 'Could not fetch data');
@@ -41,7 +41,8 @@ export async function getBorrowingHistory(){
                 category: data[key]['Category.categoryName'],
                 model: data[key]['Model.modelName'],
                 storeCode: data[key]['id'],
-                labName: data[key]['Lab.labName']
+                labName: data[key]['Lab.labName'],
+                imageURL: data[key]['imageURL'],
             }
         };
         details.push(newObj);
@@ -262,8 +263,8 @@ export async function sendLecturerTemporyBorrowingRequest(detail){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export async function getPendingRequests(){
-    const response = await fetch(`http://localhost:5000/lecturer/pending`);
+export async function getPendingRequests(dtail){
+    const response = await fetch(`http://localhost:5000/lecturer/pending/${dtail.id}`);
     const data = await response.json();
 
     if(!response.ok){

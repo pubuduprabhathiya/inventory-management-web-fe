@@ -27,6 +27,7 @@ const Items = (props)=>{
     const valueChangeHandler = (event)=>{
         setEnterValue(event.target.value);
     }
+    console.log(props.itemlist);
     const itemList = props.itemlist.map((item)=>{
             let iteDetail = {category:item['Category.categoryName'],model:item['Model.modelName'],storeCode:item['id'],labName:item['Lab.labName']};
             return(
@@ -35,7 +36,7 @@ const Items = (props)=>{
                     <Card>
                     <div className={classes.item}>
                         <div>
-                            <img src={itemImage} alt='Projector display here'></img>
+                            <img src={item['imageURL']} alt='Projector display here'></img>
                         </div>
                         <div className={classes.item}>
                             <div className={classes.detailBilock}>

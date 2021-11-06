@@ -9,6 +9,7 @@ import useHttp from "../hook/use-http";
 import {  useEffect } from "react";
 import { getCategories,getModel,getLaboratory,getStoreCode,getLecturers,sendStudentNormalBorrowingRequest,sendLecturerNormalBorrowingRequest, sendNotificationByStudent } from "../lib/api";
 import LoadingSpinner from "../Layout/LoadingSpinner";
+import { connect } from 'react-redux';
 
 
 
@@ -216,13 +217,14 @@ const NormalCheckout = (props)=>{
             console.log(lecId);
             console.log(enterfromDate);
             console.log(entertoDate);
+            console.log(props.id);
             props.socket.emit("sendNotification",{
-                senderName: '180244B',
-                receiverName: '123456L',
+                senderName: props.id,
+                receiverName: lecId,
                 type: enterCategory,
             });
-            //sendData({studentId:'180244B',lecId:lecId,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
-            sendNotification({studentId: '180244B',lecId:'123456L', notification: enterCategory});
+            sendData({studentId: props.id,lecId:lecId,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
+            sendNotification({studentId: props.id,lecId:lecId, notification: enterCategory});
             resetIDInput();
         }else{
             if(!enteredCategoryIsValid && !enteredModelIsValid && !enteredStoreCodeIsValid && !enteredLabNameIsValid && !enteredfromDateIsValid && !enteredtoDateIsValid){
@@ -235,8 +237,8 @@ const NormalCheckout = (props)=>{
             console.log(enterLabName)
             console.log(enterfromDate);
             console.log(entertoDate);
-            //sendData({studentId:'180244B',lecId:lecId,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
-            sendLecturerData({lecId:'123456L',equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
+            console.log(props.id);
+            sendLecturerData({lecId:props.id,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
         }  
         resetCategoryInput();
         resetModelInput();
@@ -322,5 +324,11 @@ const NormalCheckout = (props)=>{
     );
 }
 
-export default NormalCheckout;
+const mapStateToProps = state => {
+    return {
+        id: state.reducer.user,
+    };
+};
+
+export default connect(mapStateToProps,null)(NormalCheckout);
 

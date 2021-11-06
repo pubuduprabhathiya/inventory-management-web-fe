@@ -6,13 +6,14 @@ import { useEffect } from 'react';
 import useHttp from '../hook/use-http';
 import Moment from 'moment';
 import LoadingSpinner from '../Layout/LoadingSpinner';
+import { connect } from 'react-redux';
 
 const Request = (props)=>{
     const history = useHistory();
 
     const {sendRequest,status,data:loadedData,error}=useHttp(getPendingRequests,true);
     useEffect(()=>{
-        sendRequest();
+        sendRequest({id:props.id});
     },[sendRequest]);
 
     if(status==='pending'){
@@ -67,4 +68,10 @@ const Request = (props)=>{
     );
 }
 
-export default Request;
+const mapStateToProps = state => {
+    return {
+        id: state.reducer.user,
+    };
+};
+
+export default connect(mapStateToProps,null)(Request);
