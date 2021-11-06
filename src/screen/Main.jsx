@@ -28,6 +28,7 @@ import PendingDamageViewPage from './ActionPage/OfficeClerk/PendingRepairViewPag
 import CheckAvailability from './ActionPage/OfficeClerk/CheckAvailabilityViewPage';
 
 import CustomDashboard from './Dashboard/CustomDashboard';
+import StudentDashboard from './Dashboard/StudentDashboard';
 
 import Student from '../router/student';
 import Lecturer from '../router/lecturer';
@@ -90,7 +91,7 @@ const Content = ({ isAuthenticated ,error,userId,socket}) => {
             socket ?console.log("Student has socket now"+userId):console.log("Student has not socket");
             return(              
                 <Switch >
-                    <Route path="/"  exact component={CustomDashboard}/>
+                    <Route path="/"  exact component={StudentDashboard}/>
                     <Route path='/student'>
                         <Student socket={socket}/>
                     </Route>                    
