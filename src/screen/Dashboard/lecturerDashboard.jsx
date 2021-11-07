@@ -26,25 +26,25 @@ class LecturerDashboard extends Component {
 
                                 <Link to={"/lecturer/checkAvailability"} >
                                     <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
-                                        <i className="fa fa-plus-square fa-5x"></i><br />
+                                        <i className="fa fa-calendar-check-o fa-5x"></i><br />
                                        Check Availabilty
                                     </a>
                                 </Link>
                                 <Link to={"/lecturer/createNormalRequest"} >
                                     <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
-                                        <i className="fa fa-check-square-o fa-5x"></i><br />
+                                        <i className="fa fa-pencil-square fa-5x"></i><br />
                                         Create Normal Request
                                     </a>
                                 </Link>
                                 <Link to={"/lecturer/createTemporaryRequest"} >
                                     <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
-                                        <i className="fa fa-history fa-5x"></i><br />
+                                        <i className="fa fa-pencil-square fa-5x"></i><br />
                                         Tempory Request
                                     </a>
                                 </Link>
                                 <Link to={"/lecturer/approveRequest"} >
                                     <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
-                                        <i className="fa fa-search fa-5x"></i><br />
+                                        <i className="fa fa-check-circle fa-5x"></i><br />
                                        Approve Request
                                     </a>
                                 </Link>
