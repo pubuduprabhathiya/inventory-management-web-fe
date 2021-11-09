@@ -212,6 +212,21 @@ export async function sendNotificationByStudent(detail){
     return data;
 }
 
+export async function sendNotificationByLecturer(detail){
+    const response = await fetch(`http://localhost:5000/lecturer/sendNotification`,{
+        method: 'POST',
+        body: JSON.stringify({lecId:detail.lecId,studentId:detail.studentId,notification:detail.notification}),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+    const data= await response.json();
+    if(!response.ok){
+        throw new Error(data.message || 'Could not etch');
+    }
+    return data;
+}
+
 export async function getNotifications(detail){
     // const response = await fetch(`${url}/category`);
     const response = await fetch(`http://localhost:5000/student/getNotification/${detail.id}`);
@@ -257,6 +272,21 @@ export async function sendStudentTemporyBorrowingRequest(detail){
         throw new Error(data.message||'Could not fetch');
     }
     return data;
+}
+
+export async function markNotification(detail){
+    const response = await fetch(`http://localhost:5000/student/markNotification`,{
+        method: 'POST',
+        body: JSON.stringify({id:detail.id}),
+        headers:{
+            'Content-Type': 'application/json',
+        },
+    });
+    const data = await response.json();
+    if(!response.ok){
+        throw new Error(data.message || 'Could not send');
+    }
+    return response;
 }
 
 export async function sendLecturerTemporyBorrowingRequest(detail){

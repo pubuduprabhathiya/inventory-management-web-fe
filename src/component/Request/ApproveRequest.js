@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import classes from './ApproveRequest.module.css';
-import { getPendingDetails,approvePending,rejectPending } from '../lib/api';
+import { getPendingDetails,approvePending,rejectPending,sendNotificationByLecturer } from '../lib/api';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import useHttp from '../hook/use-http';
@@ -19,19 +19,22 @@ const ApproveRequest = (props)=>{
     const {sendRequest,status,data:loadedData,error}=useHttp(getPendingDetails,true);
     const {sendRequest:approveRequest,status:approveStatus,error:approveError} = useHttp(approvePending,true);
     const {sendRequest:rejectRequest,status:rejectStatus,error:rejectError} = useHttp(rejectPending,true);
+    const {sendRequest:sendNotification,status:notificationStatus} = useHttp(sendNotificationByLecturer,true);
     useEffect(()=>{
         sendRequest(params.id);
     },[sendRequest]);
 
     useEffect(()=>{
         if(approve){
-            //approveRequest(params.id);
+            approveRequest(params.id);
+            sendNotification({lecId: props.id,studentId:loadedData[0]['studentId'],notification:'accepted'});
         }
     },[approve]);
 
     useEffect(()=>{
         if(reject){
-            //rejectRequest(params.id);
+            rejectRequest(params.id);
+            sendNotification({lecId: props.id, studentId:loadedData[0]['studentId'],notification:'rejected'});
         }
     },[reject]);
 
@@ -61,9 +64,14 @@ const ApproveRequest = (props)=>{
     }
     const rejectHandler = ()=>{
         setReject(true);
+        props.socket.emit("sendNotification",{
+            senderId: props.id,
+            receiverId: loadedData[0]['studentId'],
+            message: 'rejected',
+        });
     }
     
-    if(approveStatus==='completed' || rejectStatus==='completed'){
+    if((approveStatus==='completed' || rejectStatus==='completed')&& notificationStatus==='completed'){
         history.push('/lecturer/approveRequest');
     }
 

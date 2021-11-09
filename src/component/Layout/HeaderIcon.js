@@ -1,15 +1,16 @@
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { useCallback, useEffect, useState } from 'react';
 import classes from './HeaderIcon.module.css';
-import {getNotifications} from '../lib/api';
+import {getNotifications,markNotification} from '../lib/api';
 import { connect } from 'react-redux';
 import React,{Fragment} from 'react';
-import { Manager } from 'socket.io-client';
+import useHttp from '../hook/use-http';
 
 const HeaderIcon = (props)=>{
     console.log(props.socket.id);
     const [notification,setNotification] = useState([]);
     const [open, setOpen] = useState(false);
+    const {sendRequest:sendNotification,status:notificationStatus} = useHttp(markNotification,true);
 
     useEffect(()=>{
         props.socket.on("getNotification",(data)=>{
@@ -36,6 +37,8 @@ const HeaderIcon = (props)=>{
         setOpen(!open); 
     }
 
+
+
     const messages = notification.map((msg)=>{
         if(msg.message == 'accepted' || msg.message == 'rejected'){
             return(
@@ -47,12 +50,21 @@ const HeaderIcon = (props)=>{
             );
         }
     });
-    console.log(notification);
 
-    const readHandler = ()=>{
-        setNotification([]);
-        setOpen(false);
+
+    const readHandler = async()=>{
+        //sendNotification({id:props.id});
+        const dtail = await markNotification({id:props.id});
+        if(dtail.ok){
+            setNotification([]);
+            setOpen(false);
+        }
     }
+
+    // if(notificationStatus === 'completed'){
+    //     setNotification([]);
+    //     setOpen(false);
+    // }
 
     // if(notificationStatus==='completed'){
     //     setNotification(notificationList);
