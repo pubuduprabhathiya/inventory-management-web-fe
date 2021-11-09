@@ -219,9 +219,9 @@ const NormalCheckout = (props)=>{
             console.log(entertoDate);
             console.log(props.id);
             props.socket.emit("sendNotification",{
-                senderName: props.id,
-                receiverName: lecId,
-                type: enterCategory,
+                senderId: props.id,
+                receiverId: lecId,
+                message: enterCategory,
             });
             sendData({studentId: props.id,lecId:lecId,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
             sendNotification({studentId: props.id,lecId:lecId, notification: enterCategory});

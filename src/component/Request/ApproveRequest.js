@@ -7,6 +7,7 @@ import useHttp from '../hook/use-http';
 import Moment from 'moment';
 import { useState } from 'react';
 import LoadingSpinner from "../Layout/LoadingSpinner";
+import { connect } from "react-redux";
 
 const ApproveRequest = (props)=>{
     const history = useHistory();
@@ -24,13 +25,13 @@ const ApproveRequest = (props)=>{
 
     useEffect(()=>{
         if(approve){
-            approveRequest(params.id);
+            //approveRequest(params.id);
         }
     },[approve]);
 
     useEffect(()=>{
         if(reject){
-            rejectRequest(params.id);
+            //rejectRequest(params.id);
         }
     },[reject]);
 
@@ -51,6 +52,12 @@ const ApproveRequest = (props)=>{
     console.log(loadedData);
     const approveHandler = ()=>{
         setApprove(true);
+        props.socket.emit("sendNotification",{
+            senderId: props.id,
+            receiverId: loadedData[0]['studentId'],
+            message: 'accepted',
+        });
+        console.log('sent');
     }
     const rejectHandler = ()=>{
         setReject(true);
@@ -59,6 +66,8 @@ const ApproveRequest = (props)=>{
     if(approveStatus==='completed' || rejectStatus==='completed'){
         history.push('/lecturer/approveRequest');
     }
+
+    // console.log(loadedData[0]['studentId']);
 
     const request = loadedData.map(filteredReq=>(
         <div className={classes.card} key={filteredReq.id}>
@@ -98,5 +107,11 @@ const ApproveRequest = (props)=>{
     );    
 }
 
-export default ApproveRequest;
+const mapStateToProps = state => {
+    return {
+        id: state.reducer.user,
+    };
+};
+
+export default connect(mapStateToProps,null)(ApproveRequest);
 

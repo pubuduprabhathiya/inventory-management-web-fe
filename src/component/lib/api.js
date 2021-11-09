@@ -2,8 +2,8 @@ import Moment from 'moment';
 
 const url = 'https://sep-backend-inventory.herokuapp.com';
 
-export async function getCheckAvailability(){
-    const response = await fetch(`http://localhost:5000/student/checkAvaiability`);
+export async function getCheckAvailability(value){
+    const response = await fetch(`http://localhost:5000/student/checkAvaiability?qstr=${value}`);
     //const response = await fetch(`${url}/checkAvaiability`);
     const data = await response.json();
 
@@ -21,33 +21,63 @@ export async function getCheckAvailability(){
     return details;
 }
 
+export async function getDataByCategory(value,page){
+    const response = await fetch(`http://localhost:5000/student/checkItemsByCategory?qstr=${value}&page=${page}`);
+    const data = await response.json();
+    if(!response.ok){
+        throw new Error(data.message || 'Could not fetch data');
+    }
+    const details = [];
+    for(const key in data){
+        const newObj = {
+            keyid:key,
+            ...data[key],
+        };
+        details.push(newObj);
+    }
+    return details;
+}
+
+export async function getItemsCount(value){
+    const response = await fetch(`http://localhost:5000/student/itemCount?qstr=${value}`);
+    const data = await response.json();
+    return data;
+
+}
+
+export async function getEquipmentCount(){
+    const response = await fetch(`http://localhost:5000/student/equipmentCount`);
+    const data = await response.json();
+    return data; 
+}
+
 export async function getBorrowingHistory(dtail){
     //const response = await fetch(`${url}/borrow`);
-    const response = await fetch(`http://localhost:5000/student/borrow/${dtail.id}`);
+    const response = await fetch(`http://localhost:5000/student/borrow/${dtail.id}?qstr=${dtail.page}`);
     const data = await response.json();
     if(!response.ok){
         throw new Error(data.message || 'Could not fetch data');
     }
     const details = [];
     const months = ['JAN','FEB','March','April','May','June','July','Aug','Sep','Oct','Nov','Des'];
-    for(const key in data){
+    for(const key in data["result"]){
         const newObj = {
             keyid:key,
             date:{
-                month:months[parseInt(Moment(data[key]['purchesedDate']).format('MM'),10)-1],
-                day: Moment(data[key]['purchesedDate']).format('DD'),
+                month:months[parseInt(Moment(data["result"][key]['purchesedDate']).format('MM'),10)-1],
+                day: Moment(data["result"][key]['purchesedDate']).format('DD'),
             },
             details:{
-                category: data[key]['Category.categoryName'],
-                model: data[key]['Model.modelName'],
-                storeCode: data[key]['id'],
-                labName: data[key]['Lab.labName'],
-                imageURL: data[key]['imageURL'],
+                category: data["result"][key]['Category.categoryName'],
+                model: data["result"][key]['Model.modelName'],
+                storeCode: data["result"][key]['id'],
+                labName: data["result"][key]['Lab.labName'],
+                imageURL: data["result"][key]['imageURL'],
             }
         };
         details.push(newObj);
     }
-    return details;
+    return {"borrowlist":details,"total":data["total"]};
 }
 
 export async function getCategories(detail){

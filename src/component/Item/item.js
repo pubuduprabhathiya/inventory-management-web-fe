@@ -36,7 +36,7 @@ const Items = (props)=>{
                     <Card>
                     <div className={classes.item}>
                         <div>
-                            <img src={item['imageURL']} alt='Projector display here'></img>
+                            <img src={item['imageURL']} alt='Projector'></img>
                         </div>
                         <div className={classes.item}>
                             <div className={classes.detailBilock}>
@@ -68,7 +68,7 @@ const Items = (props)=>{
 
     return(
         <div>
-            <input type = 'text' placeholder='Search categories' onChange={valueChangeHandler} className={classes.formStyle}/> 
+            {/* <input type = 'text' placeholder='Search categories' onChange={valueChangeHandler} className={classes.formStyle}/>  */}
             {itemList.filter(item => item.props.children[0]!=null).length>0 ? <ul>{itemList}</ul> : <h4>No matching equipments</h4> }
 
         </div>

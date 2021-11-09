@@ -6,7 +6,7 @@ const RequestDetail = (props)=>{
     return(
         <Layout socket={props.socket}>
             <ContainerCard title='Request Details'>
-                <ApproveRequest/>
+                <ApproveRequest socket={props.socket}/>
             </ContainerCard>
         </Layout>
     );

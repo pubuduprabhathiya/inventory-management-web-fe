@@ -3,37 +3,40 @@ import classes from './Borrowing.module.css';
 import itemImage from '../../assets/projector.jpg';
 import { getBorrowingHistory } from "../lib/api";
 import useHttp from "../hook/use-http";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LoadingSpinner from "../Layout/LoadingSpinner";
 import { connect } from 'react-redux';
+import ReactPaginate from "react-paginate";
 
 
 
 
 const Borrowings = (props)=>{
-
-    const {sendRequest,status,data:loadedData,error}=useHttp(getBorrowingHistory,true);
+    const [loading,setLoading] = useState(false);
+    const [borrowList, setBorrowList] = useState([]);
+    const [pageCount,setPageCount] = useState(0);
+    //const {sendRequest,status,data:loadedData,error}=useHttp(getBorrowingHistory,true);
     useEffect(()=>{
-        sendRequest({id:props.id});
-    },[sendRequest]);
+        //sendRequest({id:props.id});
+        const borrowItems = async()=>{
+            setLoading(true);
+            const data =await getBorrowingHistory({id:props.id,page:0});
+            setLoading(false);
+            setBorrowList(data["borrowlist"]);
+            setPageCount(data["total"]);
+        }
+        borrowItems();
+    },[]);
 
-    if(status==='pending'){
-        return(
-            <center><LoadingSpinner/></center>
-        )
+    const handlePageClick = async(data)=>{
+        let currentPage = data.selected;
+        setLoading(true);
+        const items = await getBorrowingHistory({id:props.id,page:currentPage});
+        setBorrowList(items["borrowlist"]);
+        setLoading(false);
     }
-    if(error){
-        return(<p>Error occure here</p>)
-    }
 
-    if(status ==='completed' && (!loadedData||loadedData.length===0)){
-        return(<h1>No Data</h1>)
-    }
-    console.log('I mean here');
-    console.log(loadedData);
-
-
-    const borrowinglist = loadedData.map((item)=>{
+    const borrowinglist = borrowList.map((item)=>{
         return(
             <Card key={item['keyid']}>
                 <div className={classes.item}>
@@ -66,6 +69,22 @@ const Borrowings = (props)=>{
     return(
         <div>
             <ul>{borrowinglist}</ul>
+            {loading ? <center><LoadingSpinner/></center>:borrowList.length>0?
+            <ReactPaginate 
+            previousLabel={'previous'}
+            nextLabel={'next'}
+            pageCount={Math.ceil(pageCount/10)}
+            onPageChange={handlePageClick}
+            containerClassName={'pagination'}
+            pageClassName={'page-item'}
+            pageLinkClassName={'page-link'}
+            previousClassName={'page-item'}
+            previousLinkClassName={'page-link'}
+            nextClassName={'page-item'}
+            nextLinkClassName={'page-link'}
+            breakClassName={'page-item'}
+            breakLinkClassName={'page-link'}
+            activeClassName={'active'}/>:<h3>No borrowing items</h3>}
         </div>
     ); 
     

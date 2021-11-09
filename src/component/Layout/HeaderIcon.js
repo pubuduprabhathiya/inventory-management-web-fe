@@ -4,6 +4,7 @@ import classes from './HeaderIcon.module.css';
 import {getNotifications} from '../lib/api';
 import { connect } from 'react-redux';
 import React,{Fragment} from 'react';
+import { Manager } from 'socket.io-client';
 
 const HeaderIcon = (props)=>{
     console.log(props.socket.id);
@@ -32,15 +33,26 @@ const HeaderIcon = (props)=>{
     },[fetchNotificationHandler]);
 
     const bellHandler = ()=>{
-        setOpen(!open);
+        setOpen(!open); 
     }
 
     const messages = notification.map((msg)=>{
-        return(
-            <p key={msg.id}>{msg.senderId} is waiting</p>
-        );
+        if(msg.message == 'accepted' || msg.message == 'rejected'){
+            return(
+                <p key={msg.id}>{msg.senderId} has {msg.message}</p>
+            );
+        }else{
+            return(
+                <p key={msg.id}>{msg.senderId} is waiting for the response</p>
+            );
+        }
     });
+    console.log(notification);
 
+    const readHandler = ()=>{
+        setNotification([]);
+        setOpen(false);
+    }
 
     // if(notificationStatus==='completed'){
     //     setNotification(notificationList);
@@ -57,7 +69,7 @@ const HeaderIcon = (props)=>{
                 <div className={classes.content}>
                     <div className={classes.main}>
                         {messages}
-                        <button>Mark As Read</button>
+                        <button onClick={readHandler}>Mark As Read</button>
                     </div>
                 </div>
             </div>
