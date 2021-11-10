@@ -9,7 +9,7 @@ const ScanScreen = ({open,setOpen,setstoreCode}) => {
     };
     const setResult = (result) => {
         if (result != null) {
-            console.log(result);
+           
             setstoreCode(result);
            
             handleClose();
@@ -23,7 +23,7 @@ const ScanScreen = ({open,setOpen,setstoreCode}) => {
       
   };
     return (
-        <Dialog open={open}
+        <Dialog data-testid="scanner" open={open}
         onClose={handleClose}>
             <DialogTitle id="alert-dialog-title">
                 <IconButton

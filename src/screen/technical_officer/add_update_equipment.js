@@ -22,13 +22,13 @@ const AddUpdateEquipment = () => {
             }}><FormControl sx={{ m: 1, width: 300 }}>
                     <InputLabel id="select-label">Select one...</InputLabel>
                     <Select variant='standard'
-                        
+                        data-testid="select"
                         labelId='select-label'
                     value={type}
                     onChange={handleChange}
                     label='Select one...'
                 >
-                    <MenuItem value='Add Equipment'>Add Equipment</MenuItem>
+                    <MenuItem  data-testid="Add Equipment"  value='Add Equipment'>Add Equipment</MenuItem>
                     <MenuItem value='Update Equipment'>Update Equipment</MenuItem>
                 </Select>
                 </FormControl>

@@ -21,16 +21,16 @@ const ViewTrack = () => {
   const categories = useSelector(state => state.categories);
 
   useEffect(() => {
-   console.log(categories[0]);
+  
     dispatch(getCategories());
   }, [dispatch]);
 
 
   const setequipment = (newValue) => {
     setsearchstring(newValue);
-    console.log(newValue);
+ 
     dispatch(findIteamsByCatogary(newValue));
-    dispatch(getBorrowData());
+   // dispatch(getBorrowData());
    
   }
   return (

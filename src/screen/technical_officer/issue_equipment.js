@@ -25,7 +25,7 @@ const IssueEquipment = () => {
                 <FormControl  sx={{ m: 1, width: 300 }}>
                     <InputLabel id="select-label">Select one...</InputLabel>
 
-                    <Select labelId='select-label' value={type} onChange={(e) => settype(e.target.value)}  label='Select one...'>
+                    <Select data-testid="select" labelId='select-label' value={type} onChange={(e) => settype(e.target.value)}  label='Select one...'>
                         
                         <MenuItem value='Approved'>Select Approved Borrowing</MenuItem>
                         <MenuItem value='Tempory'>Create Tempory Borrowing</MenuItem>

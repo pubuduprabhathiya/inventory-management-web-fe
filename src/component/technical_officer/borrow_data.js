@@ -9,16 +9,21 @@ const BorrowData = (data) => {
     const [department, setdepartment] = useState('');
 
     useEffect(() => {
-        console.log(data.data, 'dasta');
-        if (data.data.type === 'lecture') {
-            console.log(data.data.LecturerBorrowings[0].lecturer, 'dassta');
+      
+        if (data.data.LecturerBorrowings.length>0) {
+           
       
             const lec = data.data.LecturerBorrowings[0].lecturer;
             setdepartment(lec.department);
             setname(lec.firstName + ' ' + lec.lastName);
        
-        } else if (data.data.type === 'temporary') {
-            const student = data.data.TemporyBorrowings[0].student;
+        } else if (data.data.TemoryBorrowings.length>0) {
+           
+            const student = data.data.TemoryBorrowings[0].student;
+            setdepartment(student.department);
+            setname(student.firstName + ' ' + student.lastName);
+        }else if (data.data.RequestBorrowings.length>0) {
+            const student = data.data.RequestBorrowings[0].student;
             setdepartment(student.department);
             setname(student.firstName + ' ' + student.lastName);
         }

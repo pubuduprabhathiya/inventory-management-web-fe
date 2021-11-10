@@ -1,6 +1,7 @@
 import { AppBar,colors,IconButton, Link,  Toolbar } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import { Box } from "@mui/system";
+import HeaderButton from "../Layout/HeaderButton";
 
 
 const Header = () => {
@@ -15,7 +16,7 @@ const Header = () => {
 
                 
                 <Box sx={{ flexGrow: 1 }} />
-               <IconButton  ><AccountCircle/></IconButton>
+               <HeaderButton/>
                 </Toolbar>
                
         </AppBar>

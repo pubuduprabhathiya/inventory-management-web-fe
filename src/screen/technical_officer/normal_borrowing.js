@@ -16,6 +16,32 @@ const NormalBorrowing = () => {
     const dispatch = useDispatch();
     const [fromdate, setfromdate] = useState(new Date());
     const [toDate, settoDate] = useState(new Date());
+    const [useriderror, setuseriderror] = useState(false);
+    const error = useSelector(state => state.error);
+    const [sub, setsub] = useState(false);
+    const [availablerror, setavailablerror] = useState(false);
+
+
+ useEffect(() => {
+       
+        if (error.Userid) {
+            setuseriderror(true);
+            setsub(false);
+        }
+        else {
+            setuseriderror(false);
+     }
+      if (error.available) {
+            setavailablerror(true);
+            setsub(false);
+        }
+        else {
+            setavailablerror(false);
+        }
+       
+    }, [error])
+
+
    const handleClickOpen = () => {
     setopen(true);
     };
@@ -24,9 +50,12 @@ const NormalBorrowing = () => {
     }
     useEffect(() => {
         
-        if (request.student!== undefined) {
-           console.log(request.Equipment.model.modelName,request);
-            setid(request.student.id)
+        if (request.Equipment!== undefined) {
+            setfromdate(new Date(request.requestDate));
+            settoDate(new Date(request.returnDate));
+            
+          
+           // setid(request.student.id)
              setisvalied(true);
         }
         else {
@@ -34,14 +63,15 @@ const NormalBorrowing = () => {
         }
     }, [request])
     const back = () => {
-         setisvalied(false);
+        setisvalied(false);
+         setsub(false);
     }
     const submit = () => {
-        if ( isvalied) {
-            dispatch(NormalIssueEquipment(request.student.id, request.Equipment.id, fromdate, toDate,request.id));
+        if ( isvalied && !sub) {
+            dispatch(NormalIssueEquipment(id, request.Equipment.id, fromdate, toDate,request.id));
             //window.location.reload();
         }
-       
+        setsub(true);
     }
 
 
@@ -57,9 +87,10 @@ const NormalBorrowing = () => {
             }}>
                 
                 <FormControl sx={{ m: 1, width: 300 }}>
-                    <TextField disabled={isvalied} value={id} onChange={ (e)=>setid(e.target.value)} label='User Id'  ></TextField>
+                    <TextField helperText={useriderror ? "user id is invalid":availablerror?"No Request found":null}
+        error={useriderror} data-testid="userid" disabled={isvalied} value={id} onChange={ (e)=>setid(e.target.value)} label='User Id'  ></TextField>
                 </FormControl>
-                {!isvalied  ? <Box>
+                {!isvalied && request!== undefined ? <Box>
                
                 <FormControl sx={{ m: 1, minWidth: 200 }}>
                      <Button variant="contained" color="success" onClick={() => next()} >Next</Button>
@@ -80,12 +111,14 @@ const NormalBorrowing = () => {
                             flexDirection: 'row',
                             alignItems: { xs: 'center', md: 'center' },
                             m: 3,
-                        }}>
-                             <FormControl sx={{ m: 1, width: 300 }}>
+                           
+                    }}>
+                     
+                        <FormControl sx={{ m: 1, width: 300 }}>
                     <TextField disabled={isvalied} value={request.Equipment['Category'].categoryName} label='Category'  ></TextField>
                         </FormControl>
                         <FormControl sx={{ m: 1, width: 300 }}>
-                    <TextField disabled={isvalied} value={request.Equipment.model.modelName}  label='Model'  ></TextField>
+                    <TextField disabled={isvalied} value={request.Equipment.Model.modelName}  label='Model'  ></TextField>
                         </FormControl>
                         </Box>
                          <Box sx={{
@@ -95,7 +128,7 @@ const NormalBorrowing = () => {
                             m: 3,
                         }}>
                              <FormControl sx={{ m: 1, width: 300 }}>
-                    <TextField disabled={isvalied} value={request.Equipment['Laboratory'].labName}  label='Lab'  ></TextField>
+                    <TextField disabled={isvalied} value={request.Equipment['Lab'].labName}  label='Lab'  ></TextField>
                         </FormControl>
                         <FormControl sx={{ m: 1, width: 300 }}>
                     <TextField disabled={isvalied}  value={request.id}  label='Request Id'  ></TextField>
@@ -107,14 +140,7 @@ const NormalBorrowing = () => {
                             alignItems: { xs: 'center', md: 'center' },
                             m: 3,
                         }}>
-                              <FormControl sx={{ m: 1, width: 300 }}>
-                            <TextField disabled={isvalied} value={request.lecturer.firstName} label='Lecture name'  ></TextField>
-                            
-                            </FormControl>
-                             <FormControl sx={{ m: 1, width: 300 }}>
-                            <TextField disabled={isvalied} value={request.student.firstName} label='Name'  ></TextField>
-                            
-                        </FormControl>
+                             
                         </Box>
                           <Box sx={{
                             display: 'flex',
@@ -130,8 +156,7 @@ const NormalBorrowing = () => {
                                 maxDate={new Date()}
                                 
                                 value={fromdate}
-                               
-                                minDate={new Date()}
+                               disabled
                                onChange={(newValue)=>setfromdate(newValue)}
                                 renderInput={(params) => <TextField {...params} />} />
                             
@@ -143,9 +168,8 @@ const NormalBorrowing = () => {
                                 
                                 inputFormat="MM/dd/yyyy"
                                 
-                               
-                                maxDate={new Date().setDate(fromdate.getDate()+7)}
-                                minDate={fromdate}
+                               disabled
+                                maxDate={new Date()}
                                 value={toDate}
                                 onChange={(newValue)=>settoDate(newValue)}
                                 renderInput={(params) => <TextField {...params} />} />
@@ -168,7 +192,7 @@ const NormalBorrowing = () => {
                     
                         </FormControl>
                         <FormControl sx={{ m: 1, minWidth: 200 }}>
-                     <Button variant="contained" color="success" onClick={() => submit()} >Submit</Button>
+                            <Button disabled={ sub} variant="contained" color="success" onClick={() => submit()} >Submit</Button>
 
                     
                     </FormControl>

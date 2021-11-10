@@ -28,13 +28,13 @@ export const Excel = ({csvData,type}) => {
             
         }
         
-        console.log(csvData);
+        
 
 
         const ws = XLSX.utils.json_to_sheet(report);
 
         const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-        console.log(ws);
+       
         const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
 
         const data = new Blob([excelBuffer], {type: fileType});

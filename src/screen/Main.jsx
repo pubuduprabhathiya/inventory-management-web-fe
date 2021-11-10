@@ -34,6 +34,7 @@ import LecturerDashboard from './Dashboard/lecturerDashboard';
 import Student from '../router/student';
 import Lecturer from '../router/lecturer';
 import TechnicalOfficer from '../router/technical_officer';
+import technical_officer_dashboard from "./Dashboard/technical_officer_dashboard";
 
 import PopUp from "../containers/Alert/CustomAlertDialog"; 
 
@@ -113,7 +114,7 @@ const Content = ({ isAuthenticated ,error,userId,socket}) => {
         };
         if(userType === "TechnicalOfficer")routes = () => (        
                 <Switch >
-                    <Route path="/" exact component={CustomDashboard}/>
+                    <Route path="/" exact component={technical_officer_dashboard}/>
                     <Route path='/technicalofficer'>
                         <TechnicalOfficer/>
                     </Route> 

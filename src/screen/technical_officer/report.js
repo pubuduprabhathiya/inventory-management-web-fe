@@ -10,7 +10,7 @@ import { getCategories, getReport } from "../../store/actions/technical_officer"
 import { Excel } from "../../component/technical_officer/excel";
 
 const Report = () => {
-    console.log('ff');
+   
     const dispatch = useDispatch();
     const [fromDate, setfromDate] = useState(new Date());
     const [toDate, settomDate] = useState(new Date());
@@ -25,7 +25,7 @@ const [type, settype] = useState("bar")
     }, [dispatch]);
 
     const handleChange = (event) => {
-        console.log(selectcategories,'d');
+      
     const {
       target: { value },
     } = event;
