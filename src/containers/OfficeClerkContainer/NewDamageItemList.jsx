@@ -91,7 +91,7 @@ class NewDamageItemList extends Component {
       return (
         <div>
           <h3>Are you sure?</h3>
-          <p>Do you want mark as send to repair?</p>
+          <p>Do you want mark as <b>Send to repair</b>?</p>
           <div>
             <button
               type="button"

@@ -73,6 +73,7 @@ const ApproveRequest = (props)=>{
             message: 'rejected',
         });
         if(res1.ok && res2.ok){
+            console.log('hererererer');
             setReject(false);
             setRejectStatus(true);
             // setNotiStatus(true);

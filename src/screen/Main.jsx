@@ -41,9 +41,10 @@ import PopUp from "../containers/Alert/CustomAlertDialog";
 const Main = (props) => {
     const [socket, setSocket] = useState(null);
 
-    useEffect(() => {
-        setSocket(io("http://localhost:5000"));
-    }, []);
+    useEffect(()=>{
+        setSocket(io("https://sep-uom-inventory.herokuapp.com"));
+        //setSocket(io("http://localhost:5000"));
+    },[]);
 
     return (
         <BrowserRouter>
@@ -60,13 +61,9 @@ const Main = (props) => {
 
 const Content = ({ isAuthenticated, error, userId, socket }) => {
 
-    console.log(error);
+    console.log(isAuthenticated);
 
-
-    if (error != null) {
-
-    }
-
+   
     let routes = () => (
         <Switch>
             <Route path="/" exact component={Login} />

@@ -1,4 +1,4 @@
-// import classes from './HeaderButton.module.css';
+// import classes from './HeaderButtonTecOfficer.module.css';
 
 // const HeaderButton = (props)=>{
 //     return(
@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/auth';
 import {Redirect} from "react-router-dom";
 
-class HeaderButton extends Component {
+class HeaderButtonTecOfficer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +28,7 @@ class HeaderButton extends Component {
       isLogin: false,
     },()=>{
       this.props.onLogout();
+      window.location.reload();
     });
     
     
@@ -60,6 +61,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
  
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderButton);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderButtonTecOfficer);
 
-// export default HeaderButton;
+// export default HeaderButtonTecOfficer;

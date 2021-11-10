@@ -92,6 +92,7 @@ class NewOfficeClerkApplication extends Component {
             isError:false,
             msg: "New Office Clerk Registered!"
           });
+          this.retrieveLastID()
          
         }
 

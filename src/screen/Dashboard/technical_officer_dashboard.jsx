@@ -58,7 +58,7 @@ class TechnicalOfficerDashboard extends Component {
                 <Link to={"/technicalofficer/addupdateequipment"} >
                   <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
                     <i className="fa fa-plus-square fa-5x"></i><br />
-                    add updat eequipment
+                    add update eequipment
                   </a>
                 </Link>
                 <Link to={"/technicalofficer/report"} >

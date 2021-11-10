@@ -113,6 +113,7 @@ class NewTechnicalOfficerApplication extends Component {
             isError:false,
             msg: "New Technical Officer Registered!"
           });
+          this.retrieveLastID();
           // alert("New Technical Officer Registered!");
           // window.location.reload();
         }

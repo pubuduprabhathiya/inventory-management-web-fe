@@ -1,9 +1,10 @@
 import Moment from 'moment';
 
-const url = 'https://sep-backend-inventory.herokuapp.com';
+const url = 'https://sep-uom-inventory.herokuapp.com';
+//const url = 'http://localhost:5000'
 
 export async function getCheckAvailability(value){
-    const response = await fetch(`http://localhost:5000/student/checkAvaiability?qstr=${value}`);
+    const response = await fetch(`${url}/student/checkAvaiability?qstr=${value}`);
     //const response = await fetch(`${url}/checkAvaiability`);
     const data = await response.json();
 
@@ -22,7 +23,7 @@ export async function getCheckAvailability(value){
 }
 
 export async function getDataByCategory(value,page){
-    const response = await fetch(`http://localhost:5000/student/checkItemsByCategory?qstr=${value}&page=${page}`);
+    const response = await fetch(`${url}/student/checkItemsByCategory?qstr=${value}&page=${page}`);
     const data = await response.json();
     if(!response.ok){
         throw new Error(data.message || 'Could not fetch data');
@@ -39,21 +40,21 @@ export async function getDataByCategory(value,page){
 }
 
 export async function getItemsCount(value){
-    const response = await fetch(`http://localhost:5000/student/itemCount?qstr=${value}`);
+    const response = await fetch(`${url}/student/itemCount?qstr=${value}`);
     const data = await response.json();
     return data;
 
 }
 
 export async function getEquipmentCount(){
-    const response = await fetch(`http://localhost:5000/student/equipmentCount`);
+    const response = await fetch(`${url}/student/equipmentCount`);
     const data = await response.json();
     return data; 
 }
 
 export async function getBorrowingHistory(dtail){
     //const response = await fetch(`${url}/borrow`);
-    const response = await fetch(`http://localhost:5000/student/borrow/${dtail.id}?qstr=${dtail.page}`);
+    const response = await fetch(`${url}/student/borrow/${dtail.id}?qstr=${dtail.page}`);
     const data = await response.json();
     if(!response.ok){
         throw new Error(data.message || 'Could not fetch data');
@@ -82,7 +83,7 @@ export async function getBorrowingHistory(dtail){
 
 export async function getCategories(detail){
     // const response = await fetch(`${url}/category`);
-    const response = await fetch(`http://localhost:5000/student/category`);
+    const response = await fetch(`${url}/student/category`);
     const data = await response.json();
 
     if(!response.ok){
@@ -99,7 +100,7 @@ export async function getCategories(detail){
 
 export async function getModel(detail){
     // const response = await fetch(`${url}/model/${detail.enterCategory}`);
-    const response = await fetch(`http://localhost:5000/student/model/${detail.enterCategory}`);
+    const response = await fetch(`${url}/student/model/${detail.enterCategory}`);
     const data = await response.json();
 
     if(!response.ok){
@@ -118,7 +119,7 @@ export async function getLaboratory(detail){
     // const abortController = new AbortController();
     // const signal = abortController.signal;
     // const response = await fetch(`${url}/lab/${detail.category}/${detail.model}`);
-    const response = await fetch(`http://localhost:5000/student/lab/${detail.category}/${detail.model}`);
+    const response = await fetch(`${url}/student/lab/${detail.category}/${detail.model}`);
     const data = await response.json();
 
     if(!response.ok){
@@ -136,7 +137,7 @@ export async function getStoreCode(detail){
     // const abortController = new AbortController();
     // const signal = abortController.signal;
     //const response = await fetch(`${url}/storeCode/${detail.category}/${detail.model}/${detail.lab}`);
-    const response = await fetch(`http://localhost:5000/student/storeCode/${detail.category}/${detail.model}/${detail.lab}`);
+    const response = await fetch(`${url}/student/storeCode/${detail.category}/${detail.model}/${detail.lab}`);
     const data = await response.json();
 
     if(!response.ok){
@@ -152,7 +153,7 @@ export async function getStoreCode(detail){
 
 export async function getAvailableItems(category){
     //const response = await fetch(`${url}/ava`);
-    const response = await fetch(`http://localhost:5000/student/ava`);
+    const response = await fetch(`${url}/student/ava`);
     const data = await response.json();
 
     if(!response.ok){
@@ -164,7 +165,7 @@ export async function getAvailableItems(category){
 
 export async function getLecturers(detail){
     //const response = await fetch(`${url}/lecturer/${detail.labId}`);
-    const response = await fetch(`http://localhost:5000/student/lecturer/${detail.labId}`);
+    const response = await fetch(`${url}/student/lecturer/${detail.labId}`);
     const data = await response.json();
 
     if(!response.ok){
@@ -183,7 +184,7 @@ export async function getLecturers(detail){
 
 export async function sendStudentNormalBorrowingRequest(detail){
     console.log(detail);
-    const response = await fetch(`http://localhost:5000/student/sendNormalRequest`,{
+    const response = await fetch(`${url}/student/sendNormalRequest`,{
         method:'POST',
         body: JSON.stringify({studentId:detail.studentId,lecId:detail.lecId,equipmentId:detail.equipmentId,requestDate:detail.requestDate,returnDate:detail.returnDate,model:detail.model,category:detail.category}),
         headers:{
@@ -198,7 +199,7 @@ export async function sendStudentNormalBorrowingRequest(detail){
 }
 
 export async function sendNotificationByStudent(detail){
-    const response = await fetch(`http://localhost:5000/student/sendNotification`,{
+    const response = await fetch(`${url}/student/sendNotification`,{
         method: 'POST',
         body: JSON.stringify({studentId:detail.studentId,lecId:detail.lecId,notification:detail.notification}),
         headers: {
@@ -213,7 +214,7 @@ export async function sendNotificationByStudent(detail){
 }
 
 export async function sendNotificationByLecturer(detail){
-    const response = await fetch(`http://localhost:5000/lecturer/sendNotification`,{
+    const response = await fetch(`${url}/lecturer/sendNotification`,{
         method: 'POST',
         body: JSON.stringify({lecId:detail.lecId,studentId:detail.studentId,notification:detail.notification}),
         headers: {
@@ -229,7 +230,7 @@ export async function sendNotificationByLecturer(detail){
 
 export async function getNotifications(detail){
     // const response = await fetch(`${url}/category`);
-    const response = await fetch(`http://localhost:5000/student/getNotification/${detail.id}`);
+    const response = await fetch(`${url}/student/getNotification/${detail.id}`);
     const data = await response.json();
 
     if(!response.ok){
@@ -245,7 +246,7 @@ export async function getNotifications(detail){
 }
 
 export async function sendLecturerNormalBorrowingRequest(detail){
-    const response = await fetch(`http://localhost:5000/lecturer/sendNormalRequest`,{
+    const response = await fetch(`${url}/lecturer/sendNormalRequest`,{
         method:'POST',
         body: JSON.stringify({lecId:detail.lecId,equipmentId:detail.equipmentId,requestDate:detail.requestDate,returnDate:detail.returnDate}),
         headers:{
@@ -260,7 +261,7 @@ export async function sendLecturerNormalBorrowingRequest(detail){
 }
 
 export async function sendStudentTemporyBorrowingRequest(detail){
-    const response = await fetch(`http://localhost:5000/student/sendTemporyRequest`,{
+    const response = await fetch(`${url}/student/sendTemporyRequest`,{
         method:'POST',
         body: JSON.stringify({studentId:detail.studentId,equipmentId:detail.equipmentId,reason:detail.reason,requestDate:detail.requestDate,returnDate:detail.returnDate}),
         headers:{
@@ -275,7 +276,7 @@ export async function sendStudentTemporyBorrowingRequest(detail){
 }
 
 export async function markNotification(detail){
-    const response = await fetch(`http://localhost:5000/student/markNotification`,{
+    const response = await fetch(`${url}/student/markNotification`,{
         method: 'POST',
         body: JSON.stringify({id:detail.id}),
         headers:{
@@ -290,7 +291,7 @@ export async function markNotification(detail){
 }
 
 export async function sendLecturerTemporyBorrowingRequest(detail){
-    const response = await fetch(`http://localhost:5000/lecturer/sendTemporyRequest`,{
+    const response = await fetch(`${url}/lecturer/sendTemporyRequest`,{
         method:'POST',
         body: JSON.stringify({lecId:detail.lecId,equipmentId:detail.equipmentId,reason:detail.reason,requestDate:detail.requestDate,returnDate:detail.returnDate}),
         headers:{
@@ -324,7 +325,7 @@ export async function sendLecturerTemporyBorrowingRequest(detail){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function getPendingRequests(dtail){
-    const response = await fetch(`http://localhost:5000/lecturer/pending/${dtail.id}`);
+    const response = await fetch(`${url}/lecturer/pending/${dtail.id}`);
     const data = await response.json();
 
     if(!response.ok){
@@ -346,7 +347,7 @@ export async function getPendingRequests(dtail){
 }
 
 export async function getPendingDetails(id){
-    const response = await fetch(`http://localhost:5000/lecturer/requestDetail/${id}`);
+    const response = await fetch(`${url}/lecturer/requestDetail/${id}`);
     const data = await response.json();
 
     console.log(response);
@@ -373,7 +374,7 @@ export async function getPendingDetails(id){
 }
 
 export async function approvePending(detail){
-    const response = await fetch(`http://localhost:5000/lecturer/approve/${detail.id}`,{
+    const response = await fetch(`${url}/lecturer/approve/${detail.id}`,{
         method:'POST',
         body: JSON.stringify({id:detail.id,category:detail.category,storeCode:detail.storeCode,lecId:detail.lecId,studentId:detail.studentId}),
         headers:{
@@ -388,7 +389,7 @@ export async function approvePending(detail){
 }
 
 export async function rejectPending(detail){
-    const response = await fetch(`http://localhost:5000/lecturer/reject/${detail.id}`,{
+    const response = await fetch(`${url}/lecturer/reject/${detail.id}`,{
         method:'POST',
         body: JSON.stringify({id:detail.id,category:detail.category,storeCode:detail.storeCode,lecId:detail.lecId,studentId:detail.studentId}),
         headers:{
@@ -399,7 +400,7 @@ export async function rejectPending(detail){
     if(!response.ok){
         throw new Error(data.message||'Could not fetch');
     }
-    return data;
+    return response;
 }
 
 
