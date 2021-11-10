@@ -1,6 +1,6 @@
 import toDate from 'date-fns/toDate';
 import * as api from '../../api/technical_officer_api';
-import { Userid_error, Avalilability_Error, Model_Name_Error, Category_Name_Error, ERROR, Store_Id_Error, Get_Report, Get_Equipment_By_Category, Get_Borrow_Data, Get_Categories, Get_Models, Get_Labs, Add_Equipment, Get_Equipment, Get_Last_Borrow_Data, Get_Request } from './action_types';
+import { REFERSH, Userid_error, Avalilability_Error, Model_Name_Error, Category_Name_Error, ERROR, Store_Id_Error, Get_Report, Get_Equipment_By_Category, Get_Borrow_Data, Get_Categories, Get_Models, Get_Labs, Add_Equipment, Get_Equipment, Get_Last_Borrow_Data, Get_Request } from './action_types';
 
 export const findIteamsByCatogary = (category) => async (dispatch) => {
 
@@ -102,7 +102,8 @@ export const updataEquipment = (store_code, status, imgPreview, issetimage) => a
   console.log(store_code, status, imgPreview, issetimage);
   try {
     const data = await api.updateEquipment(store_code, status, imgPreview, issetimage);
-    window.location.reload();
+    //window.location.reload();
+    dispatch({ type: REFERSH })
   } catch (error) {
     dispatch({ type: ERROR, payload: error });
     console.log(error);
@@ -127,7 +128,8 @@ export const getlastBorrowData = (storeCode) => async (dispatch) => {
 export const acceptEquipment = (id, status) => async (dispatch) => {
   try {
     const data = await api.acceptEquipment(id, status);
-    window.location.reload();
+    // window.location.reload();
+    dispatch({ type: REFERSH })
   } catch (error) {
     dispatch({ type: ERROR, payload: error });
     console.log(error.message);
@@ -166,7 +168,8 @@ export const temporyIssueEquipment = (userid, storeid, fromdate, t0date, reason)
       dispatch({ type: Userid_error, payload: data.data.message });
     }
     else {
-      window.location.reload();
+      // window.location.reload();
+      dispatch({ type: REFERSH })
     }
 
   } catch (error) {
@@ -177,7 +180,8 @@ export const temporyIssueEquipment = (userid, storeid, fromdate, t0date, reason)
 export const NormalIssueEquipment = (userid, storeid, fromdate, t0date, requestId) => async (dispatch) => {
   try {
     const data = await api.normalIssueEquipment(userid, storeid, fromdate, t0date, requestId);
-    window.location.reload();
+    //  window.location.reload();
+    dispatch({ type: REFERSH })
   } catch (error) {
     console.log(error);
     dispatch({ type: ERROR, payload: error });
