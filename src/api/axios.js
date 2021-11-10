@@ -1,7 +1,7 @@
    
 import axios from 'axios';
 
-const BASE_API = "https://insep.herokuapp.com/";
+const BASE_API = "https://sep-uom-inventory.herokuapp.com/";
 
 const instance = axios.create({
     baseURL: BASE_API

@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-const url = 'https://insep.herokuapp.com/technicalofficer';
+const url = 'https://sep-uom-inventory.herokuapp.com/technicalofficer';
 const config = {
     headers:{
         Authorization: "Bearer "+localStorage.getItem('token')

@@ -25,3 +25,4 @@ export const Category_Name_Error = 'Category_Name_Error';
 export const Model_Name_Error = 'Model_Name_Error';
 export const Avalilability_Error = 'Avalilability_Error';
 export const Userid_error = 'Userid_error';
+export const REFERSH = 'REFERSH';

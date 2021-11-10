@@ -5,16 +5,16 @@ class NewLectureApplication extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastIndex:"",
+      lastIndex: "",
       index: "",
       firstName: "",
-      lastName:"",
+      lastName: "",
       department: "",
       email: "",
       password: "",
-      confirmPw:"",
+      confirmPw: "",
       isError: false,
-      msg:"",
+      msg: "",
       isSuccess: false
     };
 
@@ -27,11 +27,11 @@ class NewLectureApplication extends Component {
     this.retrieveLastID();
   }
 
-  retrieveLastID(){  
+  retrieveLastID() {
     AdminService.getLastLecturer()
       .then((response) => {
         this.setState({
-          lastIndex: response.data[0].id,         
+          lastIndex: response.data[0].id,
         });
 
       })
@@ -40,24 +40,24 @@ class NewLectureApplication extends Component {
       });
   }
 
- 
+
 
   handleSubmit(event) {
     alert("Are you sure?");
     event.preventDefault();
     console.log(this.state);
-    if(this.state.password != this.state.confirmPw){
+    if (this.state.password != this.state.confirmPw) {
       alert("Password not match with confirm password");
-    }else{
+    } else {
       this.createNewLecture();
     }
-   
+
   }
 
 
 
-  createNewLecture(){
-    
+  createNewLecture() {
+
     var newLecture = {
       index: this.state.index,
       email: this.state.email,
@@ -65,31 +65,31 @@ class NewLectureApplication extends Component {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       department: this.state.department
-    }  ;
+    };
     AdminService.createLecture(newLecture)
       .then((response) => {
-        
-        
-        this.setState({     
-      index:"",
-      firstName: "",
-      lastName:"",
-      department: "",
-      email: "",
-      password: "",
-      confirmPw:""         
+
+
+        this.setState({
+          index: "",
+          firstName: "",
+          lastName: "",
+          department: "",
+          email: "",
+          password: "",
+          confirmPw: ""
         });
-        if(response.code != 200){
+        if (response.code != 200) {
           this.setState({
-            isError:true, 
-            isSuccess:false,
-            
+            isError: true,
+            isSuccess: false,
+
             msg: response.message
-          });          
-        }else{
+          });
+        } else {
           this.setState({
-            isSuccess:true,
-            isError:false, 
+            isSuccess: true,
+            isError: false,
             msg: "New Lecture is Registered!"
           });
           this.retrieveLastID();
@@ -117,10 +117,10 @@ class NewLectureApplication extends Component {
       <div style={this.newStyle}>
         <h3 style={{ textAlign: "center" }}>Lecturer Application</h3>
         {this.state.isError ? <div className="alert alert-danger">
-            <strong>Error!</strong> {this.state.msg}.
+          <strong>Error!</strong> {this.state.msg}.
         </div> : null}
         {this.state.isSuccess ? <div className="alert alert-primary">
-            <strong>Success!</strong> New Lecture is Registered!
+          <strong>Success!</strong> New Lecture is Registered!
         </div> : null}
         <div>
           <form onSubmit={this.handleSubmit}>

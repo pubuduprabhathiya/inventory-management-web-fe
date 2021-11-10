@@ -1,5 +1,5 @@
 
-import {Avalilability_Error,Userid_error,Model_Name_Error, Store_Id_Error ,ERROR,Category_Name_Error} from "../../actions/action_types";
+import {REFERSH,Avalilability_Error,Userid_error,Model_Name_Error, Store_Id_Error ,ERROR,Category_Name_Error} from "../../actions/action_types";
 
 export default (error = {}, action) => {
     switch (action.type) {
@@ -15,6 +15,8 @@ export default (error = {}, action) => {
             return { Userid: action.payload };
         case Avalilability_Error:    
             return { available: action.payload };
+        case REFERSH:
+            return {};
         default:
             return error;
     }

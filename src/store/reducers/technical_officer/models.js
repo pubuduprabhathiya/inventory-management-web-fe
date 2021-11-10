@@ -1,4 +1,4 @@
-import { Get_Models } from "../../actions/action_types";
+import { REFERSH,Get_Models } from "../../actions/action_types";
 
 export default (models = [], action) => {
     switch (action.type) {
@@ -6,6 +6,8 @@ export default (models = [], action) => {
             return action.payload;
         default:
             return models;
+        case REFERSH:
+            return [];
     }
 
 };

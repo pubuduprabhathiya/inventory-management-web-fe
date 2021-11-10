@@ -1,4 +1,4 @@
-import { Add_Equipment, Get_Equipment } from "../../actions/action_types";
+import { REFERSH, Add_Equipment, Get_Equipment } from "../../actions/action_types";
 
 export default (equipment=null, action) => {
     switch (action.type) {
@@ -6,6 +6,8 @@ export default (equipment=null, action) => {
             return action.payload;
         case Get_Equipment:
             return action.payload;
+        case REFERSH:
+            return null;
         default:
             return equipment;
     }

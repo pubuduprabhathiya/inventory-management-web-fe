@@ -1,4 +1,4 @@
-import { Get_Borrow_Data ,Get_Last_Borrow_Data} from "../../actions/action_types";
+import { REFERSH, Get_Borrow_Data ,Get_Last_Borrow_Data} from "../../actions/action_types";
 
 export default (borrowdata = [], action) => {
     switch (action.type) {
@@ -6,6 +6,8 @@ export default (borrowdata = [], action) => {
             return action.payload;
         case Get_Last_Borrow_Data:
             return action.payload;
+        case REFERSH:
+            return [];
         default:
             return borrowdata;
         

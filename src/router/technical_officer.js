@@ -2,6 +2,7 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Header from "../component/technical_officer/header";
+import Navbar from "../containers/Navbar/Navbar";
 import AcceptEquipment from "../screen/technical_officer/accept_equipment";
 import AddUpdateEquipment from "../screen/technical_officer/add_update_equipment";
 import IssueEquipment from "../screen/technical_officer/issue_equipment";
@@ -10,37 +11,35 @@ import ViewTrack from "../screen/technical_officer/view_track";
 
 
 const TechnicalOfficer = () => {
-    
-    return (
-        
-        <Router>
-           
-            <Header/>
-       
-        <Switch>
-         
+
+  return (
+
+    <Router >
+     
+      <Switch>
+
         <Route path='/technicalofficer/viewtrackofequipment'>
-          <ViewTrack/>
+          <ViewTrack />
         </Route>
         <Route path='/technicalofficer/issueequipment'>
-          <IssueEquipment/>
-                </Route>
+          <IssueEquipment />
+        </Route>
         <Route path='/technicalofficer/acceptequipment'>
-          <AcceptEquipment/>
-          </Route>
-          
-        <Route path='/technicalofficer/addupdateequipment'>
-          <AddUpdateEquipment/>
-          </Route>
+          <AcceptEquipment />
+        </Route>
 
-          <Route path='/technicalofficer/report'>
-            <Report />
-          </Route>
-        
-        </Switch>
-        
-    
+        <Route path='/technicalofficer/addupdateequipment'>
+          <AddUpdateEquipment />
+        </Route>
+
+        <Route path='/technicalofficer/report'>
+          <Report />
+        </Route>
+
+      </Switch>
+
+
     </Router>
-    );
+  );
 }
 export default TechnicalOfficer;

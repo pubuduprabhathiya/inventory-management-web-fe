@@ -1,4 +1,4 @@
-import { Button, FormControl, MenuItem, Select, TextField ,Checkbox} from "@mui/material";
+import { Button, FormControl, MenuItem, Select, TextField, Checkbox } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -8,7 +8,7 @@ import ScanScreen from "../../component/technical_officer/scan_screen";
 import JsBarcode from "jsbarcode";
 import Barcode from "../../component/technical_officer/barcode";
 
-const UpdateEquipment=() => {
+const UpdateEquipment = () => {
     const [storeCode, setstoreCode] = useState('');
     const [category, setcategory] = useState('');
     const [model, setmodel] = useState('');
@@ -26,9 +26,9 @@ const UpdateEquipment=() => {
 
     const [submit, setsubmit] = useState(false);
     const dispatch = useDispatch();
-     const [isvalied, setisvalied] = useState(false);
+    const [isvalied, setisvalied] = useState(false);
     const submitData = () => {
-        
+
         if (!submit) {
             dispatch(updataEquipment(storeCode, damage, imgPreview, issetimage));
         }
@@ -36,8 +36,8 @@ const UpdateEquipment=() => {
     }
 
     useEffect(() => {
-      
-        if (error===undefined) {
+
+        if (error === undefined) {
             return
         }
         if (error.storeid) {
@@ -51,7 +51,7 @@ const UpdateEquipment=() => {
         }
     }, [error])
     useEffect(() => {
-       
+
         if (equipment != null) {
             setisvalied(true);
             setcategory(equipment.Category.categoryName);
@@ -62,149 +62,150 @@ const UpdateEquipment=() => {
             setdamage(equipment.status);
         }
         else {
-             setisvalied(false);
+            setisvalied(false);
         }
-         
+
     }, [equipment]);
 
     const next = () => {
-      
+
         if (storeCode === '') {
             setstoreiderror(true);
         }
         else {
-             dispatch(getEquipmentByStoreCode(storeCode));
+            dispatch(getEquipmentByStoreCode(storeCode));
         }
-    
+
     }
     const back = () => {
-       setisvalied(false);
-         setsubmit(false);
-   //dispatch(getEquipmentByStoreCode(''));
+        setisvalied(false);
+        setsubmit(false);
+        //dispatch(getEquipmentByStoreCode(''));
     }
     const handleClickOpen = () => {
-    setOpen(true);
-  };
+        setOpen(true);
+    };
     const getBArcode = () => {
-        
+
         JsBarcode("#barcode", equipment.id);
-      setbarcodedownload(true);
+        setbarcodedownload(true);
     }
 
 
-     const haddleImage = (e) => {
-       const file=e.target.files[0]
-       
-         if (file) {
+    const haddleImage = (e) => {
+        const file = e.target.files[0]
+
+        if (file) {
             setissetimage(true);
             setimgPreview("")
             perview(file);
         }
-   }
-    const perview =  (file)=>{
+    }
+    const perview = (file) => {
         const reader = new FileReader();
         reader.readAsDataURL(file)
         reader.onloadend = () => {
             setimgPreview(reader.result)
-            
-             
+
+
         }
-         
+
     }
 
 
 
     return (
         <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: { xs: 'center', md: 'center' },
-          m: 3,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: { xs: 'start', md: 'start' },
+
 
         }}>
-            <FormControl sx={{ m: 1, minWidth: 200 }}>
-                    <TextField data-testid="storeid" helperText={storeiderror ? "invalid store id":null}
-        error={storeiderror} disabled={isvalied} value={storeCode} label='Store Code' onChange={(e)=>setstoreCode(e.target.value)} required></TextField>
-                    
+            <FormControl sx={{ width: 300, m: 3 }}>
+                <TextField data-testid="storeid" helperText={storeiderror ? "invalid store id" : null}
+                    error={storeiderror} disabled={isvalied} value={storeCode} label='Store Code' onChange={(e) => setstoreCode(e.target.value)} required></TextField>
+
             </FormControl>
             {!isvalied || equipment == null ?
-            <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: { xs: 'center', md: 'center' },
-          m: 3,
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: { xs: 'center', md: 'center' },
+                    m: 3,
 
-                    }}>
-                <FormControl sx={{ m: 1, minWidth: 200 }}>
-                    <Button data-testid="btn" variant="contained" color="success" onClick={() => next()} >Next</Button>
-                    
+                }}>
+                    <FormControl sx={{ m: 1, minWidth: 200 }}>
+                        <Button sx={{ width: 300, m: 2 }} variant="contained" color="success" onClick={() => handleClickOpen()} >QR</Button>
+
                     </FormControl>
                     <FormControl sx={{ m: 1, minWidth: 200 }}>
-                    <Button variant="contained" color="success" onClick={() => handleClickOpen()} >QR</Button>
-                    
+                        <Button sx={{ width: 300, m: 2 }} data-testid="btn" variant="contained" color="success" onClick={() => next()} >Next</Button>
+
                     </FormControl>
-                    </Box>
-                :<Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: { xs: 'center', md: 'center' },
-          m: 3,
 
-        }}> <FormControl sx={{ m: 1, minWidth: 200 }}>
-                    <TextField data-testid="Category" disabled={true} value={category} label='Category'  ></TextField>
+                </Box>
+                : <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: { xs: 'center', md: 'center' },
 
-                    
+
+                }}> <FormControl sx={{ width: 300, m: 3 }}>
+                        <TextField data-testid="Category" disabled={true} value={category} label='Category'  ></TextField>
+
+
                     </FormControl>
-                    <FormControl sx={{ m: 1, minWidth: 200 }}>
-                    <TextField disabled={true} value={model} label='Model'  ></TextField>
+                    <FormControl sx={{ width: 300, m: 3 }}>
+                        <TextField disabled={true} value={model} label='Model'  ></TextField>
 
-                    
-                </FormControl>
-                <FormControl sx={{ m: 1, minWidth: 200 }}>
-                    <TextField disabled={true} value={lab} label='Lab'  ></TextField>
 
-                    
                     </FormControl>
-                    <FormControl sx={{ m: 1, minWidth: 200 }}>
-                        <Select data-testid="damageselect" label="select one .." value={damage} onChange={(e)=>setdamage(e.target.value)} >
+                    <FormControl sx={{ width: 300, m: 3 }}>
+                        <TextField disabled={true} value={lab} label='Lab'  ></TextField>
+
+
+                    </FormControl>
+                    <FormControl sx={{ width: 300, m: 3 }}>
+                        <Select data-testid="damageselect" label="select one .." value={damage} onChange={(e) => setdamage(e.target.value)} >
                             <MenuItem value='notdamage'>Not Damage</MenuItem>
                             <MenuItem value='damage'>Damage</MenuItem>
-                    </Select>
+                        </Select>
 
-                    
+
                     </FormControl>
-                     <Button variant="contained" component="label" color={imgURLerror?"error":"success"}>Upload Image
-                <input
-                    type="file"
-                    hidden
-                    accept="image/*"
-                    onChange={haddleImage }
-                />
-                <Checkbox  disabled checked={imgPreview!==''} />
-            </Button>
+                    <Button sx={{ width: 300, m: 2 }} variant="contained" component="label" color={imgURLerror ? "error" : "success"}>Upload Image
+                        <input
+                            type="file"
+                            hidden
+                            accept="image/*"
+                            onChange={haddleImage}
+                        />
+                        <Checkbox disabled checked={imgPreview !== ''} />
+                    </Button>
                     <FormControl sx={{ m: 1, minWidth: 200 }}>
-                     <Button variant="contained" color="success" onClick={() => getBArcode()} >Get Bar code</Button>
+                        <Button sx={{ width: 300, m: 2 }} variant="contained" color="warning" onClick={() => getBArcode()} >Get Bar code</Button>
 
-                    
-                    </FormControl>
-                    <FormControl sx={{ m: 1, minWidth: 200 }}>
-                     <Button variant="contained" color="success" onClick={() => back()} >Back</Button>
 
-                    
                     </FormControl>
                     <FormControl sx={{ m: 1, minWidth: 200 }}>
-                     <Button variant="contained" color="success" onClick={() => submitData()} disabled={submit}>Sumbit</Button>
+                        <Button sx={{ width: 300, m: 2 }} variant="contained" color="error" onClick={() => back()} >Back</Button>
 
-                    
-                </FormControl>
+
+                    </FormControl>
+                    <FormControl sx={{ m: 1, minWidth: 200 }}>
+                        <Button sx={{ width: 300, m: 2 }} variant="contained" color="success" onClick={() => submitData()} disabled={submit}>Sumbit</Button>
+
+
+                    </FormControl>
                 </Box>
-               
-            
+
+
             }
-            <Barcode barcodedownload={ barcodedownload} setbarcodedownload={setbarcodedownload}/>
+            <Barcode barcodedownload={barcodedownload} setbarcodedownload={setbarcodedownload} />
             <ScanScreen open={open} setOpen={setOpen} setstoreCode={setstoreCode} />
 
-            </Box>
+        </Box>
     );
 }
 export default UpdateEquipment;
