@@ -54,7 +54,7 @@ const Main = (props) => {
 
             </div>
             {props.error != null ? <PopUp errorMsg={props.error} /> : null}
-            {props.isAuthenticated ? null : <Redirect to="/" />}
+
         </BrowserRouter>
     );
 }
