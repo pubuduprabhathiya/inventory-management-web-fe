@@ -39,7 +39,7 @@ class NewDamageItemList extends Component {
     this.setState({
         isClick:false
     });
-    window.location.reload();
+    // window.location.reload();
    
   }
 
