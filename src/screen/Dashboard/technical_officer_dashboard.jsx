@@ -11,9 +11,11 @@ class TechnicalOfficerDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {}
+
+  }
+  componentDidMount() {
     window.location.reload();
   }
-
 
   render() {
     return (
