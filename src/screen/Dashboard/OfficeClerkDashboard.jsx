@@ -11,19 +11,9 @@ class OfficeClerkDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {}
-    this.checkLogin();
+   
   }
-  componentDidMount() {
-    this.checkLogin();
-  }
-  checkLogin() {
-    var type = localStorage.getItem('token');
-    var user = localStorage.getItem('user');
-    if (!type || user != "OfficeClerk") {
-      this.props.history.push("/");
-      return;
-    }
-  }
+ 
 
   render() {
     return (
