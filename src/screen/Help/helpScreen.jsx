@@ -13,11 +13,9 @@ class HelpPage extends Component {
     return (
       <div>
         <div className="row m-5">
-          <div className="col-4" align="center">
-           <h3>Help page</h3>
-          </div>
-          <div className="col-8">
+          <div className="col-12" align="center">
             <h4>Help page</h4>
+            <image src="../../../public/reset_pass.png"></image>
           </div>
         </div>
       </div>
