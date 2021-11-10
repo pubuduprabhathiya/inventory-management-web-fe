@@ -46,7 +46,7 @@ useEffect(() => {
     
     useEffect(() => {
         dispatch(getModels(category));
-        console.log(submit, "sub")
+      
         setaddModel(false);
         setmodel({modelName:''});
     }, [category])
@@ -55,7 +55,7 @@ useEffect(() => {
         setaddModel(false);
     }, [models])
     useEffect(() => {
-          console.log(submit,'c',equipment,'e');
+       
         if (equipment !== null & submit) {
             if (equipment.id !== undefined & equipment.id !== null & equipment.id !== '') {
              
@@ -70,7 +70,7 @@ useEffect(() => {
     
     
     const sumbitData = () => {
-         console.log(imgPreview)
+       
         if ( category!=null && category.categoryName !== '') {
             setcategoryerror(false);
         }
@@ -120,7 +120,7 @@ useEffect(() => {
     }
     const haddleImage = (e) => {
        const file=e.target.files[0]
-        console.log(e.target.files[0])
+      
         if (file) {
             perview(file);
         }
@@ -129,9 +129,9 @@ useEffect(() => {
         const reader = new FileReader();
         reader.readAsDataURL(file)
         reader.onloadend = () => {
-            console.log(reader.result)
+           
             setimgPreview(reader.result)
-             console.log(imgPreview)
+
         }
         
     }

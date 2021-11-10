@@ -39,7 +39,7 @@ useEffect(() => {
           setsubmit(false);
           return;
          }
-         console.log(submit, categoryerror);
+       
        if (!submit) {
             dispatch(addModel(category,cat));
         }

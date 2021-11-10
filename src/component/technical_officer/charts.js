@@ -18,19 +18,18 @@ const Charts = (type) => {
             const labalst = report.map((e) => (e.date));
             const data = report[0].data.map((e, index) =>({ data:report.map((cat) => (cat.data[index].data)),label:e.cat, backgroundColor:colors[index],borderColor:colors[index]}) );
             //const data = report.map((e,index) => ({ data: e.data[1], label: e.data[0], backgroundColor:colors[index],borderColor:colors[index]}))
-            console.log(data);
-             console.log(report);
+         
             setlabels(labalst);
             setdatasets(data);
         }
-         console.log(report.length,'report');
+         
     }, [report])
     
     
     useEffect(() => {
         setcharttype(type.type);
         setreporttype(type.reportType);
-        console.log(type.reportType);
+     
     }, [type])
     return (
          <Box  sx={{ display: 'flex', width: 1000,flexDirection:'column'}}>

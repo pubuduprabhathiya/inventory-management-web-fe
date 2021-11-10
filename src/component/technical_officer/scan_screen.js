@@ -9,7 +9,7 @@ const ScanScreen = ({open,setOpen,setstoreCode}) => {
     };
     const setResult = (result) => {
         if (result != null) {
-            console.log(result);
+           
             setstoreCode(result);
            
             handleClose();

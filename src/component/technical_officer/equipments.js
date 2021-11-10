@@ -13,7 +13,7 @@ const Equipments = ({ fromDate, toDate}) => {
  const dispatch = useDispatch();
 
     useEffect(() => {
-       console.log(equipments,'equ')
+      
     }, [equipments])
     useEffect(() => {
         dispatch(getBorrowData(selectequipment,fromDate, toDate)); 

@@ -36,7 +36,7 @@ const UpdateEquipment=() => {
     }
 
     useEffect(() => {
-        console.log(equipment, error);
+      
         if (error===undefined) {
             return
         }
@@ -51,7 +51,7 @@ const UpdateEquipment=() => {
         }
     }, [error])
     useEffect(() => {
-        console.log(equipment,error);
+       
         if (equipment != null) {
             setisvalied(true);
             setcategory(equipment.Category.categoryName);
@@ -68,7 +68,7 @@ const UpdateEquipment=() => {
     }, [equipment]);
 
     const next = () => {
-        console.log("next")
+      
         if (storeCode === '') {
             setstoreiderror(true);
         }
@@ -94,7 +94,7 @@ const UpdateEquipment=() => {
 
      const haddleImage = (e) => {
        const file=e.target.files[0]
-        console.log(e.target.files[0])
+       
          if (file) {
             setissetimage(true);
             setimgPreview("")
@@ -107,9 +107,9 @@ const UpdateEquipment=() => {
         reader.onloadend = () => {
             setimgPreview(reader.result)
             
-             console.log(imgPreview)
+             
         }
-          console.log(issetimage,"set")
+         
     }
 
 

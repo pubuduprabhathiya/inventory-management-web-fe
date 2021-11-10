@@ -9,16 +9,16 @@ const BorrowData = (data) => {
     const [department, setdepartment] = useState('');
 
     useEffect(() => {
-        console.log(data.data, 'dasta');
+      
         if (data.data.LecturerBorrowings.length>0) {
-            console.log(data.data.LecturerBorrowings.lecturer, 'dassta');
+           
       
             const lec = data.data.LecturerBorrowings[0].lecturer;
             setdepartment(lec.department);
             setname(lec.firstName + ' ' + lec.lastName);
        
         } else if (data.data.TemoryBorrowings.length>0) {
-             console.log(data.data.TemoryBorrowings);
+           
             const student = data.data.TemoryBorrowings[0].student;
             setdepartment(student.department);
             setname(student.firstName + ' ' + student.lastName);

@@ -11,7 +11,7 @@ const Barcode = ({ barcodedownload,setbarcodedownload }) => {
      const downloadBarcode = () => {
         
             const canvas = document.getElementById("barcode");
-            console.log(canvas);
+         
             const pngUrl = canvas
                 .toDataURL("image/png")
                 .replace("image/png", "image/octet-stream");

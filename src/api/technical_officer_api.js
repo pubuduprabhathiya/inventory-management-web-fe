@@ -7,7 +7,7 @@ const config = {
         Authorization: "Bearer "+localStorage.getItem('token')
     }
   };
-console.log(config,'h');
+
 export const findIteamsByCatogary = (category) => axios.get(`${url}/categories/${category.id}`,config);
 
 

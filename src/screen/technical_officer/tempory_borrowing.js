@@ -31,7 +31,7 @@ const TemporyBorrowing = () => {
     };
     
     const getdatabystoreid = (id) => {
-        console.log(id);
+       
         setstoreid(id);
      dispatch(getEquipmentByStoreCode(id));
     }
@@ -61,7 +61,7 @@ const TemporyBorrowing = () => {
     }, [error])
     useEffect(() => {
     
-        console.log(equipment);
+      
         if (equipment != null) {
             setcategory(equipment.Category.categoryName);
             setmodel(equipment.Model.modelName);

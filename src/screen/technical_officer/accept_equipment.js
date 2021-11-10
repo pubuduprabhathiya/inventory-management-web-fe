@@ -20,7 +20,7 @@ const error = useSelector(state => state.error);
 
     const dispatch = useDispatch();
     const handleClickOpen = () => {
-        console.log('open');
+      
     setopen(true);
     };
 
@@ -37,7 +37,7 @@ const error = useSelector(state => state.error);
       }, [error])
     
     useEffect(() => {
-        console.log(borrowdata,'kk',error);
+      
         if (borrowdata.length > 0) {
             setisvalied(true);
             setstoreCode(borrowdata[0].Equipment.id)

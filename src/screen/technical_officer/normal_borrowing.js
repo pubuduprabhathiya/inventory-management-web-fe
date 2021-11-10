@@ -23,7 +23,7 @@ const NormalBorrowing = () => {
 
 
  useEffect(() => {
-        console.log(error)
+       
         if (error.Userid) {
             setuseriderror(true);
             setsub(false);
@@ -49,12 +49,12 @@ const NormalBorrowing = () => {
         dispatch(getRequestData(id));
     }
     useEffect(() => {
-         console.log(request);
+        
         if (request.Equipment!== undefined) {
             setfromdate(new Date(request.requestDate));
             settoDate(new Date(request.returnDate));
             
-            console.log(request.Equipment);
+          
            // setid(request.student.id)
              setisvalied(true);
         }
@@ -113,7 +113,7 @@ const NormalBorrowing = () => {
                             m: 3,
                            
                     }}>
-                        {  console.log(request)}
+                     
                         <FormControl sx={{ m: 1, width: 300 }}>
                     <TextField disabled={isvalied} value={request.Equipment['Category'].categoryName} label='Category'  ></TextField>
                         </FormControl>
