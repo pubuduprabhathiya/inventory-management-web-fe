@@ -223,7 +223,7 @@ const NormalCheckout = (props)=>{
                 receiverId: lecId,
                 message: enterCategory,
             });
-            sendData({studentId: props.id,lecId:lecId,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate});
+            sendData({studentId: props.id,lecId:lecId,equipmentId:enterStoreCode,requestDate:enterfromDate,returnDate:entertoDate,category:enterCategory,model:enterModel});
             sendNotification({studentId: props.id,lecId:lecId, notification: enterCategory});
             resetIDInput();
         }else{

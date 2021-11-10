@@ -12,31 +12,27 @@ import { connect } from "react-redux";
 const ApproveRequest = (props)=>{
     const history = useHistory();
     const params = useParams();
-    const [approve,setApprove]=useState(null);
-    const [reject,setReject]=useState(null);
+    const [approve,setApprove]=useState(false);
+    const [approveStatus,setapproveStatus] = useState(false);
+    const [notiStatus, setNotiStatus] = useState(false);
+    const [reject,setReject]=useState(false);
+    const [rejectStatus,setRejectStatus]=useState(false);
     //console.log(params.id);
 
     const {sendRequest,status,data:loadedData,error}=useHttp(getPendingDetails,true);
-    const {sendRequest:approveRequest,status:approveStatus,error:approveError} = useHttp(approvePending,true);
-    const {sendRequest:rejectRequest,status:rejectStatus,error:rejectError} = useHttp(rejectPending,true);
+    //const {sendRequest:approveRequest,status:approveStatus,error:approveError} = useHttp(approvePending,true);
+    //const {sendRequest:rejectRequest,status:rejectStatus,error:rejectError} = useHttp(rejectPending,true);
     const {sendRequest:sendNotification,status:notificationStatus} = useHttp(sendNotificationByLecturer,true);
     useEffect(()=>{
         sendRequest(params.id);
     },[sendRequest]);
 
-    useEffect(()=>{
-        if(approve){
-            approveRequest(params.id);
-            sendNotification({lecId: props.id,studentId:loadedData[0]['studentId'],notification:'accepted'});
-        }
-    },[approve]);
-
-    useEffect(()=>{
-        if(reject){
-            rejectRequest(params.id);
-            sendNotification({lecId: props.id, studentId:loadedData[0]['studentId'],notification:'rejected'});
-        }
-    },[reject]);
+    // useEffect(()=>{
+    //     if(reject){
+    //         rejectRequest(params.id);
+    //         sendNotification({lecId: props.id, studentId:loadedData[0]['studentId'],notification:'rejected'});
+    //     }
+    // },[reject]);
 
     if(status==='pending'){
         return(
@@ -52,30 +48,42 @@ const ApproveRequest = (props)=>{
         return(<h1>No Data</h1>)
     }
 
-    console.log(loadedData);
-    const approveHandler = ()=>{
+    const approveHandler = async()=>{
         setApprove(true);
+        const res1=await approvePending({id:params.id,category:loadedData[0]['category'],storeCode:loadedData[0]['storeCode'],lecId:props.id,studentId:loadedData[0]['studentId']});
+        const res2= await sendNotificationByLecturer({lecId: props.id,studentId:loadedData[0]['studentId'],notification:'accepted'});
         props.socket.emit("sendNotification",{
             senderId: props.id,
             receiverId: loadedData[0]['studentId'],
             message: 'accepted',
         });
-        console.log('sent');
+        if(res1.ok && res2.ok){
+            setApprove(false);
+            setapproveStatus(true);
+            // setNotiStatus(true);
+        }
     }
-    const rejectHandler = ()=>{
+    const rejectHandler = async()=>{
         setReject(true);
+        const res1=await rejectPending({id:params.id,category:loadedData[0]['category'],storeCode:loadedData[0]['storeCode'],lecId:props.id,studentId:loadedData[0]['studentId']});
+        const res2= await sendNotificationByLecturer({lecId: props.id,studentId:loadedData[0]['studentId'],notification:'rejected'});
         props.socket.emit("sendNotification",{
             senderId: props.id,
             receiverId: loadedData[0]['studentId'],
             message: 'rejected',
         });
+        if(res1.ok && res2.ok){
+            setReject(false);
+            setRejectStatus(true);
+            // setNotiStatus(true);
+        }
     }
-    
-    if((approveStatus==='completed' || rejectStatus==='completed')&& notificationStatus==='completed'){
+
+    console.log(rejectStatus);
+    if(approveStatus || rejectStatus){
         history.push('/lecturer/approveRequest');
     }
 
-    // console.log(loadedData[0]['studentId']);
 
     const request = loadedData.map(filteredReq=>(
         <div className={classes.card} key={filteredReq.id}>
@@ -109,6 +117,7 @@ const ApproveRequest = (props)=>{
     ));
     return(
         <div>
+            {(approve||reject) && <center><LoadingSpinner/></center>}
             {request}
         </div>
         

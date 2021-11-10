@@ -182,10 +182,10 @@ export async function getLecturers(detail){
 }
 
 export async function sendStudentNormalBorrowingRequest(detail){
-
+    console.log(detail);
     const response = await fetch(`http://localhost:5000/student/sendNormalRequest`,{
         method:'POST',
-        body: JSON.stringify({studentId:detail.studentId,lecId:detail.lecId,equipmentId:detail.equipmentId,requestDate:detail.requestDate,returnDate:detail.returnDate}),
+        body: JSON.stringify({studentId:detail.studentId,lecId:detail.lecId,equipmentId:detail.equipmentId,requestDate:detail.requestDate,returnDate:detail.returnDate,model:detail.model,category:detail.category}),
         headers:{
             'Content-Type': 'application/json'
         },
@@ -224,7 +224,7 @@ export async function sendNotificationByLecturer(detail){
     if(!response.ok){
         throw new Error(data.message || 'Could not etch');
     }
-    return data;
+    return response;
 }
 
 export async function getNotifications(detail){
@@ -372,10 +372,10 @@ export async function getPendingDetails(id){
     return pendingList;
 }
 
-export async function approvePending(id){
-    const response = await fetch(`http://localhost:5000/lecturer/approve/${id}`,{
+export async function approvePending(detail){
+    const response = await fetch(`http://localhost:5000/lecturer/approve/${detail.id}`,{
         method:'POST',
-        //body: JSON.stringify({user:id}),
+        body: JSON.stringify({id:detail.id,category:detail.category,storeCode:detail.storeCode,lecId:detail.lecId,studentId:detail.studentId}),
         headers:{
             'Content-Type': 'application/json'
         },
@@ -384,13 +384,13 @@ export async function approvePending(id){
     if(!response.ok){
         throw new Error(data.message||'Could not fetch');
     }
-    return data;
+    return response;
 }
 
-export async function rejectPending(id){
-    const response = await fetch(`http://localhost:5000/lecturer/reject/${id}`,{
+export async function rejectPending(detail){
+    const response = await fetch(`http://localhost:5000/lecturer/reject/${detail.id}`,{
         method:'POST',
-        //body: JSON.stringify({user:id}),
+        body: JSON.stringify({id:detail.id,category:detail.category,storeCode:detail.storeCode,lecId:detail.lecId,studentId:detail.studentId}),
         headers:{
             'Content-Type': 'application/json'
         },
