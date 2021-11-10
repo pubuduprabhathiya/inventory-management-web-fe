@@ -1,7 +1,7 @@
 import { AppBar,colors,IconButton, Link,  Toolbar } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import { Box } from "@mui/system";
-import HeaderButton from "../Layout/HeaderButton";
+import HeaderButton from "../Layout/technicalOfficerLogout";
 
 
 const Header = () => {

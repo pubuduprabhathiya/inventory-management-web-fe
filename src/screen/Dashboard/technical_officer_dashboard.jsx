@@ -39,7 +39,7 @@ class TechnicalOfficerDashboard extends Component {
             
             <Link to={"/technicalofficer/viewtrackofequipment"} >
             <a href="" className="btn btn-sq-lg btn-success p-4 m-4">
-              <i className="fa fa-plus-square fa-5x"></i><br/>
+                        <i className="fa fa-eye fa-5x"></i><br/>
              view track of equipment
             </a>
             </Link>

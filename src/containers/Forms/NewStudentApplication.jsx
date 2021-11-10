@@ -96,6 +96,7 @@ class NewStudentApplication extends Component {
             isError:false,
             msg: "New Student Registered!"
           });
+          this.retrieveLastID();
           // alert("");
           // window.location.reload();
         }

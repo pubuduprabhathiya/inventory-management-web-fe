@@ -104,7 +104,7 @@ class PendingRepairItemList extends Component {
             return (
               <div>
                 <h3>Are you sure?</h3>
-                <p>Do you want mark as send to repair?</p>
+                <p>Do you want mark as <b>Finished repair</b>?</p>
                 <div>
                   <button
                     type="button"
