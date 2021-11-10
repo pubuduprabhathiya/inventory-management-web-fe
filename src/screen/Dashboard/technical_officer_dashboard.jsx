@@ -13,9 +13,7 @@ class TechnicalOfficerDashboard extends Component {
     this.state = {}
 
   }
-  componentDidMount() {
-    window.location.reload();
-  }
+
 
   render() {
     return (

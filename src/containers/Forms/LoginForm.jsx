@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {  Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 import * as actions from '../../store/actions/auth';
@@ -36,6 +36,7 @@ class LoginForm extends Component {
     // alert("New Lecturer Registered!");
     event.preventDefault();
     await this.props.onAuth(this.state.email, this.state.password);
+    window.location.reload();
     // console.log("abc"+this.props.error );
     // if (this.props.error != null) {
     //   alert(this.props.error + "aa");
@@ -44,7 +45,7 @@ class LoginForm extends Component {
     //     seen:true,
     //     error: this.props.error
     //   });
-     
+
     // }
 
   };
@@ -70,7 +71,7 @@ class LoginForm extends Component {
               }}
             ></input>
           </div>
-    
+
           <div className="form-group">
             <label for="pwd">Password:</label>
             <input
@@ -91,16 +92,16 @@ class LoginForm extends Component {
           <button type="submit m-1" className="btn btn-primary">
             Submit
           </button>
- 
-          <Link to={"/help"} >
-                <a href="">
-                <p>Forgot password? Get help</p>
-                </a>
-            </Link>
 
-         
+          <Link to={"/help"} >
+            <a href="">
+              <p>Forgot password? Get help</p>
+            </a>
+          </Link>
+
+
         </form>
-       
+
       </div>
     );
   }
