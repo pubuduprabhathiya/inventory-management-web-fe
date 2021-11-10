@@ -1,4 +1,4 @@
-   
+
 import axios from 'axios';
 
 const BASE_API = "https://sep-uom-inventory.herokuapp.com/";

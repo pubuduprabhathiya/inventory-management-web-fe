@@ -1,42 +1,165 @@
 
 
 import axios from './axios';
+class TechnicalofficerService {
 
-const url = 'technicalofficer';
-const config = {
-    headers:{
-        Authorization: "Bearer "+localStorage.getItem('token')
+
+  async findIteamsByCatogary(category)  {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }; return await axios.get(`${url}/categories/${category.id}`, config);
+  }
+
+
+  async getBorrowData(store_code, fromDate, toDate) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }; return await axios.post(`${url}/borrowdata/`, { store_code, fromDate, toDate }, config);
+  }
+
+  async getCategories() {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
     }
+    return await axios.get(`${url}/categories`, config)
   };
+  async getModels(category) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.get(`${url}/models/${category.id}`, config);
+  }
 
-export const findIteamsByCatogary = (category) => axios.get(`${url}/categories/${category.id}`,config);
-
-
-export const getBorrowData = (store_code, fromDate, toDate) =>axios.post(`${url}/borrowdata/`,{store_code, fromDate, toDate},config);
-
-export const getCategories = () => axios.get(`${url}/categories`,config)
-export const getModels = (category) =>axios.get(`${url}/models/${category.id}`,config);
-
-export const getLabs = () => axios.get(`${url}/labs`,config);
-
-
-export const addEquipment = (category, model, lab,imgPreview) =>axios.post(`${url}/addequipment/`,{category, model, lab,imgPreview},config);
-
-export const getEquipmentByStoreCode = (storecode) =>axios.get(`${url}/equipment/${storecode}`,config);
-
-export const updateEquipment = (store_code, status,imgPreview,issetimage) =>axios.post(`${url}/updateequipment/`,{store_code, status,imgPreview,issetimage},config);
-
-export const getlastBorrowData = (storecode) =>axios.get(`${url}/borrowdata/${storecode}`,config);
-
-export const acceptEquipment = (id, status) =>axios.post(`${url}/acceptEquipment/`,{id, status},config);
-
-export const getRequestData = (id) =>axios.get(`${url}//requestdata/${id}`,config);
+  async getLabs() {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.get(`${url}/labs`, config);
+  }
 
 
-export const normalIssueEquipment = (userid, storeid, fromdate, todate,requestId) =>axios.post(`${url}/normalborrowing/`,{userid, storeid, fromdate, todate,requestId},config);
+  async addEquipment(category, model, lab, imgPreview) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.post(`${url}/addequipment/`, { category, model, lab, imgPreview }, config);
+  }
 
-export const temporyIssueEquipment = (userid, storeid, fromdate, todate,reason) =>axios.post(`${url}/temporyborrowing/`,{userid, storeid, fromdate, todate,reason},config);
+  async getEquipmentByStoreCode(storecode) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.get(`${url}/equipment/${storecode}`, config);
+  }
 
-export const getReport = (fromdate, toDate, categories,reportType) =>axios.post(`${url}/report/`,{fromdate, toDate, categories,reportType},config);
-export const addCategory = (category) =>axios.post(`${url}/addcategory/`,{category},config);
-export const addModel = (model,category) =>axios.post(`${url}/addmodel/`,{model , category},config);
+  async updateEquipment(store_code, status, imgPreview, issetimage) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.post(`${url}/updateequipment/`, { store_code, status, imgPreview, issetimage }, config);
+  }
+
+  async getlastBorrowData(storecode) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.get(`${url}/borrowdata/${storecode}`, config);
+  }
+
+  async acceptEquipment(id, status) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.post(`${url}/acceptEquipment/`, { id, status }, config);
+  }
+
+  async getRequestData(id) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.get(`${url}//requestdata/${id}`, config);
+  }
+
+
+  async normalIssueEquipment(userid, storeid, fromdate, todate, requestId) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.post(`${url} /normalborrowing/`, { userid, storeid, fromdate, todate, requestId }, config);
+  }
+
+  async temporyIssueEquipment(userid, storeid, fromdate, todate, reason) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.post(`${url} /temporyborrowing/`, { userid, storeid, fromdate, todate, reason }, config);
+  }
+
+  async getReport(fromdate, toDate, categories, reportType) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.post(`${url} /report/`, { fromdate, toDate, categories, reportType }, config);
+  }
+  async addCategory(category) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.post(`${url} /addcategory/`, { category }, config);
+  }
+  async addModel(model, category) {
+    const url = 'technicalofficer';
+    const config = {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem('token')
+      }
+    }
+    return await axios.post(`${url} /addmodel/`, { model, category }, config);
+  }
+}
+export default new TechnicalofficerService();

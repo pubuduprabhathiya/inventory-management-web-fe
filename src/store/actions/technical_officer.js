@@ -1,12 +1,12 @@
 import toDate from 'date-fns/toDate';
-import * as api from '../../api/technical_officer_api';
+import TechnicalofficerService from '../../api/technical_officer_api';
 import { REFERSH, Userid_error, Avalilability_Error, Model_Name_Error, Category_Name_Error, ERROR, Store_Id_Error, Get_Report, Get_Equipment_By_Category, Get_Borrow_Data, Get_Categories, Get_Models, Get_Labs, Add_Equipment, Get_Equipment, Get_Last_Borrow_Data, Get_Request } from './action_types';
 
 export const findIteamsByCatogary = (category) => async (dispatch) => {
 
   console.log(category);
   try {
-    const data = await api.findIteamsByCatogary(category);
+    const data = await TechnicalofficerService.findIteamsByCatogary(category);
     console.log(data, 'equ');
     dispatch({ type: Get_Equipment_By_Category, payload: data.data });
   } catch (error) {
@@ -18,7 +18,7 @@ export const findIteamsByCatogary = (category) => async (dispatch) => {
 export const getBorrowData = (store_code, fromDate, toDate) => async (dispatch) => {
   console.log(store_code, fromDate, toDate, 'jj');
   try {
-    const data = await api.getBorrowData(store_code, fromDate, toDate);
+    const data = await TechnicalofficerService.getBorrowData(store_code, fromDate, toDate);
     console.log(data);
     dispatch({ type: Get_Borrow_Data, payload: data.data });
   }
@@ -30,7 +30,7 @@ export const getBorrowData = (store_code, fromDate, toDate) => async (dispatch) 
 
 export const getCategories = () => async (dispatch) => {
   try {
-    const data = await api.getCategories();
+    const data = await TechnicalofficerService.getCategories();
     console.log(data, 'cate');
     dispatch({ type: Get_Categories, payload: data.data });
   }
@@ -42,7 +42,7 @@ export const getCategories = () => async (dispatch) => {
 
 export const getModels = (category) => async (dispatch) => {
   try {
-    const data = await api.getModels(category);
+    const data = await TechnicalofficerService.getModels(category);
     dispatch({ type: Get_Models, payload: data.data });
   }
   catch (error) {
@@ -53,7 +53,7 @@ export const getModels = (category) => async (dispatch) => {
 export const getLabs = () => async (dispatch) => {
   try {
     console.log('aaa');
-    const data = await api.getLabs();
+    const data = await TechnicalofficerService.getLabs();
     console.log(data.data, 'ddd')
     dispatch({ type: Get_Labs, payload: data.data });
   }
@@ -65,7 +65,7 @@ export const getLabs = () => async (dispatch) => {
 export const addEquipment = (category, model, lab, imgPreview) => async (dispatch) => {
   console.log(category, model, lab, imgPreview);
   try {
-    const result = await api.addEquipment(category.id, model.id, lab.id, imgPreview);
+    const result = await TechnicalofficerService.addEquipment(category.id, model.id, lab.id, imgPreview);
     console.log(result);
     dispatch({ type: Add_Equipment, payload: result.data });
   } catch (error) {
@@ -77,7 +77,7 @@ export const addEquipment = (category, model, lab, imgPreview) => async (dispatc
 export const getEquipmentByStoreCode = (storecode) => async (dispatch) => {
   try {
     if (storecode !== '') {
-      const data = await api.getEquipmentByStoreCode(storecode);
+      const data = await TechnicalofficerService.getEquipmentByStoreCode(storecode);
       console.log(data.data);
       if (data.data == null) {
         dispatch({ type: Store_Id_Error, payload: 'invalid' });
@@ -101,7 +101,7 @@ export const getEquipmentByStoreCode = (storecode) => async (dispatch) => {
 export const updataEquipment = (store_code, status, imgPreview, issetimage) => async (dispatch) => {
   console.log(store_code, status, imgPreview, issetimage);
   try {
-    const data = await api.updateEquipment(store_code, status, imgPreview, issetimage);
+    const data = await TechnicalofficerService.updateEquipment(store_code, status, imgPreview, issetimage);
     window.location.reload();
     dispatch({ type: REFERSH })
   } catch (error) {
@@ -111,7 +111,7 @@ export const updataEquipment = (store_code, status, imgPreview, issetimage) => a
 }
 export const getlastBorrowData = (storeCode) => async (dispatch) => {
   try {
-    const data = await api.getlastBorrowData(storeCode);
+    const data = await TechnicalofficerService.getlastBorrowData(storeCode);
     if (data.data == null) {
       dispatch({ type: Store_Id_Error, payload: 'invalid' });
     }
@@ -127,7 +127,7 @@ export const getlastBorrowData = (storeCode) => async (dispatch) => {
 }
 export const acceptEquipment = (id, status) => async (dispatch) => {
   try {
-    const data = await api.acceptEquipment(id, status);
+    const data = await TechnicalofficerService.acceptEquipment(id, status);
     window.location.reload();
     dispatch({ type: REFERSH })
   } catch (error) {
@@ -137,7 +137,7 @@ export const acceptEquipment = (id, status) => async (dispatch) => {
 }
 export const getRequestData = (id) => async (dispatch) => {
   try {
-    const data = await api.getRequestData(id);
+    const data = await TechnicalofficerService.getRequestData(id);
     console.log(data.data)
     if (data.data === null) {
       dispatch({ type: Avalilability_Error, payload: "NoRe" });
@@ -158,7 +158,7 @@ export const getRequestData = (id) => async (dispatch) => {
 
 export const temporyIssueEquipment = (userid, storeid, fromdate, t0date, reason) => async (dispatch) => {
   try {
-    const data = await api.temporyIssueEquipment(userid, storeid, fromdate, t0date, reason);
+    const data = await TechnicalofficerService.temporyIssueEquipment(userid, storeid, fromdate, t0date, reason);
     console.log(data);
 
     if (data.data.message === "Equipment is Unavailable") {
@@ -179,7 +179,7 @@ export const temporyIssueEquipment = (userid, storeid, fromdate, t0date, reason)
 }
 export const NormalIssueEquipment = (userid, storeid, fromdate, t0date, requestId) => async (dispatch) => {
   try {
-    const data = await api.normalIssueEquipment(userid, storeid, fromdate, t0date, requestId);
+    const data = await TechnicalofficerService.normalIssueEquipment(userid, storeid, fromdate, t0date, requestId);
     window.location.reload();
     dispatch({ type: REFERSH })
   } catch (error) {
@@ -189,7 +189,7 @@ export const NormalIssueEquipment = (userid, storeid, fromdate, t0date, requestI
 }
 export const getReport = (fromDate, toDate, categories, reportType) => async (dispatch) => {
   try {
-    const data = await api.getReport(fromDate, toDate, categories, reportType);
+    const data = await TechnicalofficerService.getReport(fromDate, toDate, categories, reportType);
     console.log(data.data);
     dispatch({ type: Get_Report, payload: data.data });
 
@@ -201,7 +201,7 @@ export const getReport = (fromDate, toDate, categories, reportType) => async (di
 export const addCategory = (category) => async (dispatch) => {
   console.log(category);
   try {
-    const result = await api.addCategory(category);
+    const result = await TechnicalofficerService.addCategory(category);
     console.log(result);
     dispatch({ type: Get_Categories, payload: result.data });
   } catch (error) {
@@ -213,7 +213,7 @@ export const addCategory = (category) => async (dispatch) => {
 export const addModel = (model, category) => async (dispatch) => {
   console.log(model, category);
   try {
-    const result = await api.addModel(model, category.id);
+    const result = await TechnicalofficerService.addModel(model, category.id);
     console.log(result);
     dispatch({ type: Get_Models, payload: result.data });
   } catch (error) {
