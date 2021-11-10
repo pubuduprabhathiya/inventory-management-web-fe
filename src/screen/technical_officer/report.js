@@ -8,7 +8,7 @@ import { LocalizationProvider, DesktopDatePicker } from "@mui/lab";
 import DateAdapter from '@mui/lab/AdapterDateFns';
 import { getCategories, getReport } from "../../store/actions/technical_officer";
 import { Excel } from "../../component/technical_officer/excel";
-import Navbar from "../../containers/Navbar/Navbar";
+import Navbar from "../../component/technical_officer/Navbar";
 import Header from "../../component/technical_officer/header";
 import ConsecutiveSnackbars from "../../component/technical_officer/message";
 

@@ -9,7 +9,7 @@ import { findIteamsByCatogary, getBorrowData, getCategories } from "../../store/
 import CloseIcon from '@mui/icons-material/Close';
 import Equipments from "../../component/technical_officer/equipments";
 import ViewTracDetails from "../../component/technical_officer/view_track_details";
-import Navbar from "../../containers/Navbar/Navbar";
+import Navbar from "../../component/technical_officer/Navbar";
 import Header from "../../component/technical_officer/header";
 import ConsecutiveSnackbars from "../../component/technical_officer/message";
 
@@ -144,7 +144,7 @@ const ViewTrack = () => {
           </Box>
         </div>
       </div>
-      <ConsecutiveSnackbars/>
+      <ConsecutiveSnackbars />
     </div>
 
 

@@ -102,7 +102,7 @@ export const updataEquipment = (store_code, status, imgPreview, issetimage) => a
   console.log(store_code, status, imgPreview, issetimage);
   try {
     const data = await api.updateEquipment(store_code, status, imgPreview, issetimage);
-    //window.location.reload();
+    window.location.reload();
     dispatch({ type: REFERSH })
   } catch (error) {
     dispatch({ type: ERROR, payload: error });
@@ -128,7 +128,7 @@ export const getlastBorrowData = (storeCode) => async (dispatch) => {
 export const acceptEquipment = (id, status) => async (dispatch) => {
   try {
     const data = await api.acceptEquipment(id, status);
-    // window.location.reload();
+    window.location.reload();
     dispatch({ type: REFERSH })
   } catch (error) {
     dispatch({ type: ERROR, payload: error });
@@ -168,7 +168,7 @@ export const temporyIssueEquipment = (userid, storeid, fromdate, t0date, reason)
       dispatch({ type: Userid_error, payload: data.data.message });
     }
     else {
-      // window.location.reload();
+      window.location.reload();
       dispatch({ type: REFERSH })
     }
 
@@ -180,7 +180,7 @@ export const temporyIssueEquipment = (userid, storeid, fromdate, t0date, reason)
 export const NormalIssueEquipment = (userid, storeid, fromdate, t0date, requestId) => async (dispatch) => {
   try {
     const data = await api.normalIssueEquipment(userid, storeid, fromdate, t0date, requestId);
-    //  window.location.reload();
+    window.location.reload();
     dispatch({ type: REFERSH })
   } catch (error) {
     console.log(error);

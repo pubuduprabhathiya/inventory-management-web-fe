@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import Header from "../../component/technical_officer/header";
 import ConsecutiveSnackbars from "../../component/technical_officer/message";
-import Navbar from "../../containers/Navbar/Navbar";
+import Navbar from "../../component/technical_officer/Navbar";
 import AddEquipment from "./add_equipmet";
 import UpdateEquipment from "./update_equipment";
 

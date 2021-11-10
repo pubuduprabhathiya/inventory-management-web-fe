@@ -6,7 +6,7 @@ import { acceptEquipment, getlastBorrowData } from "../../store/actions/technica
 import ScanScreen from "../../component/technical_officer/scan_screen";
 import { LocalizationProvider, DesktopDatePicker } from "@mui/lab";
 import DateAdapter from '@mui/lab/AdapterDateFns';
-import Navbar from "../../containers/Navbar/Navbar";
+import Navbar from "../../component/technical_officer/Navbar";
 import Header from "../../component/technical_officer/header";
 import ConsecutiveSnackbars from "../../component/technical_officer/message";
 
