@@ -13,7 +13,7 @@ const BorrowData = (data) => {
         if (data.data.LecturerBorrowings.length > 0) {
 
 
-            const lec = data.data.LecturerBorrowings[0].lecturer;
+            const lec = data.data.LecturerBorrowings[0].Lecturer;
             setdepartment(lec.department);
             setname(lec.firstName + ' ' + lec.lastName);
 

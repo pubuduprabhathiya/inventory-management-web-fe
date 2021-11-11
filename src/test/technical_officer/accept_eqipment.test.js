@@ -58,26 +58,7 @@ describe('Accept Equipment', () => {
         expect(dummyDispatch).toHaveBeenCalled()
     });
 
-    //    test('qr', async () => {
-    //       const dummyDispatch = jest.fn()
-    //         useDispatchMock.mockReturnValue(dummyDispatch)
-    //         useSelectorMock.mockReturnValueOnce(
-    //             []
-    //         ).mockReturnValueOnce({}).mockReturnValueOnce(
-    //             []
-    //         ).mockReturnValueOnce({})
-    //         render(<BrowserRouter><AcceptEquipment /></BrowserRouter>
-    //         );
-
-
-
-    //         //userEvent.type(input, '1-1-1-1');
-    //        const Next = screen.getByText('Bar code');
-    //        userEvent.click(Next);
-    //        const Element = screen.getByTestId('scanner');
-
-    //         expect(Element).toBeInTheDocument()
-    //    });
+    
     test('store code wrong', async () => {
         const dummyDispatch = jest.fn()
         useDispatchMock.mockReturnValue(dummyDispatch)
