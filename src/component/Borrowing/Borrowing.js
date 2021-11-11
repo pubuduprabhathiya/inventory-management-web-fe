@@ -64,12 +64,12 @@ const Borrowings = (props)=>{
                 </div>
             </Card>
         );
-    });
+    }); 
     
     return(
         <div>
-            <ul>{borrowinglist}</ul>
-            {loading ? <center><LoadingSpinner/></center>:borrowList.length>0?
+            {/* <ul>{borrowinglist}</ul> */}
+            {loading ? <center><LoadingSpinner/></center>:<ul>{borrowinglist}</ul>}
             <ReactPaginate 
             previousLabel={'previous'}
             nextLabel={'next'}
@@ -84,7 +84,8 @@ const Borrowings = (props)=>{
             nextLinkClassName={'page-link'}
             breakClassName={'page-item'}
             breakLinkClassName={'page-link'}
-            activeClassName={'active'}/>:<h3>No borrowing items</h3>}
+            activeClassName={'active'}/>
+            {pageCount==0?<p>No Borrowings Yet</p>:null}
         </div>
     ); 
     
