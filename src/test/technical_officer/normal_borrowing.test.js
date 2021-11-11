@@ -9,7 +9,7 @@ import NormalBorrowing from "../../screen/technical_officer/normal_borrowing";
 
 describe("Normal Borrowing", () => {
 
-      const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
+    const useSelectorMock = jest.spyOn(reactRedux, 'useSelector')
     const useDispatchMock = jest.spyOn(reactRedux, 'useDispatch')
     beforeEach(() => {
         useSelectorMock.mockClear()
