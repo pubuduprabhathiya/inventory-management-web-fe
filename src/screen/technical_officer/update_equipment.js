@@ -87,7 +87,12 @@ const UpdateEquipment = () => {
     };
     const getBArcode = () => {
 
-        JsBarcode("#barcode", equipment.id);
+        JsBarcode("#barcode", equipment.id, {
+            lineColor: "#000000",
+            width: 2,
+            height: 100,
+            margin: 10
+        });
         setbarcodedownload(true);
     }
 

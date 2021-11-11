@@ -59,7 +59,12 @@ const AddEquipment = () => {
         if (equipment !== null & submit) {
             if (equipment.id !== undefined & equipment.id !== null & equipment.id !== '') {
 
-                JsBarcode("#barcode", equipment.id);
+                JsBarcode("#barcode", equipment.id, {
+                    lineColor: "#000000",
+                    width: 2,
+                    height: 100,
+                    margin: 10
+                });
                 setbarcodedownload(true);
                 window.location.reload();
             }

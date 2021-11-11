@@ -4,7 +4,7 @@ import axios from './axios';
 class TechnicalofficerService {
 
 
-  async findIteamsByCatogary(category)  {
+  async findIteamsByCatogary(category) {
     const url = 'technicalofficer';
     const config = {
       headers: {
@@ -110,7 +110,7 @@ class TechnicalofficerService {
         Authorization: "Bearer " + localStorage.getItem('token')
       }
     }
-    return await axios.get(`${url}//requestdata/${id}`, config);
+    return await axios.get(`${url}/requestdata/${id}`, config);
   }
 
 
@@ -121,7 +121,7 @@ class TechnicalofficerService {
         Authorization: "Bearer " + localStorage.getItem('token')
       }
     }
-    return await axios.post(`${url} /normalborrowing/`, { userid, storeid, fromdate, todate, requestId }, config);
+    return await axios.post(`${url}/normalborrowing/`, { userid, storeid, fromdate, todate, requestId }, config);
   }
 
   async temporyIssueEquipment(userid, storeid, fromdate, todate, reason) {
@@ -131,7 +131,7 @@ class TechnicalofficerService {
         Authorization: "Bearer " + localStorage.getItem('token')
       }
     }
-    return await axios.post(`${url} /temporyborrowing/`, { userid, storeid, fromdate, todate, reason }, config);
+    return await axios.post(`${url}/temporyborrowing/`, { userid, storeid, fromdate, todate, reason }, config);
   }
 
   async getReport(fromdate, toDate, categories, reportType) {
@@ -141,7 +141,7 @@ class TechnicalofficerService {
         Authorization: "Bearer " + localStorage.getItem('token')
       }
     }
-    return await axios.post(`${url} /report/`, { fromdate, toDate, categories, reportType }, config);
+    return await axios.post(`${url}/report/`, { fromdate, toDate, categories, reportType }, config);
   }
   async addCategory(category) {
     const url = 'technicalofficer';
@@ -150,7 +150,7 @@ class TechnicalofficerService {
         Authorization: "Bearer " + localStorage.getItem('token')
       }
     }
-    return await axios.post(`${url} /addcategory/`, { category }, config);
+    return await axios.post(`${url}/addcategory/`, { category }, config);
   }
   async addModel(model, category) {
     const url = 'technicalofficer';
@@ -159,7 +159,7 @@ class TechnicalofficerService {
         Authorization: "Bearer " + localStorage.getItem('token')
       }
     }
-    return await axios.post(`${url} /addmodel/`, { model, category }, config);
+    return await axios.post(`${url}/addmodel/`, { model, category }, config);
   }
 }
 export default new TechnicalofficerService();
