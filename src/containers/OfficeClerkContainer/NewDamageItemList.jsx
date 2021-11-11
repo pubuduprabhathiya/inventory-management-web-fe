@@ -40,7 +40,7 @@ class NewDamageItemList extends Component {
         isClick:false
     });
     // this.refreshList();
-    // window.location.reload();
+    window.location.reload();
    
   }
 
@@ -84,6 +84,7 @@ class NewDamageItemList extends Component {
         this.setState({
           isClick: false,
         });
+        window.location.reload();
       })
       .catch((e) => {
         console.log(e);
