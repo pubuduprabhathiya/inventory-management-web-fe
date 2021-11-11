@@ -35,11 +35,12 @@ class NewDamageItemList extends Component {
 
   clickYes() {
     this.markAsSendToRepair(this.state.selectDamageId);
-    this.refreshList();
+    
     this.setState({
         isClick:false
     });
-    // window.location.reload();
+    // this.refreshList();
+    window.location.reload();
    
   }
 

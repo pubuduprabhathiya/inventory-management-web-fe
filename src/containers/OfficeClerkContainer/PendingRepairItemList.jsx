@@ -85,11 +85,12 @@ class PendingRepairItemList extends Component {
             //     itemList: response.data
             // });
             console.log(response.data);
-            this.refreshList();
+            
             this.setState({
               isClick: false,
             });
-            // window.location.reload();
+            // this.refreshList();
+            window.location.reload();
           })
           .catch((e) => {
             console.log(e);
