@@ -69,8 +69,7 @@ class NewDamageItemList extends Component {
 
   refreshList() {
     this.setState({
-      itemList: [],
-      
+      itemList: [],      
     });
     this.getNewDamages();
   }
@@ -81,11 +80,15 @@ class NewDamageItemList extends Component {
     OfficeClerkService.markAsSendToR(id)
       .then((response) => {
         console.log(response.data);
+        this.refreshList();
+        this.setState({
+          isClick: false,
+        });
       })
       .catch((e) => {
         console.log(e);
       });
-         this.refreshList();
+        
   }
 
   render() {
