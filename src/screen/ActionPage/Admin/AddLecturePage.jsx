@@ -24,7 +24,7 @@ class AddLecturePage extends Component {
   // }
   render() {
     return (
-      <div>
+      <div data-testid="add-lecturer-page">
         <NavBar />
 
         <div className="row m-5">

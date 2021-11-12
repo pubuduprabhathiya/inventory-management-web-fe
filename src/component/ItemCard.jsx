@@ -66,7 +66,7 @@ class ItemCard extends Component {
         
        let model = this.props.model
         return ( 
-            <div>
+            <div data-testid="checkavailableitem">
                 <div style={this.style1} >
                     <div style={this.style2}>
                         <img style={this.style3} src={this.state.image}/>

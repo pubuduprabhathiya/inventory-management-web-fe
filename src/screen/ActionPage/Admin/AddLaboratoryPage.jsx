@@ -14,7 +14,7 @@ class AddLaboratory extends Component {
 
   render() {
     return (
-      <div>
+      <div >
         <NavBar />
 
         <div className="row m-5">

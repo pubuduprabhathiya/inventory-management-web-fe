@@ -69,7 +69,7 @@ class BrokenItemCard extends Component {
         
        
         return ( 
-            <div>
+            <div data-testid="brokenitemcard">
                 <div style={this.style1} onClick={this.handleClick()}>
                     <div style={this.style2}>
                         <img style={this.style3} src={this.state.image}/>

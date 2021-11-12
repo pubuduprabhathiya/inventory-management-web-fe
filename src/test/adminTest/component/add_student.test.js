@@ -1,25 +1,21 @@
 import { render,screen,cleanup } from "@testing-library/react";
-import Login from "./screen/Login/Login.jsx";
-import * as reactRedux from 'react-redux'
-import LoginForm from "./containers/Forms/LoginForm.jsx";
+import AddStudentPage from "../../../screen/ActionPage/Admin/AddStudentPage.jsx";
+import { BrowserRouter } from "react-router-dom";
+
+jest.mock("../../../containers/Navbar/Navbar.jsx",()=>()=> <div >Nav bar</div>);
+jest.mock("../../../containers/Forms/NewStudentApplication.jsx",()=>()=> <div >Application</div>);
+
+
 
 describe("Admin add student page:", () => {
-    const useSelectorMock = jest.spyOn(reactRedux, 'mapDispatchToProps')
-    const useDispatchMock = jest.spyOn(reactRedux, 'useDispatch')
-    beforeEach(() => {
-        useSelectorMock.mockClear()
-        useDispatchMock.mockClear()
+    
+
+    test("Add Student action page",()=>{
+        render(<BrowserRouter><AddStudentPage.WrappedComponent/></BrowserRouter>);
+        const dashBoard = screen.getByTestId("add-student-page");
+        expect(dashBoard).toBeInTheDocument();
     });
-    test("Add student action page",()=>{
-        render(<LoginForm/>);
-        const loginPaget = screen.getByTestId("gg");
-        expect(loginPaget).toBeInTheDocument();
-    });
-    test("Add student application",()=>{
-        render(<LoginForm/>);
-        const loginPaget = screen.getByTestId("gg");
-        expect(loginPaget).toBeInTheDocument();
-    });
+
 
     
 });

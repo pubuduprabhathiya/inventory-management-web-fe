@@ -24,7 +24,7 @@ class AddOfficeClerkPage extends Component {
   // }
   render() {
     return (
-      <div>
+      <div data-testid="add-office clerk-page">
         <NavBar />
 
         <div className="row m-5">

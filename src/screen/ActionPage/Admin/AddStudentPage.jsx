@@ -11,22 +11,11 @@ class AddStudentPage extends Component {
     this.state = {};
     // this.checkLogin();
   }
-  // componentDidMount() {
-  //   this.checkLogin();
-  // }
-  // checkLogin(){
-  //   var type = localStorage.getItem('token');
-  //   var user = localStorage.getItem('user');
-  //   if(!type || user != "Admin"){
-  //     this.props.history.push("/");
-  //     return ;
-  //   }
-  // }
+
   render() {
     return (
-      <div>
+      <div data-testid="add-student-page">
         <NavBar />
-
         <div className="row m-5">
           <div className="col-4" align="center">
             <AdminSideMenu currentTab="Add New Student"/>

@@ -33,7 +33,7 @@ class AddTechnicalOfficerPage extends Component {
 
   render() {
     return (
-      <div>
+      <div data-testid="add-technical officer-page">
         <NavBar />
 
         <div className="row m-5">

@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 jest.mock("../../../containers/Navbar/Navbar.jsx",()=>()=> <div >Moke</div>);
 
 describe("Admin Component test:", () => {
-    test("Admin dashboard",()=>{
+    test("Admin dashboard page",()=>{
 
         render(<BrowserRouter><AdminDashboard.WrappedComponent/></BrowserRouter>);
         const dashBoard = screen.getByTestId("admindashboard");
